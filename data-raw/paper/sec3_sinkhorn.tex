@@ -1,0 +1,610 @@
+
+In this section, I will discuss three different versions of Sinkhorn algorithms.
+
+\subsection{Vanilla Sinkhorn Algorithm}\label{subsec:vanilla-sinkhorn}
+
+Given the optimal solution to the Sinkhorn problem in \cref{eqn:regularized-OT-solution-matrix-form},
+with the constraints in \cref{eqn-def:coupling-matrix}, we have
+
+\begin{equation}
+  \begin{aligned}
+    \diag(\mathbf{u}) \,  \mathbf{K}      \, \diag(\mathbf{v}) \mathbb{1}_N  = \mathbf{a}
+    \quad\text{and}\quad
+    \diag(\mathbf{v}) \,  \mathbf{K}^\top \, \diag(\mathbf{u}) \mathbb{1}_M  = \mathbf{b}.
+  \end{aligned}
+\end{equation}
+
+Since we also have $\diag(\mathbf{v}) \mathbb{1}_N = \mathbf{v}$ and $\diag(\mathbf{u}) \mathbb{1}_M = \mathbf{u}$,
+we have that
+
+\begin{equation}\label{eqn:vanilla-sinkhorn-solution-multiply}
+  \begin{aligned}
+    \mathbf{u} \odot (\mathbf{K} \mathbf{v}) = \mathbf{a}
+    \quad\text{and}\quad
+    \mathbf{v} \odot (\mathbf{K}^\top \mathbf{u}) = \mathbf{b}.
+  \end{aligned}
+\end{equation}
+
+Equivalently, we can also write the solution as
+
+\begin{equation}\label{eqn:vanilla-sinkhorn-solution-division}
+  \begin{aligned}
+    \mathbf{u} = \mathbf{a} \oslash (\mathbf{K} \mathbf{v})
+    \quad\text{and}\quad
+    \mathbf{v} = \mathbf{b} \oslash (\mathbf{K}^\top \mathbf{u}).
+  \end{aligned}
+\end{equation}
+
+In the above equations, $\odot$ and $\oslash$ refer to element-wise multiplication and division, respectively.
+Therefore, we can leverage \cref{eqn:vanilla-sinkhorn-solution-division} to update $\mathbf{u}$ and $\mathbf{v}$
+till convergence and conclude with optimal coupling $\mathbf{P}$ by \cref{eqn:regularized-OT-solution-matrix-form}.
+% Therefore, at any iteration $l$, we have the Sinkhorn algorithm updates with arbitrary $\mathbf{v}^{(0)}$.
+
+
+\begin{update}[Vanilla Sinkhorn Updates]\label{update:vanilla-sinkhorn}
+  At any iteration $\ell = 1, \ldots, L$
+  we can update the scaling variables $\mathbf{u}$ and $\mathbf{v}$ by the following equations:
+  \begin{equation}
+    \begin{aligned}
+      \mathbf{u}^{(\ell)} \equiv \mathbf{a} \oslash (\mathbf{K}\mathbf{v}^{(\ell-1)})
+      \quad\text{and}\quad
+      \mathbf{v}^{(\ell)} \equiv \mathbf{b} \oslash (\mathbf{K}^\top \mathbf{u}^{(\ell)}).
+    \end{aligned}
+  \end{equation}
+\end{update}
+
+\begin{remark}
+  In \cref{update:vanilla-sinkhorn}, the choice of $\mathbf{v}^{(0)}$ is rather arbitrary,
+  as long as it is not $\mathbb{0}$.
+  The most common choice is to consider the vectors of ones, i.e. $\mathbb{1}_N$.
+  Changing the initialization vector will result in different solutions to $\mathbf{u}$ and $\mathbf{v}$,
+  since they are only defined up to a multiplicative constant.
+  But $\mathbf{u}$ and $\mathbf{v}$ will converge regardless of the initialization,
+  and result in the same optimal coupling matrix $\mathbf{P}$ upon convergence.
+  % But the optimal coupling will result in the same matrix (once reaching convergence),
+  % regardless of the initialization of $\mathbf{v}$.
+  See \citet[p.82]{peyre2019} for discussion.
+\end{remark}
+
+After $L$ iterations, the scaling variables $\mathbf{u}^{(L)}$ and $\mathbf{v}^{(L)}$ can be used to compute the
+optimal coupling matrix $\mathbf{P} = \diag\mathbf{u}^{(L)} \mathbf{K} \diag \mathbf{v}^{(L)}$.
+
+From \cref{update:vanilla-sinkhorn}, we can arrive at the vanilla Sinkhorn algorithm (\cref{algo:vanilla-sinkhorn}).
+
+\begin{algorithm}[H]
+  \caption{Vanilla Sinkhorn}
+  \begin{algorithmic}[1]\label{algo:vanilla-sinkhorn}
+    \Require $\mathbf{a} \in \Sigma_M$, $\mathbf{b} \in \Sigma_N$, $\mathbf{C} \in \mathbb{R}^{M\times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{u} = \mathbb{1}_M$, $\mathbf{v} = \mathbb{1}_N$.
+    \State $\mathbf{K} = \exp(-\frac{\mathbf{C}}{\varepsilon})$
+    \While{Not Convergence}
+    \State $\mathbf{u} \leftarrow \mathbf{a} \oslash (\mathbf{K} \mathbf{v})$
+    \State $\mathbf{v} \leftarrow \mathbf{b} \oslash (\mathbf{K}^\top \mathbf{u})$
+    \EndWhile
+    \State $\mathbf{P} = \diag(\mathbf{u}) \, \mathbf{K} \, \diag(\mathbf{v})$
+    \Ensure Optimal Coupling $\mathbf{P}$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Termination/Convergence Condition]
+  Since we have \cref{eqn:vanilla-sinkhorn-solution-multiply}, we can use those equations to check if the scaling variables
+  $\mathbf{u}$ and $\mathbf{v}$ at the current iteration could approximate $\mathbf{a}$ and $\mathbf{b}$ well.
+  That is, for some small $\rho > 0$,
+  \begin{equation*}
+    \begin{aligned}
+      \lVert \mathbf{u}^{(\ell)} \odot \left(\mathbf{K} \mathbf{v}^{(\ell)}\right) - \mathbf{a}\rVert_2 \le \rho
+      \quad\text{and}\quad
+      \lVert \mathbf{v}^{(\ell)} \odot \left(\mathbf{K}^\top \mathbf{u}^{(\ell)}\right) - \mathbf{b}\rVert_2 \le \rho
+    \end{aligned}
+  \end{equation*}
+  If the norms are smaller than some threshold $\rho$, we can then terminate the program.
+\end{remark}
+
+
+\subsection{Parallel Sinkhorn Algorithm}\label{subsec:parallel-sinkhorn}
+
+Note that in the Vanilla Sinkhorn Algorithm, the computation are carried out by vector-vector element-wise computation,
+i.e., $\mathbf{u}, \mathbf{a}, \text{and } \mathbf{K}\mathbf{v} \in \mathbb{R}^M$
+and $\mathbf{v}, \mathbf{b}, \text{and } \mathbf{K}^\top \mathbf{u} \in \mathbb{R}^N$.
+That is, if we have a single source $\mathbf{a}$ and a single target $\mathbf{b}$,
+we are computing the ``one-to-one'' transportation.
+However, sometimes we need to calculate one-to-many, many-to-one, or many-to-many transport
+% \footnote{
+%   In fact, the parallelization described here can also be ``many-to-many'', as long as each source only correspond to
+%   one target, and the total number of sources match with that of the targets.
+%   This is the case in \citet[Remark 4.16]{peyre2020}.
+%   Here, I only consider the case of having one source, but with arbitrarily many targets (or vice-versa),
+%   as this would become useful for the later discussion on Wasserstein dictionary learning.
+% },
+and this can be easily computed in a parallelized fashion.
+All we need to do is to define the matrices $\mathbf{A}$ and $\mathbf{B}$ instead of the vectors $\mathbf{a}$ and $\mathbf{b}$,
+and all that remains is to carry out the matrix computation instead of the vector ones.
+
+\begin{definition}
+  For some $S \in \mathbb{N}_+$:
+  \begin{itemize}
+    \item Suppose we have $\mathbf{a} \in \Sigma_M$ and $\mathbf{b}_1, \ldots, \mathbf{b}_S \in \Sigma_N$.
+          Then we can define
+          \begin{equation*}
+            \begin{aligned}
+              \mathbf{A} = \left[\mathbf{a}, \ldots, \mathbf{a}\right] \in \mathbb{R}^{M \times S}
+              \quad\text{and}\quad
+              \mathbf{B} = \left[\mathbf{b}_1, \ldots, \mathbf{b}_S \right] \in \mathbb{R}^{N \times S}.
+            \end{aligned}
+          \end{equation*}
+    \item Suppose we have $\mathbf{a}_1, \ldots, \mathbf{a}_S \in \Sigma_M$ and $\mathbf{b} \in \Sigma_N$.
+          Then we can define
+          \begin{equation*}
+            \begin{aligned}
+              \mathbf{A} = \left[\mathbf{a}_1, \ldots, \mathbf{a}_S\right] \in \mathbb{R}^{M \times S}
+              \quad\text{and}\quad
+              \mathbf{B} = \left[\mathbf{b}, \ldots, \mathbf{b} \right] \in \mathbb{R}^{N \times S}.
+            \end{aligned}
+          \end{equation*}
+    \item Suppose we have $\mathbf{a}_1, \ldots, \mathbf{a}_S \in \Sigma_M$ and $\mathbf{b}_1, \ldots, \mathbf{b}_S \in \Sigma_N$.
+          Then we can define
+          \begin{equation*}
+            \begin{aligned}
+              \mathbf{A} = \left[\mathbf{a}_1, \ldots, \mathbf{a}_S\right] \in \mathbb{R}^{M \times S}
+              \quad\text{and}\quad
+              \mathbf{B} = \left[\mathbf{b}_1, \ldots, \mathbf{b}_S \right] \in \mathbb{R}^{N \times S}.
+            \end{aligned}
+          \end{equation*}
+  \end{itemize}
+\end{definition}
+
+\begin{remark}[]
+  In the many-to-many case, the number of columns in $\mathbf{A}$ should be equal to that of $\mathbf{B}$;
+  % This effectively means we are calculating the scaling variable $\mathbf{u}_d$ and $\mathbf{v}_d$ 
+  whereas in one-to-many or many-to-one cases, we need to duplicate the single vector $S$ times,
+  as if we had a $S$-column matrix to begin with.
+  In many modern linear algebra packages, this can be achieved automatically by ``broadcasting,''\footnote{
+    For example,
+    Eigen (C++): \url{https://eigen.tuxfamily.org/dox/group__TutorialReductionsVisitorsBroadcasting.html},
+    NumPy (Python): \url{https://numpy.org/doc/stable/user/basics.broadcasting.html}.
+  }
+  without the need of actually doing the duplication of the column vectors.
+\end{remark}
+
+Therefore, we can have the matrix version\footnote{
+  Instead of computing the vector-vector computation in \cref{eqn:vanilla-sinkhorn-solution-division} $S$ times,
+  we are computing a matrix-matrix product/division once.
+  They are mathematically equivalent, but in practice,
+  the latter would be much faster due to the implementation of linear algebra routines (e.g. BLAS).
+  Hence, this simple extension is considered parallel since we process $S$ columns of data in one batch.
+} of \cref{eqn:vanilla-sinkhorn-solution-division} with scaling variable
+$\mathbf{U} \in \mathbb{R}^{M\times S}$ and $\mathbf{V} \in \mathbb{R}^{N\times S}$,
+
+\begin{equation}
+  \begin{aligned}
+    \mathbf{U} = \mathbf{A} \oslash (\mathbf{K}\mathbf{V})
+    \quad\text{and}\quad
+    \mathbf{V} = \mathbf{B} \oslash (\mathbf{K}^\top \mathbf{V}).
+  \end{aligned}
+\end{equation}
+
+Hence we could have the matrix version of the updating equations of Sinkhorn algorithm.
+
+\begin{update}\label{update:parallel-sinkhorn}
+  At any iteration $\ell = 1, \ldots, L$ and initialized $\mathbf{V}^{(0)} \in \mathbb{R}^{N\times S}$, we have
+  \begin{equation}
+    \begin{aligned}
+      \mathbf{U}^{(\ell)} \equiv \mathbf{A} \oslash (\mathbf{K} \mathbf{V}^{(\ell-1)})
+      \quad\text{and}\quad
+      \mathbf{V}^{(\ell)} \equiv \mathbf{B} \oslash (\mathbf{K}^\top \mathbf{U}^{(\ell)}).
+    \end{aligned}
+  \end{equation}
+\end{update}
+
+\begin{remark}[]
+  Since \cref{update:parallel-sinkhorn} only involves matrix operations,
+  the Sinkhorn algorithm are intrinsically GPU friendly, as matrix operations are even more efficient on GPU than on CPU.
+\end{remark}
+
+
+\begin{algorithm}[H]
+  \caption{Parallel Sinkhorn Algorithm}
+  \begin{algorithmic}[1]\label{algo:parallel-sinkhorn}
+    \Require $\mathbf{A} \in \Sigma_{M\times S}$, $\mathbf{B}\in \Sigma_{N\times S}$, $\mathbf{C} \in \mathbb{R}^{M\times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{U} = \mathbb{1}_{M \times S}$, $\mathbf{V} = \mathbb{1}_{N \times S}$.
+    \State $\mathbf{K} = \exp(-\frac{\mathbf{C}}{\varepsilon})$
+    \While{Not Convergence}
+    \State $\mathbf{U} \leftarrow \mathbf{A} \oslash (\mathbf{K} \mathbf{V})$
+    \State $\mathbf{V} \leftarrow \mathbf{B} \oslash (\mathbf{K}^\top \mathbf{U})$
+    \EndWhile
+    % \State $\mathbf{P} = diag(\mathbf{u}) \, \mathbf{K} \, diag(\mathbf{v})$
+    \State $\forall s, \mathbf{P}_s = diag(\mathbf{U}_s) \, \mathbf{K} \, diag(\mathbf{V}_s)$
+    \Ensure Optimal Coupling $\mathbf{P}_s, \forall s$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Convergence Condition]
+  Similar to the termination condition in \cref{subsec:vanilla-sinkhorn}, we now have the matrix norms to check convergence.
+  For some $\rho > 0$,
+  \begin{equation*}
+    \begin{aligned}
+      \lVert
+      \mathbf{U}^{(\ell)} \odot \left(\mathbf{K} \mathbf{V}^{(\ell)}\right) - \mathbf{A}
+      \rVert_2 \le \rho,
+      \quad\text{and}\quad
+      \lVert
+      \mathbf{V}^{(\ell)} \odot \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right) - \mathbf{B}
+      \rVert_2.
+    \end{aligned}
+  \end{equation*}
+\end{remark}
+
+
+\subsection{Log-stabilized Sinkhorn}\label{subsec:log-sinkhorn}
+
+As can be seen in \cref{eqn:optimal-coupling,eqn:vanilla-sinkhorn-solution-division},
+the updates on $\mathbf{u}$ and $\mathbf{v}$ are in the exponential domain.
+Therefore, if either $\mathbf{C}_{ij}$ is large or $\varepsilon$ is small,
+the corresponding $\mathbf{K}_{ij}$ would be very large,
+and the subsequent updates will fail because of the Inf/NaN values introduced by the numeric overflow.
+This is commonly known as the numeric instability issue of the Sinkhorn algorithm \citep[Chapter 4.4]{peyre2019}.
+% We will leverage the ``log-sum-exp'' trick\footnote{
+%   \url{https://en.wikipedia.org/wiki/LogSumExp}
+% } to stabilize the computation and arrive at the updating equations.
+
+To circumvent this instability issue, we could move the computation into the log-domain,
+therefore without the need for computation of the exponential function.
+To this end, instead of updating the $\mathbf{u}$ and $\mathbf{v}$ as in \cref{update:vanilla-sinkhorn},
+we can consider the dual variables $\mathbf{f}$ and $\mathbf{g}$ in the Lagrangian in \cref{eqn:regularized-OT-lagrangian}.
+Since $\mathbf{u} = \exp \left(\frac{\mathbf{f}}{\varepsilon}\right)$
+and $\mathbf{v} = \exp \left(\frac{\mathbf{g}}\varepsilon\right)$, we have
+
+\begin{equation}
+  \begin{aligned}
+    \mathbf{f} = \varepsilon \log(\mathbf{u})
+    \quad\text{and}\quad
+    \mathbf{g} = \varepsilon \log(\mathbf{v}).
+  \end{aligned}
+\end{equation}
+
+Then, we can also rewrite the elements in the coupling matrix $\mathbf{P}$ as
+
+\begin{equation*}
+  \begin{aligned}
+    \mathbf{P}_{ij}^{(\ell)}
+    = \mathbf{u}_i^{(\ell)} \mathbf{K}_{ij} \mathbf{v}_j^{(\ell)}
+    = \exp \left(
+    -\frac{\mathbf{C}_{ij} - \mathbf{f}^{(\ell)}_i - \mathbf{g}^{(\ell)}_j}{\varepsilon}
+    \right)
+  \end{aligned}
+\end{equation*}
+
+and the matrix form of $\mathbf{P}$ expressed in $\mathbf{f}$ and $\mathbf{g}$ is
+% after $L$ iterations, is
+
+\begin{equation}\label{eqn:optimal-coupling-fg}
+  \begin{aligned}
+    \mathbf{P}^{(\ell)} = \exp \left(
+    - \frac{\mathbf{C} - \mathbf{f}^{(\ell)} \cdot \mathbb{1}_N^\top -
+      \mathbb{1}_M \cdot \mathbf{g}^{(\ell)\top}}{\varepsilon}
+    \right).
+  \end{aligned}
+\end{equation}
+
+Let us also denote a function $\mathcal{P}(\mathbf{f}, \mathbf{g})$ with
+$\mathbf{f} \in \mathbb{R}^M$ and $\mathbf{g} \in \mathbb{R}^N$,
+
+\begin{equation}\label{eqn:function-P}
+  \begin{aligned}
+    \mathcal{P}(\mathbf{f}, \mathbf{g})
+    = \exp \left(
+    - \frac{
+      \mathbf{C} - \mathbf{f} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^\top
+    }{\varepsilon}
+    \right),
+  \end{aligned}
+\end{equation}
+
+and rewrite $\mathbf{P}^{(\ell)} = \mathcal{P}\left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell)}\right)$.
+Note that $\mathbf{f}$ and $\mathbf{g}$ are dual variables in the Lagrangian in \cref{eqn:regularized-OT-lagrangian}.
+Then we can plug in $\mathbf{u}$ and $\mathbf{v}$ to get the following updating equations
+
+\begin{equation}\label{eqn:log-sinkhorn-update1}
+  \begin{aligned}
+    \mathbf{f}^{(\ell)}
+     & = \varepsilon\log \mathbf{u}^{(\ell)}
+    = \varepsilon\log \mathbf{a} - \varepsilon\log (\mathbf{K} \mathbf{v}^{(\ell-1)}), \\
+    \mathbf{g}^{(\ell)}
+     & = \varepsilon\log \mathbf{v}^{(\ell)}
+    = \varepsilon\log \mathbf{b} = \varepsilon\log (\mathbf{K}^\top \mathbf{u}^{(\ell)})
+  \end{aligned}
+\end{equation}
+
+Since $\mathbf{K}\mathbf{v}^{(\ell-1)} \in \mathbb{R}^m$, $\forall i$,
+the $i$-th element is %of $-\varepsilon\log (\mathbf{K} \mathbf{v})$ is
+
+\begin{equation*}
+  \begin{aligned}
+    \left(\mathbf{K}\mathbf{v}^{(\ell-1)}\right)_i
+     & = \sum_j \mathbf{K}_{ij} \mathbf{v}_j^{(\ell-1)}                                                                      \\
+     & = \sum_j \exp(-\frac{\mathbf{C}_{ij}}{\varepsilon}) \exp(\frac{\mathbf{g}_j^{(\ell-1)}}{\varepsilon})                 \\
+    %  & = \sum_j \exp(- \frac{\mathbf{C}_{ij} - \mathbf{g}_j}{\varepsilon})                                                        \\
+    %  & = \sum_j \exp(- \frac{\mathbf{C}_{ij} - \mathbf{f}_i - \mathbf{g}_j}{\varepsilon})
+    % \exp(-\frac{\mathbf{f}_i}{\varepsilon})                                                            \\
+     & = \left[\sum_j \exp(- \frac{\mathbf{C}_{ij} - \mathbf{f}_i^{(\ell-1)} - \mathbf{g}_j^{(\ell-1)}}{\varepsilon})\right]
+    \exp(-\frac{\mathbf{f}_i^{(\ell-1)}}{\varepsilon}),
+  \end{aligned}
+\end{equation*}
+
+and
+
+\begin{equation*}
+  \begin{aligned}
+    -\varepsilon\log \left(\mathbf{K} \mathbf{v}^{(\ell-1)}\right)_i
+     & =
+    -\varepsilon\log \sum_j \exp(- \frac{\mathbf{C}_{ij} - \mathbf{f}_i^{(\ell-1)} - \mathbf{g}_j^{(\ell-1)}}{\varepsilon})
+    + \mathbf{f}_i^{(\ell-1)} \\
+     & =
+    -\varepsilon\log \left[
+      \exp \left(
+      -\frac{\mathbf{C} - \mathbf{f}^{(\ell-1)} \mathbb{1}_N^\top - \mathbb{1}_M (\mathbf{g}^{(\ell-1)})^\top}{\varepsilon}
+      \right)
+      \cdot \mathbb{1}_N
+      \right]_i
+    + \mathbf{f}_i^{(\ell-1)} \\
+     & =
+    -\varepsilon\log
+    \left[
+      \mathcal{P} \left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_N
+      \right]_i + \mathbf{f}_i^{(\ell-1)}.
+  \end{aligned}
+\end{equation*}
+
+Therefore, we have the updating equation for $\mathbf{f}^{(\ell)}$.
+If we follow similar steps, we can also get it for $\mathbf{g}^{(\ell)}$.
+That is,
+
+\begin{equation}\label{eqn:update-fg-by-P}
+  \begin{aligned}
+    \mathbf{f}^{(\ell)}
+     & = \mathbf{f}^{(\ell-1)} + \varepsilon\log \mathbf{a} -\varepsilon\log
+    \left[
+      \mathcal{P} \left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_N
+    \right],                                                                 \\
+    \mathbf{g}^{(\ell)}
+     & = \mathbf{g}^{(\ell-1)} + \varepsilon\log \mathbf{b} -\varepsilon\log
+    \left[
+      \mathcal{P}^\top \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_M
+      \right].
+  \end{aligned}
+\end{equation}
+
+
+Note that $\log \left[\mathcal{P}(\mathbf{f}, \mathbf{g})\cdot \mathbb{1}_N\right]$
+is essentially a ``log-sum-exp'' form, and we can apply the ``log-sum-exp'' trick\footnote{
+  \url{https://en.wikipedia.org/wiki/LogSumExp}
+} to make this equation numeric stable while computing it in practice.
+Therefore, let us define the following two functions,
+
+\begin{equation}\label{eqn:function-c-and-Q}
+  \begin{aligned}
+    c \left(\mathbf{f}, \mathbf{g}\right)
+     & = \min \left\{\mathbf{C} - \mathbf{f} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^\top\right\}, \\
+    \mathcal{Q} \left(\mathbf{f}, \mathbf{g}\right)
+    % = \mathcal{Q} \left(\mathbf{f}, \mathbf{g}, c\right)
+     & = \exp \left(
+    - \frac{
+      \mathbf{C} - \mathbf{f} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^\top
+      - c \left(\mathbf{f}, \mathbf{g}\right)
+    }{\varepsilon}
+    \right),
+  \end{aligned}
+\end{equation}
+
+
+we can again rewrite \cref{eqn:update-fg-by-P} as
+
+\begin{dgroup*}\label{eqn:update-fg-by-Q}
+  \begin{dmath*}
+    \mathbf{f}^{(\ell)}
+    = \mathbf{f}^{(\ell-1)} + \varepsilon\log \mathbf{a}
+    -\varepsilon\log \left[
+      \mathcal{P} \left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_N
+      \right],                                                                                                              \\
+    = \mathbf{f}^{(\ell-1)} + \varepsilon\log \mathbf{a}
+    -\varepsilon\log \left[
+      \exp \left(
+      -\frac{
+        \mathbf{C} - \mathbf{f}^{(\ell-1)} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^{(\ell-1)\top}
+        % - c \left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)
+      }{\varepsilon}
+      \right)\cdot \mathbb{1}_N
+      \right]
+    = \mathbf{f}^{(\ell-1)} + \varepsilon\log \mathbf{a}
+    -\varepsilon\log \left[
+      \exp \left(
+      -\frac{c \left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)}\varepsilon
+      \right)
+      \mathcal{Q}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_N
+      \right]
+    \\
+    = \mathbf{f}^{(\ell-1)} + \varepsilon\log \mathbf{a} + c \left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)
+    -\varepsilon\log
+    \left[
+      \mathcal{Q} \left(
+      \mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}
+      \right)\cdot \mathbb{1}_N
+      \right],
+  \end{dmath*}
+  \begin{dmath*}
+    \mathbf{g}^{(\ell)}
+    = \mathbf{g}^{(\ell-1)} + \varepsilon\log \mathbf{b} + c \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)
+    -\varepsilon\log
+    \left[
+      \mathcal{Q}^\top \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_M
+      \right].
+  \end{dmath*}
+\end{dgroup*}
+
+
+
+Thus, we have obtained the numerically stable version of the updating equations for $\mathbf{f}$ and $\mathbf{g}$.
+
+% Here, we subtract elements from both $\mathbf{f}^{(\ell-1)}$ and $\mathbf{g}^{(\ell-1)}$ from $\mathbf{C}_{ij}$,
+% and the reason would become apparent once we derive the optimal coupling solution in terms of dual variables in
+% \cref{eqn:optimal-coupling-fg}.
+
+% With similar steps, we can obtain the expression for $\mathbf{g}^{(\ell)}$,
+% and then we can rewrite the updating equations in \cref{eqn:log-sinkhorn-update1} as the following.
+
+\begin{update}\label{update:log-sinkhorn}
+  At any iteration $\ell = 1, \ldots, L$ and initialized $\mathbf{f}^{(0)}$ and $\mathbf{g}^{(0)}$, we have
+  \begin{equation}\label{eqn:log-sinkhorn-update}
+    \begin{aligned}
+      \mathbf{f}^{(\ell)}
+       & = \mathbf{f}^{(\ell-1)} + \varepsilon\log \mathbf{a} + c \left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)
+      -\varepsilon\log
+      \left[
+        \mathcal{Q} \left(
+        \mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}
+        \right)\cdot \mathbb{1}_N
+      \right],                                                                                                              \\
+      \mathbf{g}^{(\ell)}
+       & = \mathbf{g}^{(\ell-1)} + \varepsilon\log \mathbf{b} + c \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)
+      -\varepsilon\log
+      \left[
+        \mathcal{Q}^\top \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_M
+        \right].
+    \end{aligned}
+  \end{equation}
+\end{update}
+
+\begin{remark}[]
+  As mentioned in \cref{subsec:vanilla-sinkhorn}, the initialization for $\mathbf{u}$ and $\mathbf{v}$ are vectors of ones.
+  This is to say that, the initializations of $\mathbf{f}$ and $\mathbf{g}$ are vectors of zeros,
+  i.e. $\mathbf{f}^{(0)} = \mathbb{0}_M$ and $\mathbf{g}^{(0)} = \mathbb{0}_N$.
+\end{remark}
+
+
+% Note that for any matrix $\mathbf{M} \in \mathbb{R}^{M \times N}$ and $\varepsilon > 0$,
+
+% \begin{equation}\label{eqn:log-sum-exp-matrix-form}
+%   \begin{aligned}
+%     - \varepsilon \log \left[
+%       \exp \left(-\frac{\mathbf{M}}{\varepsilon}\right) \mathbb{1}_N
+%       \right]
+%     = \underbar{M} - \varepsilon\log \left[
+%       \exp \left(-\frac{\mathbf{M} - \underbar{M}}{\varepsilon}\right) \mathbb{1}_N
+%       \right].
+%   \end{aligned}
+% \end{equation}
+
+% This is essentially the ``log-sum-exp'' trick\footnote{
+%   \url{https://en.wikipedia.org/wiki/LogSumExp}
+% } to stabilize the computation.
+% Thus, \cref{eqn:log-sinkhorn-update,eqn:log-sinkhorn-update-stable} are equivalent,
+% but the latter one is numeric stable as it is always bounded.
+% Therefore,
+% For ease of notation, however,
+% I will use the form in \cref{eqn:log-sinkhorn-update} in the remainder of this note;
+% in practice, it will always be implemented as in \cref{eqn:log-sinkhorn-update-stable}.
+
+
+% and should be implemented as such for \cref{eqn:log-sinkhorn-update} in practice.
+% For simplicity of expression, however, we will keep the form as in \cref{update:log-sinkhorn-update} to simplify notation.
+
+% softmin function
+% \begin{definition}[Softmin function]
+%   Given $\varepsilon > 0$ and any vector $\mathbf{z}$, the Softmin function
+%   \begin{equation}
+%     \begin{aligned}
+%       \min_{\varepsilon} \mathbf{z}
+%        & = - \varepsilon\log \sum_i \exp(-\frac{\mathbf{z}_i}{\varepsilon})
+%       = \ubar{z} - \varepsilon\log \sum_i \exp(-\frac{\mathbf{z}_i-\ubar{z}}{\varepsilon})
+%     \end{aligned}
+%   \end{equation}
+%   is differentiable and approximate the $\min$ function as $\varepsilon \to 0$,
+%   where $\ubar{z} = \argmin \mathbf{z}$.
+% \end{definition}
+
+% \begin{remark}[]
+%   \cref{eqn:log-sum-exp-matrix-form} can be also written as a Softmin function as in \citet[Remark 4.22]{peyre2020}.
+%   % , the Softmin function will approximate the $\min$ function and is differentiable.
+%   % What is more, we can use the ``log-sum-exp'' trick to make this computation stable for any (arbitrarily small) $\varepsilon$.
+%   However, here I choose \cref{eqn:log-sum-exp-matrix-form} as a more compact matrix notation.
+%   This will also simplify the notation for calculating the jacobian matrices and gradients.
+% \end{remark}
+
+% In the case of Vanilla Sinkhorn in \cref{subsec:vanilla-sinkhorn} and Parallel Sinkhorn in \cref{subsec:parallel-sinkhorn},
+% we use the \cref{eqn:sinkhorn-solution} to compute the optimal coupling matrix.
+% Since we avoid calculating $\mathbf{u}$ and $\mathbf{v}$ in the log-stabilized Sinkhorn altogether,
+% we need the solution $\mathbf{P}$ expressed by the dual variables $\mathbf{f}$ and $\mathbf{g}$.
+% By \cref{eqn:sinkhorn-solution}, we have
+
+
+
+
+Therefore, we can have the Log-stabilized Sinkhorn algorithm.
+
+\begin{algorithm}[H]
+  \caption{Log-Stabilized Sinkhorn Algorithm}
+  \begin{algorithmic}[1]\label{algo:log-sinkhorn}
+    \Require $\mathbf{a} \in \Sigma_M$, $\mathbf{b} \in \Sigma_N$, $\mathbf{C} \in \mathbb{R}^{M\times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{f} = \mathbb{0}_M$, $\mathbf{g} = \mathbb{0}_N$.
+    \While{Not Convergence}
+    \State \# update $f$
+    \State $\mathbf{M} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $c = \min \mathbf{M}$
+    \State $\mathbf{Q} = \exp \left(
+      -\frac{\mathbf{M} - c}{\varepsilon}
+      \right)$
+    \State $\mathbf{f} = \mathbf{f} + \varepsilon\log \mathbf{a} + c
+      - \varepsilon\log \left[
+        \mathbf{Q} \cdot\mathbb{1}_N
+        \right]$
+    \State \# update $g$
+    \State $\mathbf{M} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $c = \min \mathbf{M}$
+    \State $\mathbf{Q} = \exp \left(
+      -\frac{\mathbf{M} - c}{\varepsilon}
+      \right)$
+    \State $\mathbf{g} = \mathbf{g} + \varepsilon \log\mathbf{b} + c
+      -\varepsilon\log \left[
+        \mathbf{Q}^\top
+        \cdot \mathbb{1}_M
+        \right]$
+    \EndWhile
+    \State $\mathbf{P} = \exp \left(
+      - \frac{\mathbf{C} - \mathbf{f}\,\mathbb{1}_N^\top - \mathbb{1}_M\,\mathbf{g}^\top}{\varepsilon}
+      \right)$
+    \Ensure $\mathbf{P}$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[]
+  The advantage of using log-stabilized Sinkhorn is to make sure the computation is stable for any arbitrary $\varepsilon$.
+  The disadvantage, however, is that we cannot easily parallel its computation over several margins as in
+  \cref{subsec:parallel-sinkhorn}.
+  Moreover, the computation of matrix $\mathbf{Q}$ involves $\exp$ and $\log$ at every iteration twice
+  for both updating $\mathbf{f}$ and $\mathbf{g}$.
+  % Also, we include the softmin computation ($\exp$ and $\log$) at each iteration,
+  % instead of the simple matrix multiplications,
+  Thus, the log-stabilized Sinkhorn is less efficient than Vanilla and Parallel Sinkhorn algorithms.
+  This is the tradeoff we need to make if we need to make sure the computation is stable,
+  especially if we want to use a very small regularization constant $\varepsilon$.
+  As in \citet[Chapter 4.1]{peyre2019},
+  the Sinkhorn problem converges to original Kantorovich problem when $\varepsilon$ is small,
+  i.e. $L_{\mathbf{C}}^\varepsilon(\mathbf{a},\mathbf{b}) \to L_{\mathbf{C}}(\mathbf{a},\mathbf{b})$
+  as $\varepsilon \to 0$.
+\end{remark}
+
+\begin{remark}[Convergence Condition]
+  Recall that in \cref{eqn:function-P}, we can recover the optimal coupling matrix from $\mathbf{f}$ and $\mathbf{g}$,
+  then for some $rho > 0$,
+  \begin{equation*}
+    \begin{aligned}
+      \lVert
+      \mathcal{P}\left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell)}\right) - \mathbf{a}
+      \rVert_2 \le \rho
+      \quad\text{and}\quad
+      \lVert
+      \mathcal{P}^\top \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell)}\right) - \mathbf{b}
+      \rVert_2 \le \rho.
+    \end{aligned}
+  \end{equation*}
+\end{remark}

@@ -1,0 +1,58 @@
+
+% appendix.tex 
+
+% \section{Appendix}\label{appendix:}
+
+\subsection{Mathematical Notations}
+
+Mathematical notations used in this note:
+
+\begin{itemize}
+      \item $\mathbf{a}$: lower case letters in bold denote vectors
+      \item $\mathbf{A}$: upper case letters in bold denote matrices
+      \item $\mathbb{1}_n$, $\mathbb{0}_n$: a vector of ones (or zeros) of length $n$
+            % \item $\forall \mathbf{a} \in \Sigma_n$,
+      \item $\Sigma_n$: probability simplex $\Sigma_n \equiv \left\{
+                  \mathbf{a} \in \mathbb{R}_+^n: \sum_{i=1}^{n} \mathbf{a}_i = 1
+                  \right\}.$
+      \item $\langle \cdot, \cdot\rangle $: inner (dot) product of two matrices of same size
+      \item $\odot$: element-wise (Hadamard) multiplication
+      \item $\oslash$ or $\frac1{\mathbf{X}}$: element-wise (Hadamard) division
+      \item $\log(\cdot)$, $\exp(\cdot)$: element-wise logarithm and exponential functions
+      \item $\diag(\mathbf{x})$: create a diagonal matrix $n \times n$ from vector $\mathbf{x} \in \mathbb{R}^n$
+      \item $\vec \mathbf{A}\mathbf{B}
+                  = \left(I_m \otimes \mathbf{A}\right)\vec \mathbf{B}
+                  = \left(\mathbf{B}^\top \otimes I_k \right) \vec \mathbf{A}$: for $\mathbf{A}: k\times l$ and $\mathbf{B}:l\times m$
+      \item $\mathcal{K}^{(m,n)}$: Commutation matrix such that $\mathcal{K}^{(m,n)}\vec \mathbf{A} = \vec \left(\mathbf{A}^\top\right)$ for a matrix $\mathbf{A} \in \mathbb{R}^{m \times n}$
+\end{itemize}
+
+% \section{lsjdfl}
+
+% \subsection{Derivation of \texorpdfstring{\cref{subsec:log-sinkhorn}}{}}\label{appendix-subsec:log-sinkhorn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% Therefore we can rewrite the Sinkhorn updating equations in \cref{update:vanilla-sinkhorn}
+% in terms of $\mathbf{f}$ and $\mathbf{g}$:
+
+% \begin{equation}
+%   \begin{aligned}
+%     \mathbf{f}^{(l)} & = \varepsilon\log\mathbf{u}^{(l)}
+%     = \varepsilon\log \mathbf{a} - \varepsilon\log(\mathbf{K}\mathbf{v}^{(l-1)}),   \\
+%     % \quad\text{and}\quad
+%     \mathbf{g}^{(l)} & = \varepsilon\log\mathbf{v}^{(l)}
+%     = \varepsilon\log \mathbf{b} - \varepsilon\log(\mathbf{K}^\top\mathbf{u}^{(l)}) \\
+%   \end{aligned}
+% \end{equation}

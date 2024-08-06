@@ -1,0 +1,294 @@
+
+% this is for R kableExtra table output `striped'
+\PassOptionsToPackage{table}{xcolor}
+
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{naturalnames}{hyperref}
+
+\documentclass[oneside,12pt,letterpaper]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title and authors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{authblk} % provide \affil
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% mathematics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% some mathematics packages
+% avoid mathabx package at all cost
+\usepackage{amsmath,amssymb,bm,bbold}
+\usepackage{amsfonts,amsthm,mathrsfs,mathtools}
+\usepackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}
+\usepackage{upgreek}
+% \usepackage{physics}
+\usepackage{stmaryrd}
+\usepackage{econometrics}
+\usepackage{breqn}
+% \breqnsetup{breakdepth={1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% graphics and others
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tikz}
+\usepackage{xr-hyper}
+\usepackage{pdfpages}
+\usepackage{pgf,interval}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% table and figures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{float}
+\usepackage{booktabs, array, longtable, ragged2e, pdflscape}
+\usepackage{subcaption}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% appendix, index, and toc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks = false,
+  urlbordercolor = {blue},
+  linkbordercolor = {red},
+  citebordercolor = {green}
+}
+\usepackage[page,toc,titletoc,title]{appendix}
+\usepackage{makeidx}
+\usepackage[nottoc,numbib]{tocbibind}
+\hypersetup{bookmarksopen=true}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% cross-reference
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{cleveref}
+\renewcommand{\cref}{\Cref}
+\renewcommand{\crefrange}{\Crefrange}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% algorithm
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{algorithm}
+% \usepackage{algorithmic}
+\usepackage{algpseudocode}
+% \usepackage{algpseudocodex}
+% \floatname{algorithm}{Procedure}
+\algnewcommand\algorithmicinput{\textbf{Initialize:}}
+\algnewcommand\Initialize{\item[\algorithmicinput]}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% load some fonts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% remove the font size not available warning (but change the font)
+% \usepackage{lmodern,anyfontsize,libertinus}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OLD bibtex KEEP FOR REFERENCE
+% \bibliographystyle{apalike}
+% \usepackage{doi,natbib}
+% \bibliography{{../Metalearner.bib}} % add at the end
+
+
+% default to newer biblatex
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage[
+  style=authoryear,maxnames=3,natbib=true,uniquename=false,
+  isbn=false,url=false,eprint=false,date=year,dashed=false
+]{biblatex}
+\bibliography{wig-r.bib}
+\DefineBibliographyStrings{english}{bibliography = {References}}
+
+
+% change the font of the bibliography
+% \renewcommand*{\bibfont}{\normalfont\scriptsize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% other packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{filecontents}
+\usepackage{xcolor}
+\usepackage{cancel} % strikethrough line
+\usepackage[left=2.5cm, right=2.5cm, top=3cm]{geometry}
+\usepackage{indentfirst}
+\usepackage{fancyhdr}
+\setlength{\headheight}{27.5pt}
+\pagestyle{fancy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\deq{\stackrel{\mathclap{\normalfont\mbox{d}}}{=}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% underbar problem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{accents} % don't work with econometrics
+% \newcommand\munderbar[1]{\underaccent{\bar}{#1}} 
+\newcommand{\ubar}[1]{\text{\b{$#1$}}} % without using accents package
+% \newcommand\expe{\mathop{{}\mathbb{E}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% fix the underbrace problem
+% link: https://tex.stackexchange.com/questions/457134
+% mathtools redefines overbrace and underbrace from mathabx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\let\underbrace\LaTeXunderbrace%
+\let\overbrace\LaTeXoverbrace%
+
+% define \circled{} macro
+\usepackage{enumitem}
+\newcommand*\circled[1]{%
+  \tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1.5pt] (char) {#1};}
+}
+
+% define \yes and \no for checkmarks
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\yes}{\ding{51}}%
+\newcommand{\no}{\ding{55}}%
+
+% % define interior macro
+\newcommand{\interior}[1]{%
+  {\kern0pt#1}^{\mathrm{o}}%
+}
+\newcommand{\intr}[1]{\interior{#1}}
+
+%% define diag function
+% \newcommand{\diag}{\text(diag)}
+
+% % define argmin and argmax
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\newtheorem{theorem}{Theorem}%[section]
+\newtheorem{assumption}{Assumption}
+\renewcommand{\thetheorem}{\arabic{theorem}}
+% \setcounter{thm}{0}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+% \newtheorem{condition}[theorem]{Condition}
+% \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{example}{Example}
+% \renewcommand{\thethm}{\arabic{thm}}
+% Remove subsection from theorem counter representation
+
+% algorithm update equations
+\newtheorem{update}{Update}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% reset counters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\counterwithin{update}{section}
+\counterwithin{algorithm}{section}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title, author, affiliation, etc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{\textit{\textbf{wig}}: An R Package for Wasserstein Index Generation (WIG) Model}
+\author{Fangzhou Xie}
+\affil{Department of Economics, Rutgers University}
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+  In this paper, I review the basics of Computation Optimal Transport, especially the entropic regularized OT problem,
+  and the Sinkhorn algorithm
+\end{abstract}
+
+TODO: {
+\color{red}
+\begin{enumerate}
+  \item edit all ``Sinkhorn''
+\end{enumerate}
+}
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% table of contents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% start main text here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+\input{sec1_introduction.tex}
+
+some literature review
+
+
+
+\section{Monge-Kantorovich Problem and Its Entropic Regularization}\label{sec:review}
+\input{sec2_overview.tex}
+
+
+\section{Sinkhorn Algorithms}\label{sec:sinkhorn-algorithm}
+\input{sec3_sinkhorn.tex}
+
+\section{Differentiation of Sinkhorn Algorithms}\label{sec:sinkhorn-gradient}
+\input{sec4_gradient_sinkhorn.tex}
+
+\section[Barycenter and Dictionary]{Wasserstein Barycenter and Dictionary Learning}\label{sec:wasserstein-barycenter-and-dictionary-learning}
+\input{sec5_wdl.tex}
+
+\section[WDL]{Wasserstein Dictionary Learning with Closed-Form Gradients}\label{sec:wdl-gradient}
+\input{sec6_gradient_wdl.tex}
+
+\section[WIG Model]{Wasserstein Index Generation Model}\label{sec:wig-model}
+\citet{xie2020}
+
+\section[\textbf{\texorpdfstring{\MakeLowercase{wig}}{wig}} Package]{\textbf{\textit{wig}} Package in R for a WIG Implementation}\label{sec:wig-package}
+
+\citet{xie2020a}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% print bibliography here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for compatibility, keep the old bibtex command
+% \bibliography{example}
+
+% print bib by biblatex
+\newpage
+\addcontentsline{toc}{section}{References}
+\printbibliography
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendix for math proofs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+\appendix
+\setcounter{secnumdepth}{0}
+% \setcounter{subsection}{0}
+
+\input{appendix.tex}
+
+\end{document}

@@ -1,0 +1,477 @@
+% Wasserstein Barycenter and Dictionary Learning
+
+\subsection{Fr\'echet Mean and Wasserstein Barycenter}\label{subsec:frechet-mean-and-wasserstein-barycenter}
+
+As is often in the case in practice, one wants to compute the ``mean'' or ``center'' given a sequence of points.
+This is useful when we want to find a unknown center as an estimate to the group of points (usually data).
+Suppose we have $\left(x_s\right)_{s = 1}^S \in \mathcal{X}^S$ in a metric space $\left(\mathcal{X}, d\right)$,
+where $d(\cdot)$ is a metric defined on $\mathcal{X}$,
+then we have the following problem
+
+\begin{equation*}
+  \begin{aligned}
+    \min_{x \in \mathcal{X}} \sum_s^S \lambda_s d(x, x_s)^p,
+  \end{aligned}
+\end{equation*}
+
+for a weight vector $\boldsymbol{\uplambda} \in \Sigma_S$ and some power $p$ but is often set to 2.
+This is often called ``Fr\'echet'' or ``Karcher'' mean\footnote{
+  Or Riemannian center of mass.
+  See \citet{karcher2014} for a historical account on the naming.
+}.
+
+% In light of the idea of ``Fr\'echet mean'', we can 
+We can then state the Wasserstein Barycenter problem, similar to the idea of ``Fr\'echet mean''
+as a weighted sum of the individual distances/losses.
+Consider the loss function in \cref{eqn:loss-kantorovich},
+a weight vector $\boldsymbol{\uplambda} \in \Sigma_S$,
+and a sequence of discrete densities $\left\{\mathbf{a}_s\right\}_{s = 1}^S$,
+where $a_s \in \Sigma_{M_s}$ and $M_s$ is the length of $a_s$,
+a Wasserstein barycenter is computed by the following minimization problem
+
+\begin{equation*}
+  \begin{aligned}
+    \argmin_{\mathbf{b} \in \Sigma_N} \sum_{s=1}^S \lambda_s L_{\mathbf{C}_s} \left(\mathbf{a}_s, \mathbf{b}\right),
+  \end{aligned}
+\end{equation*}
+
+where the cost matrix $\mathbf{C}_s \in \mathbb{R}^{M_s \times N}$ specifies the cost for transporting
+between the probability vectors $\mathbf{a}_s$ and $\mathbf{b}$.
+Of course, this problem can be approximated by the entropic regularized version
+by simply swapping the loss function by \cref{eqn:entropic-regularized-OT-loss}.
+Thus, we have the entropic regularized Wasserstein barycenter problem
+
+\begin{equation}
+  \begin{aligned}
+    \argmin_{\mathbf{b} \in \Sigma_N} \sum_{s=1}^S \lambda_s L_{\mathbf{C}_s}^\varepsilon \left(\mathbf{a}_s, \mathbf{b}\right).
+  \end{aligned}
+\end{equation}
+
+$\mathbf{b}$ is therefore the unknown computed barycenter as the ``mean'' of $\mathbf{a}_1, \ldots, \mathbf{a}_S$.
+% This problem is a smooth convex problem,
+% which can be solved by gradient descent \citep{cuturi2014a,gramfort2015},
+% descent methods on the semi-dual \citep{cuturi2016},
+% or the Iterative Bregman Projections method \citep{benamou2015}.
+Again, we will arrive at the Sinkhorn-like updates \citep{benamou2015,schmitz2018}:
+
+\begin{equation}\label{eqn:barycenter-sinkhorn-like-vector-update}
+  \begin{aligned}
+    \mathbf{u}_s^{(\ell)}
+     & = \frac{\mathbf{a}_s}{\mathbf{K}_s \mathbf{v}_s^{(\ell-1)}},                                   \\
+    \mathbf{b}^{(\ell)}
+     & = \boldsymbol{\Pi}_{s = 1}^S \left(\mathbf{K}_s^\top \mathbf{u}_s^{(\ell)}\right)^{\lambda_s}, \\
+    \mathbf{v}_s^{(\ell)}
+     & = \frac{\mathbf{b}^{(\ell)}}{\mathbf{K}_s^\top \mathbf{u}_s^{(\ell)}},
+  \end{aligned}
+\end{equation}
+
+where $\mathbf{K}_s = \exp \left(-\frac{\mathbf{C}_s}{\varepsilon}\right)$,
+and $\mathbf{u}_s$, $\mathbf{v}_s$ are scaling vectors for $s = 1, \ldots, S$.
+Also, $\frac\cdot\cdot$ and $\left(\cdot\right)^{(\cdot)}$ are to be understood as element-wise operations.
+
+In practical applications, however,
+we usually have $M_1 = \ldots = M_s = N$
+and $\mathbf{K} = \mathbf{K}_1 = \mathbf{K}_2 = \cdots = \mathbf{K}_S$,
+
+% Moreover, if we have 
+we can thus rewrite \cref{eqn:barycenter-sinkhorn-like-vector-update} as
+the following updating equations
+
+\begin{update}\label{update:wasserstein-barycenter-parallel}
+  \begin{equation}\label{eqn:barycenter-sinkhorn-like-matrix-update}
+    \begin{aligned}
+      \mathbf{U}^{(\ell)}
+       & = \frac{\mathbf{A}}{\mathbf{K} \mathbf{V}^{(\ell-1)}},                                          \\
+      \mathbf{b}^{(\ell)}
+       & = \boldsymbol{\Pi}_{row}
+      \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^{\boldsymbol\uplambda^\top \otimes \mathbb{1}_N}, \\
+      \mathbf{V}^{(\ell)}
+       & = \frac{\mathbf{B}^{(\ell)}}{\mathbf{K}^\top \mathbf{U}^{(\ell)}},
+    \end{aligned}
+  \end{equation}
+  where $\mathbf{B}^{(\ell)} = \left[\mathbf{b}^{(\ell)}, \ldots, \mathbf{b}^{(\ell)}\right] \in \mathbb{R}^{N\times S}$,
+  % $\left(\cdot\right)^\cdot$ denotes column-wise power,
+  and the product operator $\boldsymbol\Pi_{row}$ refers to the row-wise product on the matrix.
+  % which will result in a length $N$ vector as the current iteration barycenter estimator.
+\end{update}
+
+The row-wise product will reduce the matrix into a length $N$ vector,
+and the power operation in the second line refers to the element-wise power operation.
+The matrix $\boldsymbol\uplambda^\top \otimes \mathbb{1}_N$ simply populates the length $S$ vector
+$\boldsymbol\uplambda$ into an $N\times S$ matrix,
+which can also be seen as applying each element of the $\boldsymbol\uplambda$ vector to the base matrix column-wise.
+
+
+
+\begin{algorithm}[H]
+  \caption{Wasserstein Barycenter Algorithm (Parallel)}
+  \begin{algorithmic}[1]\label{algo:wassserstein-barycenter-parallel}
+    \Require $\mathbf{A} \in \Sigma_{N \times S}$, $\mathbf{C} \in \mathbb{R}^{N \times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{U} = \mathbb{1}_{N \times S}$, $\mathbf{V}_{N \times S} = \mathbb{1}_{N \times S}$,
+    $\mathbf{b} = \mathbb{0}_N$.
+    \State $\mathbf{K} = \exp(-\frac{\mathbf{C}}{\varepsilon})$
+    \While{Not Convergence}
+    \State $\mathbf{U} \leftarrow \mathbf{A} \oslash (\mathbf{K} \mathbf{V})$
+    \State $\mathbf{b} =
+      \boldsymbol\Pi_{row}
+      \left(\mathbf{K}^\top \mathbf{U}\right)^{\boldsymbol\uplambda^\top \otimes \mathbb{1}_N}
+    $
+    \State $\mathbf{V} \leftarrow \mathbf{b} \oslash (\mathbf{K}^\top \mathbf{U})$
+    \EndWhile
+    \Ensure $\mathbf{b}$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[]
+  In Line 4 of \cref{algo:wassserstein-barycenter-parallel},
+  the notation $\boldsymbol\Pi_s$ refers to row-wise product reduction
+  as in \cref{eqn:barycenter-sinkhorn-like-matrix-update}.
+  In Line 5, the numerator $\mathbf{b}$ can be broadcast to be the same numerator of all columns of the denominator matrix
+  as discussed in \cref{subsec:parallel-sinkhorn}.
+\end{remark}
+
+Similar to the discussion of \cref{subsec:log-sinkhorn},
+numerical instability is still an issue for \cref{algo:wassserstein-barycenter-parallel}
+due the computation of the exponential function and its potential numeric overflow.
+Therefore, we would also need to stabilize the computation in the log-domain.
+
+TODO: {\color{red}
+regular (parallel) and log domain algo
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Wasserstein Dictionary Learning}\label{subsec:wasserstein-dictionary-learning}
+
+In the Wasserstein barycenter problem, we have the data as sequence of probability vectors
+$\left\{\mathbf{a}_s\right\}_{s = 1}^S$,
+and would like to obtain a ``centroid'' of the data $\mathbf{b}$.
+Here, $\mathbf{a}_s$'s are known as data, but $\mathbf{b}$ is unknown and thus need to be estimated or computed by optimization.
+The so-called Wasserstein Dictionary Learning \citep{schmitz2018} is the almost converse problem:
+suppose we have the observed $\mathbf{b}$'s, how to find the latent and thus unknown $\mathbf{a}_s$ such that the barycenter from which would reconstruct the data $\mathbf{b}$.
+In this case, it is the data $\mathbf{b}$ that is known, but not $\mathbf{a}_s$'s.
+
+% This problem is often encountered 
+The Wasserstein Dictionary Learning can be considered broadly as one of the (nonlinear) topic models \citep{blei2009},
+the most famous of which would probably be Latent Dirichlet Allocation model \citep{blei2003}.
+As is the case with all other topic models,
+we have a sequence of data and we need to discover the common ``factors'' or ``topics'' among them,
+either in Natural Language Processing \citep{xu2018} or Image Processing \citep{schmitz2018} settings.
+
+To state the problem,
+let $\mathbf{B} \in \mathbb{R}_+^{N\times M}$ be the matrix containing the data,
+i.e. $M$ probability vectors each of size $N$,
+and thus for each column $\mathbf{b}_m$ we have $\mathbf{b}_m \in \Sigma_N$
+for $m = 1, \ldots, M$.
+For the latent topic\footnote{
+  Sometimes also called atom or factor.
+} matrix $\mathbf{A} \in \mathbb{R}_+^{N \times S}$ where each column $\mathbf{a}_s \in \Sigma_N$,
+and the weight matrix $\mathbf{W} \in \mathbb{R}_+^{S \times M}$ where each column $\mathbf{w}_m \in \Sigma_S$,
+we have
+
+\begin{equation}\label{eqn:wasserstein-dictionary-problem-constrained}
+  \begin{aligned}
+    \min_{\mathbf{A}, \mathbf{W}}
+     &
+    \sum_{m = 1}^M \mathcal{L} \left(\widehat{\mathbf{b}}_m, \mathbf{b}_m\right),                    \\
+    \text{s.t.}
+     & \widehat{\mathbf{b}}_m =
+    \argmin_{\mathbf{b} \in \Sigma_N}
+    \sum_{s = 1}^S \mathbf{W}_{sm} L_{\mathbf{C}}^\varepsilon \left(\mathbf{a}_s, \mathbf{b}\right), \\
+     & \mathbf{A} = \left[\mathbf{a}_1, \ldots, \mathbf{a}_S\right] \in \mathbb{R}_+^{N \times S},
+    \text{where } \mathbf{a}_s \in \Sigma_N,                                                         \\
+     & \mathbf{W} = \left[\mathbf{w}_1, \ldots, \mathbf{w}_M\right] \in \mathbb{R}_+^{S \times M},
+    \text{where } \mathbf{w}_m \in \Sigma_S.
+  \end{aligned}
+\end{equation}
+
+
+
+
+
+Essentially, we are considering the $\widehat{\mathbf{b}}_m$,
+the computed barycenter from the current $\mathbf{A}$,
+as the reconstruction for the true $\mathbf{b}_m$ that we observe in the data.
+Then we will need to optimize $\mathbf{A}$ (and also implicitly $\mathbf{W}$)
+such that the reconstructions approximate the original data well.
+% This will be carried out by taking the current parameters $\mathbf{A}$ and $\mathbf{W}$,
+% calculating the barycenter, computing the reconstruction loss, and then backpropagate the gradient
+% The optimization steps can be taken 
+This problem, however, is not guaranteed to be convex \citep{schmitz2018},
+whether jointly in $\mathbf{A}$ and $\mathbf{W}$ or for each separately,
+unlike the original Sinkhorn problem discussed in \cref{sec:review}.
+Thus, we aim to solve this problem by a gradient descent approach to find a local minimum,
+as is the usual case in machine learning literature.
+In order to do so, we will take the gradient of the loss with respect to the parameters
+(here $\mathbf{A}$ and $\mathbf{W}$), and then optimize them by some learning rate,
+and then repeat until some stopping criterion.
+The gradient computation can be easily carried out by any modern Automatic Differentiation system\footnote{
+  They are usually embedded within neural network libraries, e.g. PyTorch \citep{paszke2017}, TensorFlow \citep{abadi2016}, etc.,
+  but can also be found as stand-alone libraries, e.g. autodiff in C++ \citep{leal2018} or Zygote in Julia \citep{innes2019}.
+  Unlike Symbolic or Numeric Differentiation, Automatic Differentiation (AD) essentially relies on chain's rule
+  and could provide accurate gradient computation.
+  There are usually two modes for AD systems: Forward mode or Reverse mode, and each has their own advantages.
+  To see this,
+  % AD systems are usually implemented in either Forward mode or Reverse mode
+  let a function $f: \mathbb{R}^n \to \mathbb{R}^m$, when $n \ll m$, then Forward mode is more efficient;
+  if, however, $n \gg m$, then Reverse mode is more efficient.
+  Neural Network libraries are usually implemented in Reverse mode,
+  since there is usually a scalar loss but with many parameters of the neural network model.
+  Interested readers could refer to \citet[Chapter 8]{nocedal2006}.
+}, but in this note, I manually derive the gradients and Jacobians of all algorithms (in \cref{sec:sinkhorn-gradient,sec:wdl-gradient}) to achieve memory efficient and faster code.
+
+Note, however, we cannot directly optimize the parameters from \cref{eqn:wasserstein-dictionary-problem-constrained},
+since the problem is a constrained optimization problem with two constraints on the $\mathbf{a}_s$ and $\mathbf{w}_m$
+being in their respective simplices.
+Therefore, we need to convert this constrained optimization problem into an unconstrained one \citep{schmitz2018,xu2018}:
+that is, to let $\mathbf{a}_s = \text{softmax} \left(\boldsymbol\upalpha_s\right)$
+and $\mathbf{w}_m = \text{softmax}\left(\boldsymbol\uplambda_s\right)$,
+as the $\text{softmax}$ function will ensure its output to be a probability vector,
+i.e. $\mathbf{a}_s \in \Sigma_N$ and $\mathbf{w}_m \in \Sigma_S$.
+Thus, we have transformed the problem as an optimization problem with parameters
+$\boldsymbol\upalpha$ and $\boldsymbol\uplambda$.
+Now we need to define the $\text{softmax}$ function.
+
+\begin{definition}[Softmax function]
+  Let $\mathbf{x} \in \mathbb{R}^N$, and the $\text{softmax}$ function is
+  \begin{equation*}
+    \begin{aligned}
+      \text{softmax}\left(\mathbf{x}_i\right) = \frac{\exp\mathbf{x}_i}{\sum_j \exp \mathbf{x}_j}.
+    \end{aligned}
+  \end{equation*}
+
+  Then the $\text{softmax}$ function for a vector $\mathbf{x}$ is
+
+  \begin{equation*}
+    \begin{aligned}
+      \text{softmax}\left(\mathbf{x}\right)
+      = \frac{\exp \mathbf{x}}{\mathbb{1}_N^\top \cdot \exp \mathbf{x}}
+      = \frac{\exp \mathbf{x}}{\mathbb{1}_N^\top \cdot \exp \mathbf{x} \cdot \mathbb{1}_N}.
+    \end{aligned}
+  \end{equation*}
+
+  Then for a matrix $\mathbf{X} \in \mathbb{R}^{N \times S}$, we have $\text{softmax}$ for a matrix
+  \begin{equation*}
+    \begin{aligned}
+      \text{softmax} \left(\mathbf{X}\right)
+       & =
+      \left[
+        \text{softmax}\left(\mathbf{x}_1\right), \,\ldots\,, \text{softmax}\left(\mathbf{x}_S\right)
+      \right]     \\
+       & = \left[
+        \frac{\exp \mathbf{x}_1}{\mathbb{1}_N^\top \cdot \exp \mathbf{x}_1 \cdot \mathbb{1}_N},
+        \,\ldots\,,
+        \frac{\exp \mathbf{x}_S}{\mathbb{1}_N^\top \cdot \exp \mathbf{x}_S \cdot \mathbb{1}_N}
+      \right],    \\
+       & = \frac{
+        \exp \mathbf{X}
+      }{
+        \left[
+          \mathbb{1}_N^\top\cdot \exp \mathbf{x}_1, \ldots, \mathbb{1}_N^\top\cdot \exp \mathbf{x}_S
+          \right] \otimes \mathbb{1}_N
+      }           \\
+       & =
+      \frac{
+        \exp \mathbf{X}
+      }{
+        \left(\mathbb{1}_N^\top \cdot \exp \mathbf{X}\right)\otimes \mathbb{1}_N
+      }.
+    \end{aligned}
+  \end{equation*}
+  The $\text{softmax}$ of a matrix is equivalent to $\text{softmax}$ of its column vectors' separately.
+\end{definition}
+
+Therefore, we can enforce the constraints $\mathbf{a}_s \in \Sigma_N$ and $\mathbf{w}_m \in \Sigma_S$
+by the following change of variables
+
+\begin{equation}
+  \begin{aligned}
+    \mathbf{A} = \text{softmax} \left(\boldsymbol\upalpha\right),
+    \quad\text{ and }\quad
+    \mathbf{W} = \text{softmax} \left(\boldsymbol\uplambda\right),
+  \end{aligned}
+\end{equation}
+
+where $\boldsymbol\upalpha = \left[\boldsymbol\upalpha_1, \ldots, \boldsymbol\upalpha_S\right] \in \mathbb{R}^{N\times S}$,
+and $\boldsymbol\uplambda = \left[\boldsymbol\uplambda_1, \ldots, \boldsymbol\uplambda_M\right] \in \mathbb{R}^{S\times M}$.
+Let us slightly abuse the notation to denote the vector of losses across the topics
+
+\begin{equation*}
+  \begin{aligned}
+    L_{\mathbf{C}}^\varepsilon \left(\mathbf{A}, \mathbf{b}\right)
+    = \left[
+      L_{\mathbf{C}}^\varepsilon \left(\mathbf{a}_1, \mathbf{b}\right),
+      \,\ldots\,,
+      L_{\mathbf{C}}^\varepsilon \left(\mathbf{a}_S, \mathbf{b}\right)
+      \right]^\top \in \mathbb{R}^N.
+  \end{aligned}
+\end{equation*}
+
+Note that $L_{\mathbf{C}}^\varepsilon \left(\mathbf{A}, \mathbf{b}\right)$
+is essentially the same as $L_{\mathbf{C}}^\varepsilon \left(\mathbf{A}, \mathbf{B}\right)$,
+where $\mathbf{B} = \left[\mathbf{b}, \ldots, \mathbf{b}\right] \in \mathbb{R}^{N\times S}$
+as the ``many-to-one'' transport problem in \cref{subsec:parallel-sinkhorn}.
+Therefore, we can rewrite the problem in \cref{eqn:wasserstein-dictionary-problem-constrained} as
+an unconstrained one with respect to parameters $\boldsymbol\upalpha$ and $\boldsymbol\uplambda$
+
+\begin{equation}\label{eqn:wasserstein-dictionary-problem-unconstrained}
+  \begin{aligned}
+    \min_{\boldsymbol\upalpha, \boldsymbol\uplambda}
+     &
+    \sum_{m = 1}^M \mathcal{L} \left(\widehat{\mathbf{b}}_m, \mathbf{b}_m\right),             \\
+    \text{s.t.}
+     & \widehat{\mathbf{b}}_m =
+    \argmin_{\mathbf{b} \in \Sigma_N}\,
+    \mathbf{w}_{m}^\top \cdot L_{\mathbf{C}}^\varepsilon \left(\mathbf{A}, \mathbf{b}\right), \\
+    % \sum_{s = 1}^S \mathbf{w}_{m} L_{\mathbf{C}}^\varepsilon \left(\mathbf{a}_s, \mathbf{b}\right), \\
+     & \mathbf{A} = \text{softmax} \left(\boldsymbol\upalpha\right),                          \\
+     & \mathbf{w}_m = \text{softmax} \left(\boldsymbol\uplambda_m\right).
+    %  & \mathbf{A} = \left[\mathbf{a}_1, \ldots, \mathbf{a}_S\right] \in \mathbb{R}_+^{N \times S},
+    % \text{where } \mathbf{a}_s \in \Sigma_N,                                                           \\
+    %  & \mathbf{W} = \left[\mathbf{w}_1, \ldots, \mathbf{w}_M\right] \in \mathbb{R}_+^{S \times M},
+    % \text{where } \mathbf{w}_m \in \Sigma_S.
+  \end{aligned}
+\end{equation}
+
+
+Essentially, we will take some random initialized parameters $\mathbf{A}$ and $\mathbf{W}$,
+calculate their optimal barycenter,
+calculate the loss between the barycenter and the original data,
+take the gradients of the loss with respect to the parameters,
+and then update the parameters based on the gradients.
+The computation of the optimal barycenter is based on the Wasserstein barycenter problem,
+detailed in \cref{subsec:frechet-mean-and-wasserstein-barycenter},
+and the parameter-updating routine can be chosen to be any optimization technique,
+for example \citet{schmitz2018} chooses L-BFGS\footnote{
+  A limited memory version of the classic quasi-Newton optimization method BFGS algorithm,
+  named after the authors of \citet{broyden1970,fletcher1970,goldfarb1970,shanno1970}.
+} \citep{liu1989},
+and \citet{xie2020} uses Adam \citep{kingma2015} optimizer as it performs well in practice,
+especially in large-scale machine learning applications.
+
+
+
+% TODO: {\color{red} add BFGS, SGD, Adam, AdamW here}
+Here I list the Stochastic Gradient Descent, Adam, and AdamW optimizers' algorithms
+in \cref{algo:optimizer-sgd,algo:optimizer-adam,algo:optimizer-adamw},
+and they are all implemented in the \textit{\textbf{wig}} package,
+which will be discussed in details in \cref{sec:wig-package}.
+
+
+TODO: {\color{red}
+re-write the optimizers as updating-steps, instead of the loop
+}
+
+
+\begin{algorithm}[H]
+  \caption{Stochastic Gradient Descent}
+  \begin{algorithmic}[1]\label{algo:optimizer-sgd}
+    \Require $f \left(\mathbf{x}; \boldsymbol\theta\right)$:
+    function to be optimized (minimized) with parameters $\boldsymbol\theta$ and data $\mathbf{x}$
+    \Require Parameters: learning rate $\eta$, batch size $B$
+    \Require Initialize: \\
+    $\boldsymbol\theta_0$ \# initialized parameters\\
+    % $\mathbf{m}_0 = 0$ \# initialized first moment\\
+    % $\mathbf{v}_0 = 0$ \# initialized second moment\\
+    $t = 0$ \# initialized time stamp
+    \While{Not Convergence}
+    \State $t = t + 1$
+    \State $\mathbf{g}_t = \frac1B \sum_{b=1}^B \nabla_\theta f_t(\mathbf{x}_b; \boldsymbol\theta_{t-1})$
+    \# mini-batched gradient with current parameters $\boldsymbol\theta_{t-1}$
+    \State $\boldsymbol\theta_t = \boldsymbol\theta_{t-1} - \eta\cdot \mathbf{g}_t$
+    \EndWhile
+    \Ensure $\theta_t$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+  \caption{Adam Optimizer \citep[Algorithm 1]{kingma2015}}
+  \begin{algorithmic}[1]\label{algo:optimizer-adam}
+    \Require $f \left(\mathbf{x}; \boldsymbol\theta\right)$:
+    function to be optimized (minimized) with parameters $\boldsymbol\theta$ and data $\mathbf{x}$
+    \Require Parameters: learning rate $\eta = 0.001$, $\beta_1 = 0.9$, $\beta_2 = 0.999$, $\epsilon = 10^{-8}$,
+    batch size $B$
+    \Require Initialize: \\
+    $\theta_0$ \# initialized parameters\\
+    $m_0 = 0$ \# initialized first moment\\
+    $v_0 = 0$ \# initialized second moment
+    \While{Not Convergence}
+    \State $t = t + 1$
+    \State $\mathbf{g}_t = \frac1B \sum_{b=1}^B \nabla_\theta f_t(\mathbf{x}_b; \boldsymbol\theta_{t-1})$
+    \# mini-batch gradient same as SGD
+    \State $\mathbf{m}_t = \beta_1 \cdot \mathbf{m}_{t-1} + (1 - \beta_1)\cdot \mathbf{g}_t$
+    \# first moment estimate
+    \State $\mathbf{v}_t = \beta_2 \cdot \mathbf{v}_{t-1} + (1 - \beta_2)\cdot \mathbf{g}_t^2$
+    \# second moment estimate
+    \State $\widehat{\mathbf{m}}_t = \frac{\mathbf{m}_t}{1 - \beta_1^t}$
+    \State $\widehat{\mathbf{v}}_t = \frac{\mathbf{v}_t}{1 - \beta_2^t}$
+    \State $\boldsymbol\theta_t = \boldsymbol\theta_{t-1} - \eta \cdot \frac{\widehat{\mathbf{m}}_t}{\sqrt{\widehat{\mathbf{v}}_t}+\epsilon}$
+    % \State $\boldsymbol\eta_t = \eta \cdot \frac{\sqrt{1 - \beta_2^t}}{1- \beta_1^t}$
+    % \State $\epsilon_t = \sqrt{1 - \beta_2^t} \cdot \epsilon$
+    % \State $\boldsymbol\theta_t = \boldsymbol\theta_{t-1} - \boldsymbol\eta_t \cdot \frac{\mathbf{m}_t}{\sqrt{\mathbf{v}_t}+ \epsilon_t}$
+    \EndWhile
+    \Ensure $\theta_t$
+  \end{algorithmic}
+\end{algorithm}
+% \footnotetext{
+%   Note that this is the alternative version in Section 2, instead of Algorithm 1 in the paper \citep{kingma2015}.
+%   They are identical to each other, and this version is just to get rid of the bias-corrected moments' estimates.
+% }
+
+
+\begin{algorithm}[H]
+  \caption{AdamW Optimizer \citep[Algorithm 2]{loshchilov2019}}
+  \begin{algorithmic}[1]\label{algo:optimizer-adamw}
+    \Require $f \left(\mathbf{x}; \boldsymbol\theta\right)$:
+    function to be optimized (minimized) with parameters $\boldsymbol\theta$ and data $\mathbf{x}$
+    \Require Parameters: learning rate $\eta = 0.001$, $\beta_1 = 0.9$, $\beta_2 = 0.999$, $\epsilon = 10^{-8}$,
+    batch size $B$
+    \Require Decay parameter: {\color{red} $\tau$}
+    \Require Initialize: \\
+    $\theta_0$ \# initialized parameters\\
+    $m_0 = 0$ \# initialized first moment\\
+    $v_0 = 0$ \# initialized second moment\\
+    $\eta_0 \in \mathbb{R}$ \# schedule multiplier
+    \While{Not Convergence}
+    \State $t = t + 1$
+    \State $\mathbf{g}_t = \frac1B \sum_{b=1}^B \nabla_\theta f_t(\mathbf{x}_b; \boldsymbol\theta_{t-1})
+      + \textcolor{red}{\tau} \cdot \boldsymbol\theta_{t-1}$
+    \# mini-batch gradient same as SGD
+    \State $\mathbf{m}_t = \beta_1 \cdot \mathbf{m}_{t-1} + (1 - \beta_1)\cdot \mathbf{g}_t$
+    \# first moment estimate
+    \State $\mathbf{v}_t = \beta_2 \cdot \mathbf{v}_{t-1} + (1 - \beta_2)\cdot \mathbf{g}_t^2$
+    \# second moment estimate
+    \State $\widehat{\mathbf{m}}_t = \frac{\mathbf{m}_t}{1 - \beta_1^t}$
+    \State $\widehat{\mathbf{v}}_t = \frac{\mathbf{v}_t}{1 - \beta_2^t}$
+    \State $\eta_t = \text{Schedule}(t)$
+    \State $\boldsymbol\theta_t = \boldsymbol\theta_{t-1} -
+      \eta_t \left(
+      \eta\cdot \frac{\widehat{\mathbf{m}}_t}{\sqrt{\widehat{\mathbf{v}}_t}+\epsilon} +
+      \textcolor{red}{\tau}\cdot \boldsymbol\theta_{t-1}
+      \right)$
+    \EndWhile
+    \Ensure $\theta_t$
+  \end{algorithmic}
+\end{algorithm}

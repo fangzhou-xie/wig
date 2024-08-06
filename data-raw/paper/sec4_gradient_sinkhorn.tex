@@ -1,0 +1,789 @@
+
+In this section, I will derive the gradients of Sinkhorn loss with respect to its arguments for the algorithms
+described in \cref{sec:sinkhorn-algorithm}.
+This is useful when one wishes to use Sinkhorn loss as a loss function for training purpose in machine learning,
+for example,
+Wasserstein Dictionary Learning in \crefrange{sec:wasserstein-barycenter-and-dictionary-learning}{sec:wdl-gradient}.
+
+
+\subsection{Vanilla Sinkhorn}\label{subsec:gradient-vanilla-sinkhorn}
+
+The optimal coupling matrix $\mathbf{P}$ from the Vanilla Sinkhorn algorithm is
+
+\begin{equation}\label{eqn:optimal-coupling-solution-from-sinkhorn}
+  \begin{aligned}
+    \mathbf{P} = \diag(\mathbf{u}^{(L)}) \mathbf{K} \diag(\mathbf{v}^{(L)}),
+  \end{aligned}
+\end{equation}
+
+and the loss function evaluated at the solution is
+% $\mathscr{L} = \mathbf{P} \odot \mathbf{C} - \varepsilon \mathbf{H}(\mathbf{P})$.
+$L_{\mathbf{C}}^\varepsilon(\mathbf{P}) =
+  \langle \mathbf{P}, \mathbf{C}\rangle + \varepsilon\langle\mathbf{P}, \log \mathbf{P} - 1\rangle $.
+
+Therefore, by Chain's rule, the Jacobian of Sinkhorn loss w.r.t. first argument $\mathbf{a}$ is
+
+\begin{equation}\label{eqn:jacobian-loss-wrt-chainrule}
+  \begin{aligned}
+    D L_{\mathbf{C}}^\varepsilon(\mathbf{a})
+    = D L_{\mathbf{C}}^\varepsilon(\mathbf{P}) \cdot D \mathbf{P}(\mathbf{a}).
+    % D L_{\mathbf{C}}^\varepsilon(\mathbf{a})
+    % = D L_{\mathbf{C}}^\varepsilon(\mathbf{P}) \, D \mathbf{P}(\mathbf{a}).
+  \end{aligned}
+\end{equation}
+
+Note that $\langle \mathbf{A}, \mathbf{B}\rangle = \mathbb{1}_M^\top \left(\mathbf{A}\odot \mathbf{B}\right) \mathbb{1}_N$,
+for matrices $\mathbf{A}$ and $\mathbf{B}$ in $\mathbb{R}^{M\times N}$.
+To get the first term $D L_{\mathbf{C}}^\varepsilon(\mathbf{P})$, we need the differential as the following
+
+\begin{equation*}
+  \begin{aligned}
+    d\vec L_{\mathbf{C}}^\varepsilon(\mathbf{P})
+     & =
+    d \vec \left[\mathbb{1}_M^\top \left(\mathbf{P}\odot \mathbf{C}\right) \mathbb{1}_N\right] +
+    \varepsilon d\vec \left\{
+    \mathbb{1}_M^\top \left[\mathbf{P} \odot \left[\log \mathbf{P} - 1\right]\right] \mathbb{1}_N
+    \right\}                                      \\
+     & =
+    d\left[
+      \left(\mathbb{1}_N \otimes \mathbb{1}_M\right)^\top
+      \left(\vec \mathbf{C} \otimes \vec \mathbf{P}\right)
+      \right]
+    + \varepsilon d \left\{
+    \left(\mathbb{1}_N \otimes \mathbb{1}_M\right)^\top
+    \left[
+      \vec \mathbf{P}\otimes \vec \left(\log \mathbf{P} - 1\right)
+      \right]
+    \right\}                                      \\
+     & =
+    \mathbb{1}_{MN}^\top
+    \left(\vec \mathbf{C} \otimes d\vec \mathbf{P}\right) +
+    \varepsilon
+    \mathbb{1}_{MN}^\top \cdot
+    d \left[
+      \vec \mathbf{P} \otimes \vec \left(\log \mathbf{P} - 1\right)
+    \right]                                       \\
+     & =
+    \mathbb{1}_{MN}^\top \cdot
+    \diag\vec \mathbf{C} \cdot d \vec \mathbf{P}
+    + \varepsilon
+    \mathbb{1}_{MN}^\top \cdot
+    \diag\vec\log\mathbf{P}\cdot d\vec \mathbf{P} \\
+     & =
+    \mathbb{1}_{MN}^\top \cdot
+    \diag\vec \left(\mathbf{C} + \varepsilon \log \mathbf{P}\right)
+    \cdot d\vec \mathbf{P}.
+  \end{aligned}
+\end{equation*}
+
+and the Jacobian is
+
+\begin{equation}\label{eqn:jacobian-loss-wrt-P}
+  \begin{aligned}
+    D L_{\mathbf{C}}^\varepsilon(\mathbf{P}) = \mathbb{1}_{MN}^\top \diag\vec \left(\mathbf{C} + \varepsilon \log \mathbf{P}\right).
+  \end{aligned}
+\end{equation}
+
+% $$.
+% Similar to the steps in \cref{subsec:log-sinkhorn}, we have $\mathbf{Q} = \mathcal{Q}\left(\mathbf{f}^L, \mathbf{g}^L\right)$
+% and $c = c \left(\mathbf{f}^L, \mathbf{g}^L\right)$,
+% then $D \mathcal{L}(\mathbf{P}) =
+%   \mathbb{1}_{MN}^\top \diag\vec \left(\mathbf{C} + \varepsilon c + \varepsilon \log \mathbf{Q}\right)$.
+% This is the numerically stable version, compared to its original form.
+Note that this Jacobian matrix has only one row,
+since $\left(\mathbb{1}_N \otimes \mathbb{1}_M\right)=\mathbb{1}_{MN}$ has only one column.
+Thus, the gradient\footnote{
+$\nabla_{\mathbf{a}}L_{\mathbf{C}}^\varepsilon = \left(D L_{\mathbf{C}}^\varepsilon(\mathbf{a})\right)^\top$.
+} $\nabla_{\mathbf{a}} L_{\mathbf{C}}^\varepsilon$, would be column vector of size $M$.
+
+
+To get the second term, i.e. $D \mathbf{P}(\mathbf{a})$,
+we also need the differential of $\mathbf{P}$ in \cref{eqn:optimal-coupling-fg}
+instead of \cref{eqn:optimal-coupling-solution-from-sinkhorn},
+as \cref{eqn:optimal-coupling-fg} involves
+the dual variables $\mathbf{f}$ and $\mathbf{g}$,
+which will be useful when we derive the Jacobian matrices
+for the log-stabilized Sinkhorn algorithm in \cref{subsec:log-sinkhorn}.
+% as this will also be used in the gradient derivation for the log-stabilized Sinkhorn.
+% Instead of \cref{eqn:sinkhorn-solution-matrix-form},
+% I will use \cref{eqn:optimal-coupling-fg} as this will simplify the gradient derivation for the log-stabilized Sinkhorn.
+
+The differential is
+
+\begin{equation}\label{eqn:differential-vecP}
+  \begin{aligned}
+    d \vec \mathbf{P}
+    %  & = d \vec \mathcal{P} \left(\mathbf{f}^L, \mathbf{g}^L\right) \\
+    %  & = d \exp\vec \left(
+    % - \frac{\mathbf{C} - \mathbf{f}^{(L)} \mathbb{1}_N^\top - \mathbb{1}_M \left(\mathbf{g}^{(L)}\right)^\top}{\varepsilon}
+    % \right)                                                                                                   \\
+     & = - \frac1\varepsilon
+    \diag\vec \mathbf{P}\,
+    d\vec \left(
+    \mathbf{C} - \mathbf{f}^{(L)} \mathbb{1}_N^\top - \mathbb{1}_M \left(\mathbf{g}^{(L)}\right)^\top
+    \right)                                    \\
+     & = \frac1\varepsilon\diag\vec \mathbf{P}
+    \left[
+      d \vec \left(\mathbf{f}^{(L)} \mathbb{1}_N^\top\right) +
+      d \vec \left(\mathbb{1}_m \left(\mathbf{g}^{(L)}\right)^\top\right)
+    \right]                                    \\
+     & = \frac1\varepsilon\diag\vec \mathbf{P}
+    \left[
+      \left(\mathbb{1}_N\otimes I_M\right) d \mathbf{f}^{(L)} +
+      \left(I_N\otimes \mathbb{1}_M\right) d \mathbf{g}^{(L)}
+    \right]                                    \\
+     & = \diag\vec \mathbf{P}
+    \left[
+      \left(\mathbb{1}_N\otimes I_M\right) \cdot \diag\frac1{\mathbf{u}^{(L)}} \cdot d \mathbf{u}^{(L)} +
+      \left(I_N\otimes \mathbb{1}_M\right) \cdot \diag\frac1{\mathbf{v}^{(L)}} \cdot d \mathbf{v}^{(L)}
+      \right],
+  \end{aligned}
+\end{equation}
+
+since we also have $\mathbf{f} = \varepsilon\log \mathbf{u}$ and $\mathbf{g} = \varepsilon\log \mathbf{v}$,
+$d \mathbf{f} = \varepsilon\diag\frac1{\mathbf{u}}\cdot d \mathbf{u}$
+and
+$d \mathbf{g} = \varepsilon\diag\frac1{\mathbf{v}}\cdot d \mathbf{v}$, respectively.
+% $D \mathbf{f}^{(L)}(\mathbf{u}^{(L)}) = \varepsilon\diag\frac1{\mathbf{u}^{(L)}}$
+% and
+% $D \mathbf{g}^{(L)}(\mathbf{v}^{(L)}) = \varepsilon\diag\frac1{\mathbf{u}^{(L)}}$, respectively.
+
+Therefore,
+
+% \begin{equation}\label{eqn:jacobian-of-P-wrt-a-intermsof-fg}
+%   \begin{aligned}
+%     D \mathbf{P}(\mathbf{a})
+%      & = \frac1\varepsilon \diag\vec \mathbf{P}
+%     \left[
+%       \left(\mathbb{1}_N\otimes I_M\right) D \mathbf{f}^{(L)}(\mathbf{a}) +
+%       \left(I_N\otimes \mathbb{1}_M\right) D \mathbf{g}^{(L)}(\mathbf{a})
+%       \right],
+%   \end{aligned}
+% \end{equation}
+
+% or equivalently,
+
+\begin{equation}\label{eqn:jacobian-of-P-wrt-a-intermsof-uv}
+  \begin{aligned}
+    D \mathbf{P}(\mathbf{a})
+     & = \diag\vec \mathbf{P}
+    \left[
+      \left(\mathbb{1}_N\otimes I_M\right) \cdot \diag\frac1{\mathbf{u}^{(L)}}\cdot D \mathbf{u}^{(L)}(\mathbf{a}) +
+      \left(I_N\otimes \mathbb{1}_M\right) \cdot \diag\frac1{\mathbf{v}^{(L)}}\cdot D \mathbf{v}^{(L)}(\mathbf{a})
+      \right].
+  \end{aligned}
+\end{equation}
+
+
+% Here I show the equations for $D \mathbf{P} (\mathbf{a})$ in two different forms,
+% \cref{eqn:jacobian-of-P-wrt-a-intermsof-fg} is the Jacobian matrix $\mathbf{P}(\mathbf{a})$ expressed in the dual variables,
+% and \cref{eqn:jacobian-of-P-wrt-a-intermsof-uv} is the Jacobian matrix $\mathbf{P}(\mathbf{a})$
+% in terms of the primal scaling variables.
+% In this subsection, we only consider the Vanilla Sinkhorn (in primal scaling variables),
+% and we only use \cref{eqn:jacobian-of-P-wrt-a-intermsof-uv}.
+% \cref{eqn:jacobian-of-P-wrt-a-intermsof-fg} will come in handy only later in this note in \cref{subsec:log-sinkhorn}.
+
+From \cref{eqn:jacobian-of-P-wrt-a-intermsof-uv}, all that remains to be shown are the formulae of
+$D\mathbf{u}^{(L)}\left(\mathbf{a}\right)$
+and
+$D\mathbf{v}^{(L)}\left(\mathbf{a}\right)$,
+which can be obtained iteratively differentiating \cref{update:vanilla-sinkhorn}.
+Again, we need first to calculate the differentials
+
+\begin{equation*}
+  \begin{aligned}
+    d\,\mathbf{u}^{(\ell)}
+     & = d\, \left[
+      \mathbf{a} \oslash \left(\mathbf{K}\mathbf{v}^{(\ell-1)}\right)
+      \right]
+    = d\, \left(
+    \mathbf{a} \odot \frac1{\mathbf{K}\mathbf{v}^{(\ell-1)}}
+    \right)                                                                                                             \\
+     & = d\, \mathbf{a} \odot \frac1{\mathbf{K}\mathbf{v}^{(\ell-1)}}
+    - \mathbf{a} \odot d\left(\frac1{\mathbf{K}\mathbf{v}^{(\ell-1)}}\right)                                            \\
+     & = \diag(\frac1{\mathbf{K}\mathbf{v}^{(\ell-1)}})\cdot d\,\mathbf{a}
+    - \diag \frac{\mathbf{a}}{\left(\mathbf{K}\mathbf{v}^{(\ell-1)}\right)^2}\cdot\mathbf{K}\cdot d\,\mathbf{v}^{(l-1)} \\
+    d\, \mathbf{v}^{(\ell)}
+     & = d \left(\mathbf{b}\odot \frac1{\mathbf{K}^\top \mathbf{u}^{(\ell)}}\right)                                     \\
+     & = d\,\mathbf{b}\odot\frac1{\mathbf{K}^\top \mathbf{u}^{(\ell)}}
+    + \mathbf{b}\odot d\,\left(\frac1{\mathbf{K}^\top \mathbf{u}^{(\ell)}}\right)                                       \\
+     & = - \diag \frac{\mathbf{b}}{\left(\mathbf{K}^\top \mathbf{u}^{(\ell)}\right)^2}
+    \cdot\mathbf{K}^\top \cdot d\, \mathbf{u}^{(\ell)}
+  \end{aligned}
+\end{equation*}
+
+Therefore, the Jacobian updating equations are
+
+\begin{update}[Updating Equations for Jacobians of Vanilla Sinkhorn]\label{update:jacobian-vanilla-sinkhorn}
+  \begin{equation}\label{eqn:jacobian-vanilla-sinkhorn}
+    \begin{aligned}
+      D\,\mathbf{u}^{(\ell)}\left(\mathbf{a}\right)
+       & = \diag\frac1{\mathbf{K}\mathbf{v}^{(\ell-1)}}
+      - \diag \frac{\mathbf{a}}{\left(\mathbf{K}\mathbf{v}^{(\ell-1)}\right)^2}\cdot\mathbf{K}\cdot
+      D\,\mathbf{v}^{(\ell-1)}\left(\mathbf{a}\right),                                   \\
+      D\,\mathbf{v}^{(\ell)}\left(\mathbf{a}\right)
+       & = - \diag \frac{\mathbf{b}}{\left(\mathbf{K}^\top \mathbf{u}^{(\ell)}\right)^2}
+      \cdot\mathbf{K}^\top \cdot
+      D\,\mathbf{u}^{(\ell)}\left(\mathbf{a}\right).
+    \end{aligned}
+  \end{equation}
+\end{update}
+
+Therefore, for the initialized $D \mathbf{v}^{(0)}\left(\mathbf{u}^{(0)}\right) = \mathbb{0}_{N\times N}$,
+we can compute $D \mathbf{u}^{(\ell)}$ and $D \mathbf{v}^{(\ell)}$ for any $\ell$, including $L$.
+Then we can finally arrive at the formula for the Jacobian
+
+\begin{dmath}
+  D L_{\mathbf{C}}^\varepsilon(\mathbf{a})
+  = D L_{\mathbf{C}}^\varepsilon (\mathbf{P}) \cdot D \mathbf{P}(\mathbf{a})                                  \\
+  = \mathbb{1}_{MN}^\top \diag\vec \left(\mathbf{C} + \varepsilon \log \mathbf{P}\right)
+  \diag\vec \mathbf{P}
+  \left[
+    \left(\mathbb{1}_N\otimes I_M\right) \diag\frac1{\mathbf{u}^{(L)}}\cdot D \mathbf{u}^{(L)}(\mathbf{a}) +
+    \left(I_N\otimes \mathbb{1}_M\right) \diag\frac1{\mathbf{v}^{(L)}}\cdot D \mathbf{v}^{(L)}(\mathbf{a})
+    \right],
+\end{dmath}
+
+and the gradient $\nabla_{\mathbf{a}}L_{\mathbf{C}}^\varepsilon =
+  \Bigl[D L_{\mathbf{C}}^\varepsilon(\mathbf{a})\Bigr]^\top$.
+
+We can combine the Jacobian updates with the Sinkhorn updates in one loop,
+hence without the need to save intermediate Jacobian matrices.
+
+\begin{algorithm}[H]
+  \caption{Vanilla Sinkhorn with Gradient}
+  \begin{algorithmic}[1]\label{algo:vanillia-sinkhorn-with-gradient}
+    \Require $\mathbf{a} \in \Sigma_M$, $\mathbf{b} \in \Sigma_N$, $\mathbf{C} \in \mathbb{R}^{M\times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{u} = \mathbb{1}_M$, $\mathbf{v} = \mathbb{1}_N$,
+    $\mathbf{J_u} = \mathbb{0}_{M\times M}$, $\mathbf{J_v} = \mathbb{0}_{N\times M}$.
+    \State $\mathbf{K} = \exp(-\frac{\mathbf{C}}{\varepsilon})$
+    \While{Not Convergence}
+    \State \# update Ju and u
+    \State $\mathbf{J_u} =
+      \diag\frac1{\mathbf{K} \mathbf{v}} -
+      \diag\frac{\mathbf{a}}{\left(\mathbf{K} \mathbf{v}\right)^2}\cdot\mathbf{K}\cdot\mathbf{J_v}$
+    \State $\mathbf{u} \leftarrow \mathbf{a} \oslash (\mathbf{K} \mathbf{v})$
+    \State \# update Jv and v
+    \State $
+      \mathbf{J_v} =
+      - \diag \frac{\mathbf{b}}{\left(\mathbf{K}^\top \mathbf{u}^{(\ell)}\right)^2}
+      \cdot\mathbf{K}^\top \cdot \mathbf{J_u}
+    $
+    \State $\mathbf{v} \leftarrow \mathbf{b} \oslash (\mathbf{K}^\top \mathbf{u})$
+    \EndWhile
+    \State \# compute Optimal Coupling
+    \State $\mathbf{P} = \diag(\mathbf{u}) \, \mathbf{K} \, \diag(\mathbf{v})$
+    \State \# compute gradient
+    \State $\mathbf{J_P} = \mathbb{1}_{MN}^\top \cdot
+      \diag\vec \left(\mathbf{C} + \varepsilon \log \mathbf{P}\right)$
+    % \State $
+    %   \mathbf{J} =
+    %   \left(\mathbb{1}_N\otimes I_M\right) \diag\frac1{\mathbf{u}}\cdot \mathbf{J_u} +
+    %   \left(I_N \times \mathbb{1}_m\right) \diag\frac1{\mathbf{v}}\cdot \mathbf{J_v}
+    % $
+    % \State $\mathbf{JfJg} = \diag\frac1{\mathbf{u}}\cdot\mathbf{Ju} + \diag\frac1{\mathbf{v}}\cdot\mathbf{Jv}$
+    \State $\mathbf{J_a} = \diag\vec \mathbf{P}\cdot \left[
+        \left(\mathbb{1}_N\otimes I_M\right) \diag\frac1{\mathbf{u}}\cdot \mathbf{J_u} +
+        \left(I_N \times \mathbb{1}_m\right) \diag\frac1{\mathbf{v}}\cdot \mathbf{J_v}
+        \right]$
+    \State $\mathbf{\nabla} = \left(\mathbf{J_P}\cdot\mathbf{J_a}\right)^\top$
+    \Ensure $\mathbf{P}$, $\mathbf{\nabla}$
+  \end{algorithmic}
+\end{algorithm}
+
+% \text{\color{red} check the algo by julia}
+\subsection{Parallel Sinkhorn}
+
+For the Parallel Sinkhorn algorithm, since we have $D$ transport maps being computed at the same time,
+as supposed to the Vanilla Sinkhorn where we only compute one transport map at a time,
+we would have a loss vector of length $D$ instead of a scalar.
+Therefore, without a proper way to aggregate the loss vector into a scalar,
+we cannot derive the gradient of the loss.
+We can, however, derive the Jacobian updating equations for the Parallel Sinkhorn algorithm,
+which is the focus of this subsection.
+With the Jacobians defined recursively, one can easily apply it to gradient computation,
+once the (scalar) loss function is properly defined.
+
+A natural way to introduce an aggregation is to define the Wasserstein barycenter problem,
+% as in ,
+where we can take the weighted sum of the Sinkhorn losses as the loss function for the minimization
+problem.
+But this discussion is deferred to \cref{subsec:frechet-mean-and-wasserstein-barycenter}.
+
+Here, to derive the Jacobian updating equations,
+% In this subsection, I will instead only derive the Jacobian updating equations for the Parallel Sinkhorn algorithm.
+% From \cref{update:parallel-sinkhorn},
+we can take the differentials
+
+\begin{dmath}
+  d\,\vec \mathbf{U}^{(\ell)}
+  = d\, \left[
+    \vec \mathbf{A} \odot \frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}
+    \right]
+  = d\,\vec \mathbf{A}\odot \frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}
+  + \vec \mathbf{A}\odot d\,\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}
+  = \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}\cdot d\, \vec \mathbf{A}
+  - \diag\vec \mathbf{A}\cdot \diag\vec \frac1{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
+  \cdot
+  d\,\vec \left(\mathbf{K}\mathbf{V}^{(\ell-1)}\right)
+  =
+  \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}\cdot d\, \vec \mathbf{A}
+  - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
+  \cdot
+  \left(I_D\otimes \mathbf{K}\right)\cdot
+  d\,\vec\mathbf{V}^{(\ell-1)},
+\end{dmath}
+
+and
+
+\begin{dmath}
+  d\,\vec \mathbf{V}^{(\ell)}
+  =
+  d\, \left[
+    \vec \mathbf{B}\odot \frac1{\vec \left(\mathbf{K}^\top \mathbf{U}^{(\ell)} \right)}
+    \right]
+  =
+  \vec \mathbf{B}\odot d\, \frac1{\vec \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)}
+  =
+  -\diag\vec \mathbf{B}\cdot
+  \diag\vec\frac1{\left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^2}
+  \cdot
+  d\,\vec \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)
+  =
+  -\diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^2}
+  \cdot
+  \left(I_D \otimes \mathbf{K}\right)^\top
+  \cdot
+  d\,\vec \mathbf{U}^{(\ell)}.
+\end{dmath}
+
+Therefore, we obtain the Jacobian updating equations.
+
+\begin{update}[Updating Equations for Jacobians of Parallel Sinkhorn]
+  \begin{equation}
+    \begin{aligned}
+      D\,\mathbf{U}^{(\ell)}(\mathbf{A})
+       & =
+      \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}
+      - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
+      \cdot
+      \left(I_D\otimes \mathbf{K}\right)\cdot
+      D\,\mathbf{V}^{(\ell-1)}(\mathbf{A}), \\
+      D\,\mathbf{V}^{(\ell)}(\mathbf{A})
+       & =
+      -\diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^2}
+      \cdot
+      \left(I_D \otimes \mathbf{K}\right)^\top
+      \cdot
+      D\, \mathbf{U}^{(\ell)}(\mathbf{A}).
+    \end{aligned}
+  \end{equation}
+\end{update}
+
+\begin{algorithm}[H]
+  \caption{Parallel Sinkhorn Algorithm with Jacobians}
+  \begin{algorithmic}[1]\label{algo:parallel-sinkhorn-with-jacobian}
+    \Require $\mathbf{A} \in \Sigma_{M\times D}$, $\mathbf{B}\in \Sigma_{N\times D}$, $\mathbf{C} \in \mathbb{R}^{M\times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{U} = \mathbb{1}_{M \times D}$, $\mathbf{V} = \mathbb{1}_{N \times D}$,
+    $\mathbf{J_U} = \mathbb{0}_{MD \times MD}$, $\mathbf{J_V} = \mathbb{0}_{ND \times MD}$.
+    \State $\mathbf{K} = \exp(-\frac{\mathbf{C}}{\varepsilon})$
+    \While{Not Convergence}
+    % \State \# update U and JU
+    \State $\mathbf{J_U} =
+      \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}\right)}
+      - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}\right)^2}
+      \cdot
+      \left(I_D\otimes \mathbf{K}\right)\cdot
+      \mathbf{J_V}
+    $ \quad \# update JU
+    \State $\mathbf{U} \leftarrow \mathbf{A} \oslash (\mathbf{K} \mathbf{V})$
+    % \State \# update V and JV
+    \State $\mathbf{J_V} =
+      -\diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}\right)^2}
+      \cdot
+      \left(I_D \otimes \mathbf{K}\right)^\top
+      \cdot
+      \mathbf{J_U}
+    $   \qquad\qquad\quad \# update JV
+    \State $\mathbf{V} \leftarrow \mathbf{B} \oslash (\mathbf{K}^\top \mathbf{U})$
+    \EndWhile
+    % \State $\mathbf{P} = diag(\mathbf{u}) \, \mathbf{K} \, diag(\mathbf{v})$
+    \State $\forall d, \mathbf{P}_d = diag(\mathbf{U}_d) \, \mathbf{K} \, diag(\mathbf{V}_d)$
+    \Ensure $\mathbf{P}_d$ for all $d$, $\mathbf{J_U}$, $\mathbf{J_V}$
+  \end{algorithmic}
+\end{algorithm}
+
+
+
+\subsection{Log-Stabilized Sinkhorn}
+
+To derive the gradient of the log-stabilized Sinkhorn algorithm,
+we again use the Chain's rule to compute the Jacobian first as in \cref{eqn:jacobian-loss-wrt-chainrule}.
+We would thus have the same $
+  D\, L_{\mathbf{C}}^\varepsilon(\mathbf{P})
+  = \mathbb{1}_{MN}^\top\cdot \diag\vec \left(\mathbf{C} + \varepsilon \log \mathbf{P}\right)
+$, where $\mathbf{P} = \mathcal{P} \left(\mathbf{f}^{(L)}, \mathbf{g}^{(L)}\right).$
+
+Then all we need is $D\, \mathbf{P}(\mathbf{a})$.
+To get this term, we will take the differential $\mathcal{P}$ defined
+as \cref{eqn:function-P} in \cref{subsec:log-sinkhorn},
+and $\mathbf{f} = \mathbf{f}(\mathbf{a})$ and $\mathbf{g} = \mathbf{g}(\mathbf{a})$,
+
+\begin{equation}
+  \begin{aligned}
+    d\,\vec \mathcal{P} \left(\mathbf{f}, \mathbf{g}\right)
+     & = d\,\vec \exp \left(
+    -\frac{
+      \mathbf{C} - \mathbf{f} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^{\top}
+    }{\varepsilon}
+    \right)                                                            \\
+     & = \diag\vec\mathcal{P} \left(\mathbf{f}, \mathbf{g}\right)\cdot
+    d\, \left[
+      -\frac{
+        \mathbf{C} - \mathbf{f} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^{\top}
+      }{\varepsilon}
+    \right]                                                            \\
+     & = \frac1\varepsilon
+    \diag\vec\mathcal{P} \left(\mathbf{f}, \mathbf{g}\right)\cdot
+    d\,\vec
+    \left(
+    \mathbf{f} \cdot \mathbb{1}_N^\top + \mathbb{1}_M \cdot \mathbf{g}^{\top}
+    \right)                                                            \\
+     & = \frac1\varepsilon
+    \diag\vec\mathcal{P} \left(\mathbf{f}, \mathbf{g}\right)\cdot
+    \Bigr[
+      \left(\mathbb{1}_N\otimes I_M\right) d\, \mathbf{f}
+      +  \left(I_N\otimes \mathbb{1}_M\right) d\, \mathbf{g}
+    \Bigr].                                                            \\
+    %  & = \frac{\exp \left(-\frac{c \left(\mathbf{f}, \mathbf{g}\right)}{\varepsilon}\right)}\varepsilon
+    % \cdot
+    % \diag\vec\mathcal{Q}\left(\mathbf{f}, \mathbf{g}\right)
+    % \cdot
+    % \Bigr[
+    %   \left(\mathbb{1}_N\otimes I_M\right) d\, \mathbf{f}
+    %   +  \left(I_N\otimes \mathbb{1}_M\right) d\, \mathbf{g}
+    %   \Bigr].
+  \end{aligned}
+\end{equation}
+
+Therefore, the Jacobian of $\mathbf{P} = \mathcal{P} \left(\mathbf{f}^{(L)}, \mathbf{g}^{(L)}\right)$ is
+
+\begin{equation}\label{eqn:jacobian-P-wrt-a-intermsof-fg}
+  \begin{aligned}
+    D\, \mathbf{P}(\mathbf{a})
+    %  & =
+    % \frac1\varepsilon
+    % \diag\vec\mathcal{P} \left(\mathbf{f}^{(L)}, \mathbf{g}^{(L)}\right)\cdot
+    % \Bigr[
+    %   \left(\mathbb{1}_N\otimes I_M\right) D\, \mathbf{f}^{(L)}(\mathbf{a})
+    %   +  \left(I_N\otimes \mathbb{1}_M\right) D\, \mathbf{g}^{(L)}(\mathbf{a})
+    % \Bigr] \\
+     & =
+    D\, \mathcal{P}(\mathbf{f}^{(L)}(\mathbf{a}), \mathbf{g}^{(L)}(\mathbf{a})) \\
+     & =
+    \frac1\varepsilon
+    \diag\vec\mathbf{P}\cdot
+    \Bigr[
+      \left(\mathbb{1}_N\otimes I_M\right) D\, \mathbf{f}^{(L)}(\mathbf{a})
+      +  \left(I_N\otimes \mathbb{1}_M\right) D\, \mathbf{g}^{(L)}(\mathbf{a})
+      \Bigr].
+  \end{aligned}
+\end{equation}
+
+
+% Before getting to their differentials, n
+Note that
+for $\mathcal{P}$, $\mathcal{Q}$, and $c$ defined in \cref{eqn:function-P,eqn:function-c-and-Q},
+
+\begin{equation}
+  \begin{aligned}
+    \mathcal{P} \left(\mathbf{f}, \mathbf{g}\right)
+     & = \exp \left(
+    -\frac{
+      \mathbf{C} - \mathbf{f} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^{\top}
+    }{\varepsilon}
+    \right)
+     & =
+    \exp \left(-\frac{c \left(\mathbf{f}, \mathbf{g}\right)}{\varepsilon}\right)
+    % \exp \left(-c \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell)}\right)/\varepsilon\right)
+    \cdot
+    \mathcal{Q}\left(\mathbf{f}, \mathbf{g}\right),
+  \end{aligned}
+\end{equation}
+
+and thus
+
+\begin{equation*}
+  \begin{aligned}
+    \diag\vec \frac1{
+      \mathcal{P}(\mathbf{f}, \mathbf{g})\cdot \mathbb{1}_N
+    }
+     & =
+    \frac{1}{\exp \left(-\frac{c(\mathbf{f}, \mathbf{g})}{\varepsilon}\right)}
+    \cdot
+    \diag\vec \frac1{
+      \mathcal{Q}(\mathbf{f}, \mathbf{g}) \cdot \mathbb{1}_N
+    },   \\
+    \diag\vec \mathcal{P}(\mathbf{f}, \mathbf{g})
+     & =
+    \exp \left(-\frac{c(\mathbf{f}, \mathbf{g})}{\varepsilon}\right) \cdot
+    \diag\vec \mathcal{Q}(\mathbf{f}, \mathbf{g}).
+  \end{aligned}
+\end{equation*}
+
+
+Then we need to differentiate $\mathbf{f}^{(L)}$ and $\mathbf{g}^{(L)}$ to obtain
+$D \mathbf{f}^{(L)}(\mathbf{a})$ and $D \mathbf{g}^{(L)}(\mathbf{a})$
+to obtain the formulae for the computation of $D\, \mathbf{P}(\mathbf{a})$.
+Instead of directly differentiating from \cref{eqn:log-sinkhorn-update},
+we will take the differentials from \cref{eqn:update-fg-by-P},
+as this is equivalent to the form in \cref{eqn:log-sinkhorn-update},
+but without the need for differentiation on the $\min$ function:
+
+\begin{dmath}\label{eqn:differential-of-f-in-log-sinkhorn}
+  d\,\vec \mathbf{f}^{(\ell)}
+  = d\,\mathbf{f}^{(\ell-1)} + \varepsilon d\,\log\mathbf{a}
+  - \varepsilon d\,\vec\log \left[
+    \mathcal{P}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_N
+    \right]
+  = d\,\mathbf{f}^{(\ell-1)} + \varepsilon \diag\frac1{\mathbf{a}}\cdot d\,\mathbf{a}
+  - \varepsilon \diag\vec \frac1{
+    \mathcal{P}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_N
+  }\cdot
+  d\, \vec \left[
+    \mathcal{P}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_N
+    \right]
+  = d\,\mathbf{f}^{(\ell-1)} + \varepsilon \diag\frac1{\mathbf{a}}\cdot d\,\mathbf{a}
+  - \frac{\varepsilon}{
+    \exp \left(-\frac{c \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell)}\right)}{\varepsilon}\right)
+  } \cdot \diag\vec \frac1{
+    \mathcal{Q}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_N
+  }\cdot
+  \left(\mathbb{1}_N^\top \otimes I_M\right) \cdot
+  d\,\vec \mathcal{P}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)
+  =
+  d\,\mathbf{f}^{(\ell-1)} + \varepsilon \diag\frac1{\mathbf{a}}\cdot d\,\mathbf{a}
+  - \diag\vec \frac1{
+    \mathcal{Q}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_N
+  }\cdot
+  \left(\mathbb{1}_N \otimes I_M\right)^\top \cdot
+  \diag\vec\mathcal{Q}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)
+  \cdot
+  \left[
+    \left(\mathbb{1}_N\otimes I_M\right)\cdot d\, \mathbf{f}^{(\ell-1)}
+    +  \left(I_N\otimes \mathbb{1}_M\right)\cdot d\, \mathbf{g}^{(\ell-1)}
+    \right].
+\end{dmath}
+
+Similarly, we can have the differential for $\mathbf{g}^\ell$.
+Note that a commutation matrix\footnote{
+  \url{https://en.wikipedia.org/wiki/Commutation_matrix}
+} $\mathcal{K}^{(M, N)}$ is one such that
+$\mathcal{K}^{(M, N)}\cdot \vec \mathbf{A} = \vec \left(\mathbf{A}^\top\right)$
+for any matrix $\mathbf{A} \in \mathbb{R}^{M \times N}$.
+Then,
+
+\begin{dmath}\label{eqn:differential-of-g-in-log-sinkhorn}
+  d\,\vec\mathbf{g}^{(\ell)}
+  = d \mathbf{g}^{(\ell-1)}
+  - \varepsilon \diag\vec \frac1{
+    \mathcal{P}^\top \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_M
+  }\cdot
+  d\,\vec \left[
+    \mathcal{P}^\top \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_M
+    \right]
+  =
+  d \mathbf{g}^{(\ell-1)}
+  - \varepsilon \diag\vec \frac1{
+    \mathcal{P}^\top \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_M
+  }\cdot
+  d\, \left[
+    \left(\mathbb{1}_M^\top \otimes I_N\right)
+    \cdot
+    \mathcal{K}^{\left(M,N\right)}
+    \cdot
+    \mathcal{P} \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)
+    \right]
+  =
+  d \mathbf{g}^{(\ell-1)}
+  - \varepsilon \diag\vec \frac1{
+    \mathcal{P}^\top \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_M
+  }
+  \cdot
+  \left(\mathbb{1}_M^\top \otimes I_N\right)
+  \cdot
+  \mathcal{K}^{\left(M,N\right)}
+  \cdot
+  d\,\vec \mathcal{P} \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)
+  =
+  d \mathbf{g}^{(\ell-1)}
+  - \frac{\varepsilon}{
+    \exp \left(-\frac{c \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)}{\varepsilon}\right)
+  }
+  \cdot
+  \diag\vec \frac1{
+    \mathcal{Q}^\top\left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_M
+  }
+  \cdot
+  \left(\mathbb{1}_M \otimes I_N\right)^\top
+  \cdot
+  \mathcal{K}^{\left(M,N\right)}
+  \cdot
+  \frac{\exp \left(-\frac{c \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)}{\varepsilon}\right)}\varepsilon
+  \cdot
+  \diag\vec\mathcal{Q}\left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)
+  \cdot
+  \left[
+    \left(\mathbb{1}_N\otimes I_M\right)\cdot d\, \mathbf{f}^{(\ell)}
+    +  \left(I_N\otimes \mathbb{1}_M\right)\cdot d\, \mathbf{g}^{(\ell-1)}
+    \right]
+  =
+  d \mathbf{g}^{(\ell-1)}
+  -
+  \diag\vec \frac1{
+    \mathcal{Q}^\top\left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_M
+  }
+  \cdot
+  \left(\mathbb{1}_M \otimes I_N\right)^\top
+  \cdot
+  \mathcal{K}^{\left(M,N\right)}
+  \cdot
+  \diag\vec\mathcal{Q}\left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)
+  \cdot
+  \left[
+    \left(\mathbb{1}_N\otimes I_M\right)\cdot d\, \mathbf{f}^{(\ell)}
+    +  \left(I_N\otimes \mathbb{1}_M\right)\cdot d\, \mathbf{g}^{(\ell-1)}
+    \right].
+\end{dmath}
+
+Therefore, from \cref{eqn:differential-of-f-in-log-sinkhorn,eqn:differential-of-g-in-log-sinkhorn},
+we have obtained the updating equations for the Jacobians
+with the numerically stable $\mathcal{Q}$ instead of $\mathcal{P}$.
+
+\begin{update}[Updating Equations for Jacobians of Log-Stabilized Sinkhorn]\label{update:jacobian-log-sinkhorn}
+  \begin{dgroup*}
+    \begin{dmath}
+      D\,\mathbf{f}^{(\ell)}(\mathbf{a})
+      =
+      D\,\mathbf{f}^{(\ell-1)} (\mathbf{a})
+      + \varepsilon \diag\frac1{\mathbf{a}}
+      - \diag\vec \frac1{
+        \mathcal{Q}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right) \cdot \mathbb{1}_N
+      }\cdot
+      \left(\mathbb{1}_N\otimes I_M\right)^\top \cdot
+      \diag\vec\mathcal{Q}\left(\mathbf{f}^{(\ell-1)}, \mathbf{g}^{(\ell-1)}\right)
+      \cdot
+      \left[
+        \left(\mathbb{1}_N\otimes I_M\right)\cdot D\, \mathbf{f}^{(\ell-1)}(\mathbf{a})
+        +  \left(I_N\otimes \mathbb{1}_M\right)\cdot D\, \mathbf{g}^{(\ell-1)}(\mathbf{a})
+        \right],
+    \end{dmath}
+    \begin{dmath}
+      D\, \mathbf{g}^{(\ell)}(\mathbf{a})
+      =
+      D\, \mathbf{g}^{(\ell-1)}(\mathbf{a})
+      -
+      \diag\vec \frac1{
+        \mathcal{Q}^\top\left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)\cdot \mathbb{1}_M
+      }
+      \cdot
+      \left(\mathbb{1}_M \otimes I_N\right)^\top
+      \cdot
+      \mathcal{K}^{\left(M,N\right)}
+      \cdot
+      \diag\vec\mathcal{Q}\left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell-1)}\right)
+      \cdot
+      \left[
+        \left(\mathbb{1}_N\otimes I_M\right)\cdot D\, \mathbf{f}^{(\ell)}(\mathbf{a})
+        +  \left(I_N\otimes \mathbb{1}_M\right)\cdot D\, \mathbf{g}^{(\ell-1)}(\mathbf{a})
+        \right].
+    \end{dmath}
+  \end{dgroup*}
+\end{update}
+
+Therefore, from \cref{update:jacobian-log-sinkhorn},
+we could iteratively obtain $D\, \mathbf{f}^{(L)}(\mathbf{a})$ and $D\, \mathbf{g}^{(L)}(\mathbf{a})$.
+And thus obtain $D\, \mathbf{P}(\mathbf{a})$ from \cref{eqn:jacobian-P-wrt-a-intermsof-fg}.
+Then with the Jacobian in \cref{eqn:jacobian-loss-wrt-P},
+we finally have the Jacobian of the loss with respect to argument $\mathbf{a}$,
+and its transpose would be the gradient.
+% With the Jacobian in \cref{eqn:jacobian-loss-wrt-P},
+% we then have the following
+
+% the log-sinkhorn algo with jacobians
+
+\begin{algorithm}[H]
+  \caption{Log-Stabilized Sinkhorn with Gradient}
+  \begin{algorithmic}[1]\label{algo:log-sinkhorn-with-gradient}
+    \Require $\mathbf{a} \in \Sigma_M$, $\mathbf{b} \in \Sigma_N$, $\mathbf{C} \in \mathbb{R}^{M\times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{f} = \mathbb{0}_M$, $\mathbf{g} = \mathbb{0}_N$,
+    $\mathbf{J_f} = \mathbb{0}_{M \times M}$, $\mathbf{J_g} = \mathbb{0}_{N \times M}$.
+    \State $\mathbf{K} = Commutation(M,N)$ \# commutation matrix K
+    \While{Not Convergence}
+    \State \# update f and Jf
+    \State $\mathbf{S} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $c = \min \mathbf{S}$
+    \State $\mathbf{Q} = \exp \left(
+      -\frac{\mathbf{S} - c}{\varepsilon}
+      \right)$
+    \State $\mathbf{J} = \left(\mathbb{1}_N\otimes I_M\right)\cdot \mathbf{J_f} + \left(I_N\otimes \mathbb{1}_M\right)\cdot \mathbf{J_g}$
+    \State $
+      \mathbf{J_f}
+      =
+      \mathbf{J_f}
+      + \varepsilon \diag\frac1{\mathbf{a}}
+      - \diag\vec \frac1{
+        \mathbf{Q} \cdot \mathbb{1}_N
+      }\cdot
+      \left(\mathbb{1}_N \otimes I_M\right)^\top \cdot
+      \diag\vec\mathbf{Q}
+      \cdot
+      \mathbf{J}
+    $
+    \State $\mathbf{f} = \mathbf{f} + \varepsilon\log \mathbf{a} + c
+      - \varepsilon\log \left[
+        \mathbf{Q} \cdot\mathbb{1}_N
+        \right]$
+    \State \# update g and Jg
+    \State $\mathbf{S} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $c = \min \mathbf{S}$
+    \State $\mathbf{Q} = \exp \left(
+      -\frac{\mathbf{S} - c}{\varepsilon}
+      \right)$
+    \State $\mathbf{J} = \left(\mathbb{1}_N\otimes I_M\right)\cdot \mathbf{J_f} +
+      \left(I_N\otimes \mathbb{1}_M\right)\cdot \mathbf{J_g}$
+    \State $
+      \mathbf{J_g} =
+      \mathbf{J_g}
+      -
+      \diag\vec \frac1{
+        \mathbf{Q}^\top \cdot \mathbb{1}_M
+      }
+      \cdot
+      \left(\mathbb{1}_M \otimes I_N\right)^\top
+      \cdot
+      \mathbf{K}
+      \cdot
+      \diag\vec \mathbf{Q}
+      \cdot
+      \mathbf{J}
+    $
+    \State $\mathbf{g} = \mathbf{g} + \varepsilon \log\mathbf{b} + c
+      -\varepsilon\log \left[
+        \mathbf{Q}^\top
+        \cdot \mathbb{1}_M
+        \right]$
+    \EndWhile
+    \State $\mathbf{S} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $\mathbf{P} = \exp \left(-\frac{\mathbf{S}}{\varepsilon}\right)$ \# optimal coupling
+    % \State $\mathbf{J} = \left(\mathbb{1}_N\otimes I_M\right)\cdot \mathbf{J_f} +
+    %   \left(I_N\otimes \mathbb{1}_M\right)\cdot \mathbf{J_g}$
+    \State $\mathbf{J_{P(a)}} = \frac1\varepsilon\cdot \diag\vec \mathbf{P} \cdot \left[
+        \left(\mathbb{1}_N\otimes I_M\right)\cdot \mathbf{J_f} +
+        \left(I_N\otimes \mathbb{1}_M\right)\cdot \mathbf{J_g}
+        \right]$
+    \State $\mathbf{J_{L(P)}} = \mathbb{1}_{MN}^\top\cdot \diag\vec \left(\mathbf{C} + \varepsilon \log \mathbf{P}\right)$
+    \State $\mathbf{\nabla} = \left(\mathbf{J_{L(P)}}\cdot\mathbf{J_{P(a)}}\right)^\top$
+    \Ensure $\mathbf{P}$, $\mathbf{\nabla}$.
+  \end{algorithmic}
+\end{algorithm}

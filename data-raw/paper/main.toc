@@ -1,0 +1,20 @@
+\babel@toc {american}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {section}{\numberline {2}Monge-Kantorovich Problem and Its Entropic Regularization}{3}{section.2}%
+\contentsline {section}{\numberline {3}Sinkhorn Algorithms}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Vanilla Sinkhorn Algorithm}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Parallel Sinkhorn Algorithm}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Log-stabilized Sinkhorn}{8}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Differentiation of Sinkhorn Algorithms}{11}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Vanilla Sinkhorn}{11}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Parallel Sinkhorn}{13}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Log-Stabilized Sinkhorn}{15}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Barycenter and Dictionary}{18}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Fr\'echet Mean and Wasserstein Barycenter}{18}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Wasserstein Dictionary Learning}{20}{subsection.5.2}%
+\contentsline {section}{\numberline {6}WDL}{25}{section.6}%
+\contentsline {section}{\numberline {7}WIG Model}{25}{section.7}%
+\contentsline {section}{\numberline {8}\textbf {\MakeLowercase {wig}} Package}{25}{section.8}%
+\contentsline {section}{References}{26}{section.8}%
+\contentsline {section}{Appendix}{29}{section*.3}%
+\contentsline {subsection}{Mathematical Notations}{29}{section*.4}%

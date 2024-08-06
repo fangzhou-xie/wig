@@ -1,0 +1,1978 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{abadi2016}{inproceedings}{}
+      \name{author}{22}{}{%
+        {{hash=f39ffee58f8a71d84d8b13c05804b2cc}{%
+           family={Abadi},
+           familyi={A\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=08cf514c08137f94d73b590060797f5b}{%
+           family={Barham},
+           familyi={B\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=f756003cc97f5981d94995af3bd6862b}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Jianmin},
+           giveni={J\bibinitperiod}}}%
+        {{hash=c0d10aaf985cebf8d0497e1828f9313f}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Zhifeng},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=a4c859221cc41e2db6d63b486f955ba2}{%
+           family={Davis},
+           familyi={D\bibinitperiod},
+           given={Andy},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4aecfb0cc2e1e3b7899129fa2a94e2b8}{%
+           family={Dean},
+           familyi={D\bibinitperiod},
+           given={Jeffrey},
+           giveni={J\bibinitperiod}}}%
+        {{hash=bd7f88635b51bc5abb3d5a2cab967724}{%
+           family={Devin},
+           familyi={D\bibinitperiod},
+           given={Matthieu},
+           giveni={M\bibinitperiod}}}%
+        {{hash=193bcec5240237591ad8fb697869f013}{%
+           family={Ghemawat},
+           familyi={G\bibinitperiod},
+           given={Sanjay},
+           giveni={S\bibinitperiod}}}%
+        {{hash=edc6964c6549e1839ca94d3d61e03f76}{%
+           family={Irving},
+           familyi={I\bibinitperiod},
+           given={Geoffrey},
+           giveni={G\bibinitperiod}}}%
+        {{hash=3b62e7eedeec9f7a7f7f3c3ec88637f1}{%
+           family={Isard},
+           familyi={I\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=73fc2bbbbbe06838174fc0490ee66f67}{%
+           family={Kudlur},
+           familyi={K\bibinitperiod},
+           given={Manjunath},
+           giveni={M\bibinitperiod}}}%
+        {{hash=a1a07ba9db1e853a9dd9623d81e8f26a}{%
+           family={Levenberg},
+           familyi={L\bibinitperiod},
+           given={Josh},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f34904ef0a6e0864175e4c446f9fcf14}{%
+           family={Monga},
+           familyi={M\bibinitperiod},
+           given={Rajat},
+           giveni={R\bibinitperiod}}}%
+        {{hash=1f07f887fdbaea3ca8281745735256d1}{%
+           family={Moore},
+           familyi={M\bibinitperiod},
+           given={Sherry},
+           giveni={S\bibinitperiod}}}%
+        {{hash=91c405de67034f52914513222226f873}{%
+           family={Murray},
+           familyi={M\bibinitperiod},
+           given={Derek\bibnamedelima G.},
+           giveni={D\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=0a0b028c6b85c46f368317d0c5bfe3a0}{%
+           family={Steiner},
+           familyi={S\bibinitperiod},
+           given={Benoit},
+           giveni={B\bibinitperiod}}}%
+        {{hash=c7360a7ebeba8420b8c7e0eeb0cb81ac}{%
+           family={Tucker},
+           familyi={T\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+        {{hash=bab2011f2b9e7af47ab45308470b9faf}{%
+           family={Vasudevan},
+           familyi={V\bibinitperiod},
+           given={Vijay},
+           giveni={V\bibinitperiod}}}%
+        {{hash=cfc28a19549f0d8ff117cf79be90d213}{%
+           family={Warden},
+           familyi={W\bibinitperiod},
+           given={Pete},
+           giveni={P\bibinitperiod}}}%
+        {{hash=8f71c897f89022a26511a6fbbd6108b6}{%
+           family={Wicke},
+           familyi={W\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+        {{hash=b8e2e9f67019f464cefe5db1c822ffd9}{%
+           family={Yu},
+           familyi={Y\bibinitperiod},
+           given={Yuan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=fdfa73146952ceef0abc202cc397781c}{%
+           family={Zheng},
+           familyi={Z\bibinitperiod},
+           given={Xiaoqiang},
+           giveni={X\bibinitperiod}}}%
+      }
+      \strng{namehash}{1cf6f3c19f4fd018f06a8f6a49bc4394}
+      \strng{fullhash}{afd962ecc3e27c2801c7daba5a061a8b}
+      \strng{bibnamehash}{1cf6f3c19f4fd018f06a8f6a49bc4394}
+      \strng{authorbibnamehash}{1cf6f3c19f4fd018f06a8f6a49bc4394}
+      \strng{authornamehash}{1cf6f3c19f4fd018f06a8f6a49bc4394}
+      \strng{authorfullhash}{afd962ecc3e27c2801c7daba5a061a8b}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{booktitle}{12th {{USENIX Symposium}} on {{Operating Systems Design}} and {{Implementation}} ({{OSDI}} 16)}
+      \field{shorttitle}{{{TensorFlow}}}
+      \field{title}{{{TensorFlow}}: A System for Large-Scale Machine Learning}
+      \field{urlday}{11}
+      \field{urlmonth}{4}
+      \field{urlyear}{2019}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{265\bibrangedash 283}
+      \range{pages}{19}
+      \verb{urlraw}
+      \verb https://www.usenix.org/system/files/conference/osdi16/osdi16-abadi.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.usenix.org/system/files/conference/osdi16/osdi16-abadi.pdf
+      \endverb
+    \endentry
+    \entry{alaya2019}{unpublished}{}
+      \name{author}{4}{}{%
+        {{hash=7a2a5e121bb4488cb2b4cb13b5f3a778}{%
+           family={Alaya},
+           familyi={A\bibinitperiod},
+           given={Mokhtar\bibnamedelima Z.},
+           giveni={M\bibinitperiod\bibinitdelim Z\bibinitperiod}}}%
+        {{hash=d2d0390829b9b407d2dce82b88bdbc8a}{%
+           family={Bérar},
+           familyi={B\bibinitperiod},
+           given={Maxime},
+           giveni={M\bibinitperiod}}}%
+        {{hash=3df237dd778f8aa5baa7b75ddd53b57f}{%
+           family={Gasso},
+           familyi={G\bibinitperiod},
+           given={Gilles},
+           giveni={G\bibinitperiod}}}%
+        {{hash=3648fa225ee2d24112d704656de2279e}{%
+           family={Rakotomamonjy},
+           familyi={R\bibinitperiod},
+           given={Alain},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{9d3ff51818c4d646b700da77a868161a}
+      \strng{fullhash}{d835d293f1899f8284c97e21cdb4e376}
+      \strng{bibnamehash}{9d3ff51818c4d646b700da77a868161a}
+      \strng{authorbibnamehash}{9d3ff51818c4d646b700da77a868161a}
+      \strng{authornamehash}{9d3ff51818c4d646b700da77a868161a}
+      \strng{authorfullhash}{d835d293f1899f8284c97e21cdb4e376}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We introduce in this paper a novel strategy for efficiently approximate the Sinkhorn distance between two discrete measures. After identifying neglectible components of the dual solution of the regularized Sinkhorn problem, we propose to screen those components by directly setting them at that value before entering the Sinkhorn problem. This allows us to solve a smaller Sinkhorn problem while ensuring approximation with provable guarantees. More formally, the approach is based on a reformulation of dual of Sinkhorn divergence problem and on the KKT optimality conditions of this problem, which enable identification of dual components to be screened. This new analysis leads to the Screenkhorn algorithm. We illustrate the efficiency of Screenkhorn on complex tasks such as dimensionality reduction or domain adaptation involving regularized optimal transport.}
+      \field{day}{20}
+      \field{eprintclass}{cs, stat}
+      \field{eprinttype}{arXiv}
+      \field{month}{6}
+      \field{title}{Screening Sinkhorn Algorithm for Regularized Optimal Transport}
+      \field{urlday}{21}
+      \field{urlmonth}{6}
+      \field{urlyear}{2019}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{eprint}
+      \verb 1906.08540
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1906.08540
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1906.08540
+      \endverb
+      \keyw{Computer Science - Machine Learning,Statistics - Machine Learning}
+    \endentry
+    \entry{altschuler2017}{incollection}{}
+      \name{author}{3}{}{%
+        {{hash=9ac4c398f59ef97f12fc9c0442e989fe}{%
+           family={Altschuler},
+           familyi={A\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod}}}%
+        {{hash=beacf890fefa83e76f984b760a49dde1}{%
+           family={Weed},
+           familyi={W\bibinitperiod},
+           given={Jonathan},
+           giveni={J\bibinitperiod}}}%
+        {{hash=0aada1e0dbe5dcee29325403816a4e60}{%
+           family={Rigollet},
+           familyi={R\bibinitperiod},
+           given={Philippe},
+           giveni={P\bibinitperiod}}}%
+      }
+      \name{editor}{7}{}{%
+        {{hash=e7e74de725116358b68a6e890c026145}{%
+           family={Guyon},
+           familyi={G\bibinitperiod},
+           given={I.},
+           giveni={I\bibinitperiod}}}%
+        {{hash=56e73897155d476124481b099f125669}{%
+           family={Luxburg},
+           familyi={L\bibinitperiod},
+           given={U.\bibnamedelimi V.},
+           giveni={U\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+        {{hash=9b411b6c9cefdde16ffea77ecf612142}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1444141e07dd9549dbb4b8530fe4ec15}{%
+           family={Wallach},
+           familyi={W\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+        {{hash=f3857e15544199442f3d4fb2cf6645b4}{%
+           family={Fergus},
+           familyi={F\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+        {{hash=c73f06e2fc98c9b0bf52eb5fdce61943}{%
+           family={Vishwanathan},
+           familyi={V\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=36b98b7ab533936cf1b5716148de704f}{%
+           family={Garnett},
+           familyi={G\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Curran Associates, Inc.}%
+      }
+      \strng{namehash}{74c9baf907adfcd7fa3492ebd41f4331}
+      \strng{fullhash}{74c9baf907adfcd7fa3492ebd41f4331}
+      \strng{bibnamehash}{74c9baf907adfcd7fa3492ebd41f4331}
+      \strng{authorbibnamehash}{74c9baf907adfcd7fa3492ebd41f4331}
+      \strng{authornamehash}{74c9baf907adfcd7fa3492ebd41f4331}
+      \strng{authorfullhash}{74c9baf907adfcd7fa3492ebd41f4331}
+      \strng{editorbibnamehash}{7cffda9a379be8eb9063eee4eb0f58b3}
+      \strng{editornamehash}{7cffda9a379be8eb9063eee4eb0f58b3}
+      \strng{editorfullhash}{d19b63f60b76ff116a8eb515123b5698}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in {{Neural Information Processing Systems}} 30}
+      \field{title}{Near-Linear Time Approximation Algorithms for Optimal Transport via Sinkhorn Iteration}
+      \field{urlday}{5}
+      \field{urlmonth}{2}
+      \field{urlyear}{2019}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1964\bibrangedash 1974}
+      \range{pages}{11}
+      \verb{urlraw}
+      \verb http://papers.nips.cc/paper/6792-near-linear-time-approximation-algorithms-for-optimal-transport-via-sinkhorn-iteration.pdf
+      \endverb
+      \verb{url}
+      \verb http://papers.nips.cc/paper/6792-near-linear-time-approximation-algorithms-for-optimal-transport-via-sinkhorn-iteration.pdf
+      \endverb
+    \endentry
+    \entry{bacharach1970}{book}{}
+      \name{author}{1}{}{%
+        {{hash=caf97135d5f8ebd4874979d3264b2e9e}{%
+           family={Bacharach},
+           familyi={B\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {CUP Archive}%
+      }
+      \strng{namehash}{caf97135d5f8ebd4874979d3264b2e9e}
+      \strng{fullhash}{caf97135d5f8ebd4874979d3264b2e9e}
+      \strng{bibnamehash}{caf97135d5f8ebd4874979d3264b2e9e}
+      \strng{authorbibnamehash}{caf97135d5f8ebd4874979d3264b2e9e}
+      \strng{authornamehash}{caf97135d5f8ebd4874979d3264b2e9e}
+      \strng{authorfullhash}{caf97135d5f8ebd4874979d3264b2e9e}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Study of mathematical analysis and statistical methods of estimating input output changes over time. Bibliography pp. 167 to 170.}
+      \field{day}{2}
+      \field{eprinttype}{googlebooks}
+      \field{isbn}{978-0-521-07594-7}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{pagetotal}{192}
+      \field{title}{Biproportional {{Matrices}} and {{Input-Output Change}}}
+      \field{year}{1970}
+      \field{dateera}{ce}
+      \verb{eprint}
+      \verb jfM8AAAAIAAJ
+      \endverb
+      \keyw{Business & Economics / Econometrics,Business & Economics / Economics / General,Business & Economics / Economics / Macroeconomics}
+    \endentry
+    \entry{benamou2015}{article}{}
+      \name{author}{5}{}{%
+        {{hash=7f3e9ddf472f6a6bf5e139c85c46ca87}{%
+           family={Benamou},
+           familyi={B\bibinitperiod},
+           given={Jean-David},
+           giveni={J\bibinithyphendelim D\bibinitperiod}}}%
+        {{hash=d027dfbe9c99227553491e26498ca2ec}{%
+           family={Carlier},
+           familyi={C\bibinitperiod},
+           given={Guillaume},
+           giveni={G\bibinitperiod}}}%
+        {{hash=a771427291cb72a39e026a68b102335d}{%
+           family={Cuturi},
+           familyi={C\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+        {{hash=5d3b49f9e415c7dafcac99b3998e1dac}{%
+           family={Nenna},
+           familyi={N\bibinitperiod},
+           given={Luca},
+           giveni={L\bibinitperiod}}}%
+        {{hash=8381a1d2d66d734a8454d63ac3344f53}{%
+           family={Peyré},
+           familyi={P\bibinitperiod},
+           given={Gabriel},
+           giveni={G\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Society for Industrial and Applied Mathematics}%
+      }
+      \strng{namehash}{697b1874a8098cf76628fa36c2db5a2a}
+      \strng{fullhash}{8860a4ed1260c6cbdd437b85d2803a89}
+      \strng{bibnamehash}{697b1874a8098cf76628fa36c2db5a2a}
+      \strng{authorbibnamehash}{697b1874a8098cf76628fa36c2db5a2a}
+      \strng{authornamehash}{697b1874a8098cf76628fa36c2db5a2a}
+      \strng{authorfullhash}{8860a4ed1260c6cbdd437b85d2803a89}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This article reviews the use of first order convex optimization schemes to solve the discretized dynamic optimal transport problem, initially proposed by Benamou and Brenier. We develop a staggered grid discretization that is well adapted to the computation of the \$L\textasciicircum 2\$ optimal transport geodesic between distributions defined on a uniform spatial grid. We show how proximal splitting schemes can be used to solve the resulting large scale convex optimization problem. A specific instantiation of this method on a centered grid corresponds to the initial algorithm developed by Benamou and Brenier. We also show how more general cost functions can be taken into account and how to extend the method to perform optimal transport on a Riemannian manifold.}
+      \field{issn}{1064-8275}
+      \field{journaltitle}{SIAM Journal on Scientific Computing}
+      \field{month}{1}
+      \field{number}{2}
+      \field{shortjournal}{SIAM J. Sci. Comput.}
+      \field{title}{Iterative Bregman Projections for Regularized Transportation Problems}
+      \field{urlday}{8}
+      \field{urlmonth}{1}
+      \field{urlyear}{2024}
+      \field{volume}{37}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{A1111\bibrangedash A1138}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1137/141000439
+      \endverb
+      \verb{urlraw}
+      \verb https://epubs.siam.org/doi/abs/10.1137/141000439
+      \endverb
+      \verb{url}
+      \verb https://epubs.siam.org/doi/abs/10.1137/141000439
+      \endverb
+    \endentry
+    \entry{blei2009}{incollection}{}
+      \name{author}{2}{}{%
+        {{hash=108998f0d44d4dce8ccb93e4d78cd5c6}{%
+           family={Blei},
+           familyi={B\bibinitperiod},
+           given={David\bibnamedelima M.},
+           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=06ad0d36b10b63af526c5ab65eb770bd}{%
+           family={Lafferty},
+           familyi={L\bibinitperiod},
+           given={John\bibnamedelima D.},
+           giveni={J\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Chapman and Hall/CRC}%
+      }
+      \strng{namehash}{f737dd1dab011ab0eb5742e88abaf22d}
+      \strng{fullhash}{f737dd1dab011ab0eb5742e88abaf22d}
+      \strng{bibnamehash}{f737dd1dab011ab0eb5742e88abaf22d}
+      \strng{authorbibnamehash}{f737dd1dab011ab0eb5742e88abaf22d}
+      \strng{authornamehash}{f737dd1dab011ab0eb5742e88abaf22d}
+      \strng{authorfullhash}{f737dd1dab011ab0eb5742e88abaf22d}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Scientists need new tools to explore and browse large collections of scholarly literature. Thanks to organizations such as JSTOR, which scan and index the original bound archives of many journals, modern scientists can search digital libraries spanning hundreds of years. A scientist, suddenly faced with access to millions of articles in her field, is not satisfied with simple search. Effectively using such collections requires interacting with them in a more structured way: finding articles similar to those of interest, and exploring the collection through the underlying topics that run through it.}
+      \field{booktitle}{Text {{Mining}}}
+      \field{isbn}{978-0-429-19198-5}
+      \field{pagetotal}{24}
+      \field{title}{Topic {{Models}}}
+      \field{year}{2009}
+      \field{dateera}{ce}
+    \endentry
+    \entry{blei2003}{article}{}
+      \name{author}{3}{}{%
+        {{hash=108998f0d44d4dce8ccb93e4d78cd5c6}{%
+           family={Blei},
+           familyi={B\bibinitperiod},
+           given={David\bibnamedelima M.},
+           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=49e889356ff39df159461bc2895c7e16}{%
+           family={Ng},
+           familyi={N\bibinitperiod},
+           given={Andrew\bibnamedelima Y.},
+           giveni={A\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+        {{hash=8a36116840c7ee55901618c95fd08a58}{%
+           family={Jordan},
+           familyi={J\bibinitperiod},
+           given={Michael\bibnamedelima I.},
+           giveni={M\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+      }
+      \strng{namehash}{ee51b7141ddf1c81ca1f40c31a7ae6be}
+      \strng{fullhash}{ee51b7141ddf1c81ca1f40c31a7ae6be}
+      \strng{bibnamehash}{ee51b7141ddf1c81ca1f40c31a7ae6be}
+      \strng{authorbibnamehash}{ee51b7141ddf1c81ca1f40c31a7ae6be}
+      \strng{authornamehash}{ee51b7141ddf1c81ca1f40c31a7ae6be}
+      \strng{authorfullhash}{ee51b7141ddf1c81ca1f40c31a7ae6be}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{ISSN 1533-7928}
+      \field{issue}{Jan}
+      \field{journaltitle}{Journal of Machine Learning Research}
+      \field{title}{Latent Dirichlet Allocation}
+      \field{urlday}{10}
+      \field{urlmonth}{1}
+      \field{urlyear}{2019}
+      \field{volume}{3}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{993\bibrangedash 1022}
+      \range{pages}{30}
+      \verb{urlraw}
+      \verb http://www.jmlr.org/papers/v3/blei03a.html
+      \endverb
+      \verb{url}
+      \verb http://www.jmlr.org/papers/v3/blei03a.html
+      \endverb
+    \endentry
+    \entry{broyden1970}{article}{}
+      \name{author}{1}{}{%
+        {{hash=4def932e7bc73eb5dfc43abec140b3c0}{%
+           family={Broyden},
+           familyi={B\bibinitperiod},
+           given={C.\bibnamedelimi G.},
+           giveni={C\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{4def932e7bc73eb5dfc43abec140b3c0}
+      \strng{fullhash}{4def932e7bc73eb5dfc43abec140b3c0}
+      \strng{bibnamehash}{4def932e7bc73eb5dfc43abec140b3c0}
+      \strng{authorbibnamehash}{4def932e7bc73eb5dfc43abec140b3c0}
+      \strng{authornamehash}{4def932e7bc73eb5dfc43abec140b3c0}
+      \strng{authorfullhash}{4def932e7bc73eb5dfc43abec140b3c0}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper presents a more detailed analysis of a class of minimization algorithms, which includes as a special case the DFP (Davidon-Fletcher-Powell) method, than has previously appeared. Only quadratic functions are considered but particular attention is paid to the magnitude of successive errors and their dependence upon the initial matrix. On the basis of this a possible explanation of some of the observed characteristics of the class is tentatively suggested.}
+      \field{day}{1}
+      \field{issn}{0272-4960}
+      \field{journaltitle}{IMA Journal of Applied Mathematics}
+      \field{month}{3}
+      \field{number}{1}
+      \field{shortjournal}{IMA Journal of Applied Mathematics}
+      \field{title}{The Convergence of a Class of Double-Rank Minimization Algorithms 1. {{General}} Considerations}
+      \field{urlday}{21}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{volume}{6}
+      \field{year}{1970}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{76\bibrangedash 90}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1093/imamat/6.1.76
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1093/imamat/6.1.76
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1093/imamat/6.1.76
+      \endverb
+    \endentry
+    \entry{cuturi2013}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=a771427291cb72a39e026a68b102335d}{%
+           family={Cuturi},
+           familyi={C\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+      }
+      \name{editor}{5}{}{%
+        {{hash=167dfedfa64097a597226f477da22c44}{%
+           family={Burges},
+           familyi={B\bibinitperiod},
+           given={C.\bibnamedelimi J.\bibnamedelimi C.},
+           giveni={C\bibinitperiod\bibinitdelim J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=bbfb0f3936c83b7b099561e6f0e32ef3}{%
+           family={Bottou},
+           familyi={B\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod}}}%
+        {{hash=064d84a432787740019dc765d9115718}{%
+           family={Welling},
+           familyi={W\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+        {{hash=b8fd0c0f416ef8a8bbb50286418e9df8}{%
+           family={Ghahramani},
+           familyi={G\bibinitperiod},
+           given={Z.},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=ad5ed31dbb8d37755c6cb48bedfdfe1d}{%
+           family={Weinberger},
+           familyi={W\bibinitperiod},
+           given={K.\bibnamedelimi Q.},
+           giveni={K\bibinitperiod\bibinitdelim Q\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Curran Associates, Inc.}%
+      }
+      \strng{namehash}{a771427291cb72a39e026a68b102335d}
+      \strng{fullhash}{a771427291cb72a39e026a68b102335d}
+      \strng{bibnamehash}{a771427291cb72a39e026a68b102335d}
+      \strng{authorbibnamehash}{a771427291cb72a39e026a68b102335d}
+      \strng{authornamehash}{a771427291cb72a39e026a68b102335d}
+      \strng{authorfullhash}{a771427291cb72a39e026a68b102335d}
+      \strng{editorbibnamehash}{d840979c71deecc08b81deb7664852e6}
+      \strng{editornamehash}{d840979c71deecc08b81deb7664852e6}
+      \strng{editorfullhash}{4d5fe782a7c94436755974e2f13259be}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{booktitle}{Advances in {{Neural Information Processing Systems}} 26}
+      \field{shorttitle}{Sinkhorn Distances}
+      \field{title}{Sinkhorn Distances: Lightspeed Computation of Optimal Transport}
+      \field{urlday}{5}
+      \field{urlmonth}{2}
+      \field{urlyear}{2019}
+      \field{year}{2013}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{2292\bibrangedash 2300}
+      \range{pages}{9}
+      \verb{urlraw}
+      \verb http://papers.nips.cc/paper/4927-sinkhorn-distances-lightspeed-computation-of-optimal-transport.pdf
+      \endverb
+      \verb{url}
+      \verb http://papers.nips.cc/paper/4927-sinkhorn-distances-lightspeed-computation-of-optimal-transport.pdf
+      \endverb
+    \endentry
+    \entry{fletcher1970}{article}{}
+      \name{author}{1}{}{%
+        {{hash=97f8f840c3f242a2ae286e30b4dfd9cc}{%
+           family={Fletcher},
+           familyi={F\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{97f8f840c3f242a2ae286e30b4dfd9cc}
+      \strng{fullhash}{97f8f840c3f242a2ae286e30b4dfd9cc}
+      \strng{bibnamehash}{97f8f840c3f242a2ae286e30b4dfd9cc}
+      \strng{authorbibnamehash}{97f8f840c3f242a2ae286e30b4dfd9cc}
+      \strng{authornamehash}{97f8f840c3f242a2ae286e30b4dfd9cc}
+      \strng{authorfullhash}{97f8f840c3f242a2ae286e30b4dfd9cc}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{An approach to variable metric algorithms has been investigated in which the linear search sub-problem no longer becomes necessary. The property of quadratic termination has been replaced by one of monotonic convergence of the eigenvalues of the approximating matrix to the inverse hessian. A convex class of updating formulae which possess this property has been established, and a strategy has been indicated for choosing a member of the class so as to keep the approximation away from both singularity and unboundedness. A FORTRAN program has been tested extensively with encouraging results.}
+      \field{day}{1}
+      \field{issn}{0010-4620}
+      \field{journaltitle}{The Computer Journal}
+      \field{month}{1}
+      \field{number}{3}
+      \field{shortjournal}{The Computer Journal}
+      \field{title}{A New Approach to Variable Metric Algorithms}
+      \field{urlday}{21}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{volume}{13}
+      \field{year}{1970}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{317\bibrangedash 322}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1093/comjnl/13.3.317
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1093/comjnl/13.3.317
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1093/comjnl/13.3.317
+      \endverb
+    \endentry
+    \entry{galichon2016}{book}{}
+      \name{author}{1}{}{%
+        {{hash=33d13b9928a14e05d4a5ce4d6b9ad247}{%
+           family={Galichon},
+           familyi={G\bibinitperiod},
+           given={Alfred},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Princeton University Press}%
+      }
+      \strng{namehash}{33d13b9928a14e05d4a5ce4d6b9ad247}
+      \strng{fullhash}{33d13b9928a14e05d4a5ce4d6b9ad247}
+      \strng{bibnamehash}{33d13b9928a14e05d4a5ce4d6b9ad247}
+      \strng{authorbibnamehash}{33d13b9928a14e05d4a5ce4d6b9ad247}
+      \strng{authornamehash}{33d13b9928a14e05d4a5ce4d6b9ad247}
+      \strng{authorfullhash}{33d13b9928a14e05d4a5ce4d6b9ad247}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Optimal Transport Methods in Economics is the first textbook on the subject written especially for students and researchers in economics. Optimal transport theory is used widely to solve problems in mathematics and some areas of the sciences, but it can also be used to understand a range of problems in applied economics, such as the matching between job seekers and jobs, the determinants of real estate prices, and the formation of matrimonial unions. This is the first text to develop clear applications of optimal transport to economic modeling, statistics, and econometrics. It covers the basic results of the theory as well as their relations to linear programming, network flow problems, convex analysis, and computational geometry. Emphasizing computational methods, it also includes programming examples that provide details on implementation. Applications include discrete choice models, models of differential demand, and quantile-based statistical estimation methods, as well as asset pricing models.Authoritative and accessible, Optimal Transport Methods in Economics also features numerous exercises throughout that help you develop your mathematical agility, deepen your computational skills, and strengthen your economic intuition.The first introduction to the subject written especially for economistsIncludes programming examplesFeatures numerous exercises throughoutIdeal for students and researchers alike}
+      \field{day}{23}
+      \field{eprinttype}{googlebooks}
+      \field{isbn}{978-1-4008-8359-2}
+      \field{langid}{english}
+      \field{month}{8}
+      \field{pagetotal}{185}
+      \field{title}{Optimal Transport Methods in Economics}
+      \field{year}{2016}
+      \field{dateera}{ce}
+      \verb{doi}
+      \verb 10.23943/princeton/9780691172767.001.0001
+      \endverb
+      \verb{eprint}
+      \verb GDP9CwAAQBAJ
+      \endverb
+      \keyw{Business & Economics / Econometrics,Business & Economics / Economics / Microeconomics,Business & Economics / Economics / Theory,Business & Economics / Statistics,Mathematics / Applied}
+    \endentry
+    \entry{goldfarb1970}{article}{}
+      \name{author}{1}{}{%
+        {{hash=5bf0f5ae463d891111f759554ade71fa}{%
+           family={Goldfarb},
+           familyi={G\bibinitperiod},
+           given={Donald},
+           giveni={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{5bf0f5ae463d891111f759554ade71fa}
+      \strng{fullhash}{5bf0f5ae463d891111f759554ade71fa}
+      \strng{bibnamehash}{5bf0f5ae463d891111f759554ade71fa}
+      \strng{authorbibnamehash}{5bf0f5ae463d891111f759554ade71fa}
+      \strng{authornamehash}{5bf0f5ae463d891111f759554ade71fa}
+      \strng{authorfullhash}{5bf0f5ae463d891111f759554ade71fa}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A new rank-two variable-metric method is derived using Greenstadt's variational approach [Math. Comp., this issue]. Like the Davidon-Fletcher-Powell (DFP) variable-metric method, the new method preserves the positive-definiteness of the approximating matrix. Together with Greenstadt's method, the new method gives rise to a one-parameter family of variable-metric methods that includes the DFP and rank-one methods as special cases. It is equivalent to Broyden's one-parameter family [Math. Comp., v. 21, 1967, pp. 368-381]. Choices for the inverse of the weighting matrix in the variational approach are given that lead to the derivation of the DFP and rank-one methods directly.}
+      \field{eprinttype}{jstor}
+      \field{issn}{0025-5718}
+      \field{journaltitle}{Mathematics of Computation}
+      \field{number}{109}
+      \field{title}{A Family of Variable-Metric Methods Derived by Variational Means}
+      \field{urlday}{21}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{volume}{24}
+      \field{year}{1970}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{23\bibrangedash 26}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.2307/2004873
+      \endverb
+      \verb{eprint}
+      \verb 2004873
+      \endverb
+      \verb{urlraw}
+      \verb https://www.jstor.org/stable/2004873
+      \endverb
+      \verb{url}
+      \verb https://www.jstor.org/stable/2004873
+      \endverb
+    \endentry
+    \entry{innes2019}{online}{}
+      \name{author}{1}{}{%
+        {{hash=69c02a169ebe2a2dc8025efb413e9160}{%
+           family={Innes},
+           familyi={I\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{69c02a169ebe2a2dc8025efb413e9160}
+      \strng{fullhash}{69c02a169ebe2a2dc8025efb413e9160}
+      \strng{bibnamehash}{69c02a169ebe2a2dc8025efb413e9160}
+      \strng{authorbibnamehash}{69c02a169ebe2a2dc8025efb413e9160}
+      \strng{authornamehash}{69c02a169ebe2a2dc8025efb413e9160}
+      \strng{authorfullhash}{69c02a169ebe2a2dc8025efb413e9160}
+      \field{sortinit}{I}
+      \field{sortinithash}{8d291c51ee89b6cd86bf5379f0b151d8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{This paper presents reverse-mode algorithmic differentiation (AD) based on source code transformation, in particular of the Static Single Assignment (SSA) form used by modern compilers. The approach can support control flow, nesting, mutation, recursion, data structures, higher-order functions, and other language constructs, and the output is given to an existing compiler to produce highly efficient differentiated code. Our implementation is a new AD tool for the Julia language, called Zygote, which presents high-level dynamic semantics while transparently compiling adjoint code under the hood. We discuss the benefits of this approach to both the usability and performance of AD tools.}
+      \field{day}{9}
+      \field{eprintclass}{cs}
+      \field{eprinttype}{arXiv}
+      \field{month}{3}
+      \field{pubstate}{prepublished}
+      \field{shorttitle}{Don't Unroll Adjoint}
+      \field{title}{Don't Unroll Adjoint: Differentiating {{SSA-form}} Programs}
+      \field{urlday}{27}
+      \field{urlmonth}{7}
+      \field{urlyear}{2022}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1810.07951
+      \endverb
+      \verb{eprint}
+      \verb 1810.07951
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1810.07951
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1810.07951
+      \endverb
+      \keyw{Computer Science - Programming Languages}
+    \endentry
+    \entry{kantorovich1942}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d1d586a42582b918592c721f491e57cd}{%
+           family={Kantorovich},
+           familyi={K\bibinitperiod},
+           given={L.\bibnamedelimi V.},
+           giveni={L\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+      }
+      \strng{namehash}{d1d586a42582b918592c721f491e57cd}
+      \strng{fullhash}{d1d586a42582b918592c721f491e57cd}
+      \strng{bibnamehash}{d1d586a42582b918592c721f491e57cd}
+      \strng{authorbibnamehash}{d1d586a42582b918592c721f491e57cd}
+      \strng{authornamehash}{d1d586a42582b918592c721f491e57cd}
+      \strng{authorfullhash}{d1d586a42582b918592c721f491e57cd}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Dokl. Akad. Nauk. USSR (N.S.)}
+      \field{title}{On the Translocation of Masses}
+      \field{urlday}{8}
+      \field{urlmonth}{12}
+      \field{urlyear}{2021}
+      \field{volume}{37}
+      \field{year}{1942}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{199\bibrangedash 201}
+      \range{pages}{3}
+      \verb{urlraw}
+      \verb https://ci.nii.ac.jp/naid/10025352868/
+      \endverb
+      \verb{url}
+      \verb https://ci.nii.ac.jp/naid/10025352868/
+      \endverb
+    \endentry
+    \entry{karcher2014}{online}{}
+      \name{author}{1}{}{%
+        {{hash=0399dac4812782c27a11c9b7ff80e60e}{%
+           family={Karcher},
+           familyi={K\bibinitperiod},
+           given={Hermann},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{0399dac4812782c27a11c9b7ff80e60e}
+      \strng{fullhash}{0399dac4812782c27a11c9b7ff80e60e}
+      \strng{bibnamehash}{0399dac4812782c27a11c9b7ff80e60e}
+      \strng{authorbibnamehash}{0399dac4812782c27a11c9b7ff80e60e}
+      \strng{authornamehash}{0399dac4812782c27a11c9b7ff80e60e}
+      \strng{authorfullhash}{0399dac4812782c27a11c9b7ff80e60e}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The Riemannian center of mass was constructed in [GrKa] (1973). In [GKR1, GKR2, Gr, Ka, BuKa] (1974-1981) it was successfully applied with more refined estimates. Probably in 1990 someone renamed it without justification into karcher mean and references to the older papers were omitted by those using the new name. As a consequence newcomers started to reprove results from the above papers. - Here I explain the older history.}
+      \field{day}{3}
+      \field{eprintclass}{math}
+      \field{eprinttype}{arXiv}
+      \field{month}{7}
+      \field{pubstate}{prepublished}
+      \field{title}{Riemannian {{Center}} of {{Mass}} and so Called Karcher Mean}
+      \field{urlday}{28}
+      \field{urlmonth}{7}
+      \field{urlyear}{2024}
+      \field{year}{2014}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1407.2087
+      \endverb
+      \verb{eprint}
+      \verb 1407.2087
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1407.2087
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1407.2087
+      \endverb
+      \keyw{53C20 01A60,Mathematics - Differential Geometry,Mathematics - History and Overview}
+    \endentry
+    \entry{kingma2015}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=f6b53f17103e5520f62dbe6f2e1ad6ef}{%
+           family={Kingma},
+           familyi={K\bibinitperiod},
+           given={Diederick\bibnamedelima P},
+           giveni={D\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=8aa66e8231cc2fdbe67aa4f18ca970c6}{%
+           family={Ba},
+           familyi={B\bibinitperiod},
+           given={Jimmy},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{d21884d2b7ac0dbb45865c0e9fca14cd}
+      \strng{fullhash}{d21884d2b7ac0dbb45865c0e9fca14cd}
+      \strng{bibnamehash}{d21884d2b7ac0dbb45865c0e9fca14cd}
+      \strng{authorbibnamehash}{d21884d2b7ac0dbb45865c0e9fca14cd}
+      \strng{authornamehash}{d21884d2b7ac0dbb45865c0e9fca14cd}
+      \strng{authorfullhash}{d21884d2b7ac0dbb45865c0e9fca14cd}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{International {{Conference}} on {{Learning Representations}} ({{ICLR}})}
+      \field{title}{Adam: A Method for Stochastic Optimization}
+      \field{year}{2015}
+      \field{dateera}{ce}
+    \endentry
+    \entry{knight2008}{article}{}
+      \name{author}{1}{}{%
+        {{hash=1fdc4a1fe67cf84d60a2f9142a912a75}{%
+           family={Knight},
+           familyi={K\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{1fdc4a1fe67cf84d60a2f9142a912a75}
+      \strng{fullhash}{1fdc4a1fe67cf84d60a2f9142a912a75}
+      \strng{bibnamehash}{1fdc4a1fe67cf84d60a2f9142a912a75}
+      \strng{authorbibnamehash}{1fdc4a1fe67cf84d60a2f9142a912a75}
+      \strng{authornamehash}{1fdc4a1fe67cf84d60a2f9142a912a75}
+      \strng{authorfullhash}{1fdc4a1fe67cf84d60a2f9142a912a75}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{As long as a square nonnegative matrix A contains sufficient nonzero elements, then the Sinkhorn–Knopp algorithm can be used to balance the matrix, that is, to find a diagonal scaling of A that is doubly stochastic. It is known that the convergence is linear, and an upper bound has been given for the rate of convergence for positive matrices. In this paper we give an explicit expression for the rate of convergence for fully indecomposable matrices. We describe how balancing algorithms can be used to give a measure of web page significance. We compare the measure with some well known alternatives, including PageRank. We show that, with an appropriate modification, the Sinkhorn–Knopp algorithm is a natural candidate for computing the measure on enormous data sets.}
+      \field{day}{1}
+      \field{issn}{0895-4798}
+      \field{journaltitle}{SIAM Journal on Matrix Analysis and Applications}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shortjournal}{SIAM J. Matrix Anal. Appl.}
+      \field{shorttitle}{The {{Sinkhorn}}–{{Knopp Algorithm}}}
+      \field{title}{The Sinkhorn-Knopp Algorithm: Convergence and Applications}
+      \field{urlday}{9}
+      \field{urlmonth}{3}
+      \field{urlyear}{2019}
+      \field{volume}{30}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{261\bibrangedash 275}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1137/060659624
+      \endverb
+      \verb{urlraw}
+      \verb https://epubs.siam.org/doi/abs/10.1137/060659624
+      \endverb
+      \verb{url}
+      \verb https://epubs.siam.org/doi/abs/10.1137/060659624
+      \endverb
+    \endentry
+    \entry{leal2018}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=d41847ee89e57b72d0a2e472a52cf9dc}{%
+           family={Leal},
+           familyi={L\bibinitperiod},
+           given={Allan\bibnamedelimb M.\bibnamedelimi M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{d41847ee89e57b72d0a2e472a52cf9dc}
+      \strng{fullhash}{d41847ee89e57b72d0a2e472a52cf9dc}
+      \strng{bibnamehash}{d41847ee89e57b72d0a2e472a52cf9dc}
+      \strng{authorbibnamehash}{d41847ee89e57b72d0a2e472a52cf9dc}
+      \strng{authornamehash}{d41847ee89e57b72d0a2e472a52cf9dc}
+      \strng{authorfullhash}{d41847ee89e57b72d0a2e472a52cf9dc}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{{\url{https://autodiff.github.io}}}
+      \field{title}{Autodiff, a Modern, Fast and Expressive {{C}}++ Library for Automatic Differentiation}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \verb{urlraw}
+      \verb https://autodiff.github.io
+      \endverb
+      \verb{url}
+      \verb https://autodiff.github.io
+      \endverb
+    \endentry
+    \entry{leonard2013}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=0becf7ca3b828ec2b704ea221198fad0}{%
+           family={Léonard},
+           familyi={L\bibinitperiod},
+           given={Christian},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{0becf7ca3b828ec2b704ea221198fad0}
+      \strng{fullhash}{0becf7ca3b828ec2b704ea221198fad0}
+      \strng{bibnamehash}{0becf7ca3b828ec2b704ea221198fad0}
+      \strng{authorbibnamehash}{0becf7ca3b828ec2b704ea221198fad0}
+      \strng{authornamehash}{0becf7ca3b828ec2b704ea221198fad0}
+      \strng{authorfullhash}{0becf7ca3b828ec2b704ea221198fad0}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This article is aimed at presenting the Schr\textbackslash "odinger problem and some of its connections with optimal transport. We hope that it can be used as a basic user's guide to Schr\textbackslash "odinger problem. We also give a survey of the related literature. In addition, some new results are proved.}
+      \field{day}{1}
+      \field{eprintclass}{math}
+      \field{eprinttype}{arXiv}
+      \field{month}{8}
+      \field{title}{A Survey of the Schr\textbackslash "odinger Problem and Some of Its Connections with Optimal Transport}
+      \field{urlday}{12}
+      \field{urlmonth}{2}
+      \field{urlyear}{2019}
+      \field{year}{2013}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{eprint}
+      \verb 1308.0215
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1308.0215
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1308.0215
+      \endverb
+      \keyw{Mathematics - Functional Analysis,Mathematics - Optimization and Control,Mathematics - Probability}
+    \endentry
+    \entry{liu1989}{article}{}
+      \name{author}{2}{}{%
+        {{hash=3773c3d5aaf3636d59b5d646468683ae}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Dong\bibnamedelima C.},
+           giveni={D\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=88a342d927bf795b0d92af8a5613da31}{%
+           family={Nocedal},
+           familyi={N\bibinitperiod},
+           given={Jorge},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{016da99314d2fb9b907bb0a91cc52ecd}
+      \strng{fullhash}{016da99314d2fb9b907bb0a91cc52ecd}
+      \strng{bibnamehash}{016da99314d2fb9b907bb0a91cc52ecd}
+      \strng{authorbibnamehash}{016da99314d2fb9b907bb0a91cc52ecd}
+      \strng{authornamehash}{016da99314d2fb9b907bb0a91cc52ecd}
+      \strng{authorfullhash}{016da99314d2fb9b907bb0a91cc52ecd}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We study the numerical performance of a limited memory quasi-Newton method for large scale optimization, which we call the L-BFGS method. We compare its performance with that of the method developed by Buckley and LeNir (1985), which combines cycles of BFGS steps and conjugate direction steps. Our numerical tests indicate that the L-BFGS method is faster than the method of Buckley and LeNir, and is better able to use additional storage to accelerate convergence. We show that the L-BFGS method can be greatly accelerated by means of a simple scaling. We then compare the L-BFGS method with the partitioned quasi-Newton method of Griewank and Toint (1982a). The results show that, for some problems, the partitioned quasi-Newton method is clearly superior to the L-BFGS method. However we find that for other problems the L-BFGS method is very competitive due to its low iteration cost. We also study the convergence properties of the L-BFGS method, and prove global convergence on uniformly convex problems.}
+      \field{day}{1}
+      \field{issn}{1436-4646}
+      \field{journaltitle}{Mathematical Programming}
+      \field{langid}{english}
+      \field{month}{8}
+      \field{number}{1}
+      \field{shortjournal}{Mathematical Programming}
+      \field{title}{On the Limited Memory {{BFGS}} Method for Large Scale Optimization}
+      \field{urlday}{21}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{volume}{45}
+      \field{year}{1989}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{503\bibrangedash 528}
+      \range{pages}{26}
+      \verb{doi}
+      \verb 10.1007/BF01589116
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/BF01589116
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/BF01589116
+      \endverb
+      \keyw{conjugate gradient method,Large scale nonlinear optimization,limited memory methods,partitioned quasi-Newton method}
+    \endentry
+    \entry{loshchilov2019}{online}{}
+      \name{author}{2}{}{%
+        {{hash=1241b8181104f1917578d4c7f9b323b6}{%
+           family={Loshchilov},
+           familyi={L\bibinitperiod},
+           given={Ilya},
+           giveni={I\bibinitperiod}}}%
+        {{hash=528d4af87fd2ecf5fb8a22db913ce088}{%
+           family={Hutter},
+           familyi={H\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{b308ccb07134a06ec3735828ac4f15e2}
+      \strng{fullhash}{b308ccb07134a06ec3735828ac4f15e2}
+      \strng{bibnamehash}{b308ccb07134a06ec3735828ac4f15e2}
+      \strng{authorbibnamehash}{b308ccb07134a06ec3735828ac4f15e2}
+      \strng{authornamehash}{b308ccb07134a06ec3735828ac4f15e2}
+      \strng{authorfullhash}{b308ccb07134a06ec3735828ac4f15e2}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{L\$\_2\$ regularization and weight decay regularization are equivalent for standard stochastic gradient descent (when rescaled by the learning rate), but as we demonstrate this is \textbackslash emph\{not\} the case for adaptive gradient algorithms, such as Adam. While common implementations of these algorithms employ L\$\_2\$ regularization (often calling it "weight decay" in what may be misleading due to the inequivalence we expose), we propose a simple modification to recover the original formulation of weight decay regularization by \textbackslash emph\{decoupling\} the weight decay from the optimization steps taken w.r.t. the loss function. We provide empirical evidence that our proposed modification (i) decouples the optimal choice of weight decay factor from the setting of the learning rate for both standard SGD and Adam and (ii) substantially improves Adam's generalization performance, allowing it to compete with SGD with momentum on image classification datasets (on which it was previously typically outperformed by the latter). Our proposed decoupled weight decay has already been adopted by many researchers, and the community has implemented it in TensorFlow and PyTorch; the complete source code for our experiments is available at https://github.com/loshchil/AdamW-and-SGDW}
+      \field{day}{4}
+      \field{eprintclass}{cs, math}
+      \field{eprinttype}{arXiv}
+      \field{month}{1}
+      \field{pubstate}{prepublished}
+      \field{title}{Decoupled {{Weight Decay Regularization}}}
+      \field{urlday}{1}
+      \field{urlmonth}{8}
+      \field{urlyear}{2024}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.1711.05101
+      \endverb
+      \verb{eprint}
+      \verb 1711.05101
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/1711.05101
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/1711.05101
+      \endverb
+      \keyw{Computer Science - Machine Learning,Computer Science - Neural and Evolutionary Computing,Mathematics - Optimization and Control}
+    \endentry
+    \entry{modin2024}{online}{}
+      \name{author}{1}{}{%
+        {{hash=0f0f7410e34ed916fe0ecb6959ccb404}{%
+           family={Modin},
+           familyi={M\bibinitperiod},
+           given={Klas},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{0f0f7410e34ed916fe0ecb6959ccb404}
+      \strng{fullhash}{0f0f7410e34ed916fe0ecb6959ccb404}
+      \strng{bibnamehash}{0f0f7410e34ed916fe0ecb6959ccb404}
+      \strng{authorbibnamehash}{0f0f7410e34ed916fe0ecb6959ccb404}
+      \strng{authornamehash}{0f0f7410e34ed916fe0ecb6959ccb404}
+      \strng{authorfullhash}{0f0f7410e34ed916fe0ecb6959ccb404}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The Sinkhorn algorithm is a numerical method for the solution of optimal transport problems. Here, I give a brief survey of this algorithm, with a strong emphasis on its geometric origin: it is natural to view it as a discretization, by standard methods, of a non-linear integral equation. In the appendix, I also provide a short summary of an early result of Beurling on product measures, directly related to the Sinkhorn algorithm.}
+      \field{day}{24}
+      \field{eprintclass}{cs, math}
+      \field{eprinttype}{arXiv}
+      \field{month}{1}
+      \field{pubstate}{prepublished}
+      \field{title}{On the Geometry and Dynamical Formulation of the {{Sinkhorn}} Algorithm for Optimal Transport}
+      \field{urlday}{3}
+      \field{urlmonth}{8}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.48550/arXiv.2309.09089
+      \endverb
+      \verb{eprint}
+      \verb 2309.09089
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2309.09089
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2309.09089
+      \endverb
+      \keyw{49Q22 35Q49 37K65 65R20,Mathematics - Differential Geometry,Mathematics - Numerical Analysis}
+    \endentry
+    \entry{monge1781}{article}{}
+      \name{author}{1}{}{%
+        {{hash=06f4f3a66ade015a1425e64f9c2d1cbb}{%
+           family={Monge},
+           familyi={M\bibinitperiod},
+           given={Gaspard},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{06f4f3a66ade015a1425e64f9c2d1cbb}
+      \strng{fullhash}{06f4f3a66ade015a1425e64f9c2d1cbb}
+      \strng{bibnamehash}{06f4f3a66ade015a1425e64f9c2d1cbb}
+      \strng{authorbibnamehash}{06f4f3a66ade015a1425e64f9c2d1cbb}
+      \strng{authornamehash}{06f4f3a66ade015a1425e64f9c2d1cbb}
+      \strng{authorfullhash}{06f4f3a66ade015a1425e64f9c2d1cbb}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Histoire de l'Academie Royale des Sciences de Paris}
+      \field{title}{Memoire Sur La Theorie Des Deblais et Des Remblais}
+      \field{urlday}{22}
+      \field{urlmonth}{11}
+      \field{urlyear}{2021}
+      \field{year}{1781}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://ci.nii.ac.jp/naid/10018386702/
+      \endverb
+      \verb{url}
+      \verb https://ci.nii.ac.jp/naid/10018386702/
+      \endverb
+    \endentry
+    \entry{nocedal2006}{book}{}
+      \name{author}{2}{}{%
+        {{hash=88a342d927bf795b0d92af8a5613da31}{%
+           family={Nocedal},
+           familyi={N\bibinitperiod},
+           given={Jorge},
+           giveni={J\bibinitperiod}}}%
+        {{hash=7763509f7c4b10ac0b0770c30259cb1d}{%
+           family={Wright},
+           familyi={W\bibinitperiod},
+           given={Stephen},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{ce7f3d831c22b27fad5b1d2afbe4ec28}
+      \strng{fullhash}{ce7f3d831c22b27fad5b1d2afbe4ec28}
+      \strng{bibnamehash}{ce7f3d831c22b27fad5b1d2afbe4ec28}
+      \strng{authorbibnamehash}{ce7f3d831c22b27fad5b1d2afbe4ec28}
+      \strng{authornamehash}{ce7f3d831c22b27fad5b1d2afbe4ec28}
+      \strng{authorfullhash}{ce7f3d831c22b27fad5b1d2afbe4ec28}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Optimization is an important tool used in decision science and for the analysis of physical systems used in engineering. One can trace its roots to the Calculus of Variations and the work of Euler and Lagrange. This natural and reasonable approach to mathematical programming covers numerical methods for finite-dimensional optimization problems. It begins with very simple ideas progressing through more complicated concepts, concentrating on methods for both unconstrained and constrained optimization.}
+      \field{day}{27}
+      \field{edition}{2nd edition}
+      \field{isbn}{978-0-387-30303-1}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{pagetotal}{686}
+      \field{title}{Numerical Optimization}
+      \field{year}{2006}
+      \field{dateera}{ce}
+    \endentry
+    \entry{paszke2017}{inproceedings}{}
+      \name{author}{10}{}{%
+        {{hash=56bf0b340039cf8594436a624ff548a9}{%
+           family={Paszke},
+           familyi={P\bibinitperiod},
+           given={Adam},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4ba5062e5919c814aceec188d54c01f2}{%
+           family={Gross},
+           familyi={G\bibinitperiod},
+           given={Sam},
+           giveni={S\bibinitperiod}}}%
+        {{hash=8ef51a0906e47d2b4472c4e714ed598f}{%
+           family={Chintala},
+           familyi={C\bibinitperiod},
+           given={Soumith},
+           giveni={S\bibinitperiod}}}%
+        {{hash=f897ed422c34d95af2e22778dfc2607e}{%
+           family={Chanan},
+           familyi={C\bibinitperiod},
+           given={Gregory},
+           giveni={G\bibinitperiod}}}%
+        {{hash=b9e701339e56fd0b171145b08288a1b7}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Edward},
+           giveni={E\bibinitperiod}}}%
+        {{hash=3f9535be511fd2fa346093e63b8e61a0}{%
+           family={DeVito},
+           familyi={D\bibinitperiod},
+           given={Zachary},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=c40352c194e60a3ef458ee7e8685afb5}{%
+           family={Lin},
+           familyi={L\bibinitperiod},
+           given={Zeming},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=954cf7680b6ce14813973eccdca3c4bc}{%
+           family={Desmaison},
+           familyi={D\bibinitperiod},
+           given={Alban},
+           giveni={A\bibinitperiod}}}%
+        {{hash=f65a80959d520337ae99a0798515036c}{%
+           family={Antiga},
+           familyi={A\bibinitperiod},
+           given={Luca},
+           giveni={L\bibinitperiod}}}%
+        {{hash=b5815e1692fa2d0c1f44eecf509bd7c4}{%
+           family={Lerer},
+           familyi={L\bibinitperiod},
+           given={Adam},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{724e74fc18651eb78eb82fbcd1d9dfb1}
+      \strng{fullhash}{8e924960ee7482ab2452016228f53660}
+      \strng{bibnamehash}{724e74fc18651eb78eb82fbcd1d9dfb1}
+      \strng{authorbibnamehash}{724e74fc18651eb78eb82fbcd1d9dfb1}
+      \strng{authornamehash}{724e74fc18651eb78eb82fbcd1d9dfb1}
+      \strng{authorfullhash}{8e924960ee7482ab2452016228f53660}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{{{NIPS-W}}}
+      \field{title}{Automatic Differentiation in {{PyTorch}}}
+      \field{year}{2017}
+      \field{dateera}{ce}
+    \endentry
+    \entry{peyre2019}{article}{}
+      \name{author}{2}{}{%
+        {{hash=8381a1d2d66d734a8454d63ac3344f53}{%
+           family={Peyré},
+           familyi={P\bibinitperiod},
+           given={Gabriel},
+           giveni={G\bibinitperiod}}}%
+        {{hash=a771427291cb72a39e026a68b102335d}{%
+           family={Cuturi},
+           familyi={C\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Now Publishers, Inc.}%
+      }
+      \strng{namehash}{031f81e8cc543b25b04a1a69bce7d466}
+      \strng{fullhash}{031f81e8cc543b25b04a1a69bce7d466}
+      \strng{bibnamehash}{031f81e8cc543b25b04a1a69bce7d466}
+      \strng{authorbibnamehash}{031f81e8cc543b25b04a1a69bce7d466}
+      \strng{authornamehash}{031f81e8cc543b25b04a1a69bce7d466}
+      \strng{authorfullhash}{031f81e8cc543b25b04a1a69bce7d466}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Computational Optimal Transport: With Applications to Data Science}
+      \field{day}{11}
+      \field{issn}{1935-8237, 1935-8245}
+      \field{journaltitle}{Foundations and Trends® in Machine Learning}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{number}{5-6}
+      \field{shortjournal}{MAL}
+      \field{shorttitle}{Computational {{Optimal Transport}}}
+      \field{title}{Computational {{Optimal Transport}}: {{With Applications}} to {{Data Science}}}
+      \field{urlday}{29}
+      \field{urlmonth}{7}
+      \field{urlyear}{2024}
+      \field{volume}{11}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{355\bibrangedash 607}
+      \range{pages}{253}
+      \verb{doi}
+      \verb 10.1561/2200000073
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nowpublishers.com/article/Details/MAL-073
+      \endverb
+      \verb{url}
+      \verb https://www.nowpublishers.com/article/Details/MAL-073
+      \endverb
+    \endentry
+    \entry{santambrogio2015a}{book}{}
+      \name{author}{1}{}{%
+        {{hash=deb5f5e08d40c7c61a19403771acf3c3}{%
+           family={Santambrogio},
+           familyi={S\bibinitperiod},
+           given={Filippo},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Birkhäuser}%
+      }
+      \strng{namehash}{deb5f5e08d40c7c61a19403771acf3c3}
+      \strng{fullhash}{deb5f5e08d40c7c61a19403771acf3c3}
+      \strng{bibnamehash}{deb5f5e08d40c7c61a19403771acf3c3}
+      \strng{authorbibnamehash}{deb5f5e08d40c7c61a19403771acf3c3}
+      \strng{authornamehash}{deb5f5e08d40c7c61a19403771acf3c3}
+      \strng{authorfullhash}{deb5f5e08d40c7c61a19403771acf3c3}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{This monograph presents a rigorous mathematical introduction to optimal transport as a variational problem, its use in modeling various phenomena, and its connections with partial differential equations. Its main goal is to provide the reader with the techniques necessary to understand the current research in optimal transport and the tools which are most useful for its applications. Full proofs are used to illustrate mathematical concepts and each chapter includes a section that discusses applications of optimal transport to various areas, such as economics, finance, potential games, image processing and fluid dynamics. Several topics are covered that have never been previously in books on this subject, such as the Knothe transport, the properties of functionals on measures, the Dacorogna-Moser flow, the formulation through minimal flows with prescribed divergence formulation, the case of the supremal cost, and the most classical numerical methods. Graduate students and researchers in both pure and applied mathematics interested in the problems and applications of optimal transport will find this to be an invaluable resource.}
+      \field{day}{17}
+      \field{eprinttype}{googlebooks}
+      \field{isbn}{978-3-319-20828-2}
+      \field{langid}{english}
+      \field{month}{10}
+      \field{pagetotal}{376}
+      \field{shorttitle}{Optimal Transport for Applied Mathematicians}
+      \field{title}{Optimal Transport for Applied Mathematicians: Calculus of Variations, {{PDEs}}, and Modeling}
+      \field{year}{2015}
+      \field{dateera}{ce}
+      \verb{eprint}
+      \verb UOHHCgAAQBAJ
+      \endverb
+      \keyw{Mathematics / Calculus,Mathematics / Differential Equations / General,Mathematics / Functional Analysis,Mathematics / General,Mathematics / Mathematical Analysis}
+    \endentry
+    \entry{schmitz2018}{article}{}
+      \name{author}{8}{}{%
+        {{hash=3bf5afa95149f5600bb499e46927e0ee}{%
+           family={Schmitz},
+           familyi={S\bibinitperiod},
+           given={Morgan\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=3bb80559841b1a76ca2d4abe84b99aa9}{%
+           family={Heitz},
+           familyi={H\bibinitperiod},
+           given={Matthieu},
+           giveni={M\bibinitperiod}}}%
+        {{hash=456294a520915dcd804df006080ed7a8}{%
+           family={Bonneel},
+           familyi={B\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=4301102733c8416f56af71336ff0f026}{%
+           family={Ngolè},
+           familyi={N\bibinitperiod},
+           given={Fred},
+           giveni={F\bibinitperiod}}}%
+        {{hash=836cdd3e703711311e2c2c3ed5f8c589}{%
+           family={Coeurjolly},
+           familyi={C\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+        {{hash=a771427291cb72a39e026a68b102335d}{%
+           family={Cuturi},
+           familyi={C\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod}}}%
+        {{hash=8381a1d2d66d734a8454d63ac3344f53}{%
+           family={Peyré},
+           familyi={P\bibinitperiod},
+           given={Gabriel},
+           giveni={G\bibinitperiod}}}%
+        {{hash=f7a6cd52269e5c2a62c051d60c0f9db4}{%
+           family={Starck},
+           familyi={S\bibinitperiod},
+           given={Jean-Luc},
+           giveni={J\bibinithyphendelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{ffd342a03b65a9936d2cd19ff6569ccb}
+      \strng{fullhash}{313489c2991d49e97f15665303518ae9}
+      \strng{bibnamehash}{ffd342a03b65a9936d2cd19ff6569ccb}
+      \strng{authorbibnamehash}{ffd342a03b65a9936d2cd19ff6569ccb}
+      \strng{authornamehash}{ffd342a03b65a9936d2cd19ff6569ccb}
+      \strng{authorfullhash}{313489c2991d49e97f15665303518ae9}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{issn}{1936-4954}
+      \field{journaltitle}{SIAM Journal on Imaging Sciences}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shortjournal}{SIAM J. Imaging Sci.}
+      \field{shorttitle}{Wasserstein Dictionary Learning}
+      \field{title}{Wasserstein Dictionary Learning: Optimal Transport-Based Unsupervised Nonlinear Dictionary Learning}
+      \field{urlday}{15}
+      \field{urlmonth}{7}
+      \field{urlyear}{2019}
+      \field{volume}{11}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{643\bibrangedash 678}
+      \range{pages}{36}
+      \verb{doi}
+      \verb 10.1137/17M1140431
+      \endverb
+      \verb{urlraw}
+      \verb https://epubs.siam.org/doi/10.1137/17M1140431
+      \endverb
+      \verb{url}
+      \verb https://epubs.siam.org/doi/10.1137/17M1140431
+      \endverb
+    \endentry
+    \entry{schrodinger1931}{book}{}
+      \name{author}{1}{}{%
+        {{hash=d8dd71fe9dafefe942ea59295dee0ec4}{%
+           family={Schrödinger},
+           familyi={S\bibinitperiod},
+           given={Erwin},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Verlag der Akademie der Wissenschaften in Kommission bei Walter De Gruyter u~…}%
+      }
+      \strng{namehash}{d8dd71fe9dafefe942ea59295dee0ec4}
+      \strng{fullhash}{d8dd71fe9dafefe942ea59295dee0ec4}
+      \strng{bibnamehash}{d8dd71fe9dafefe942ea59295dee0ec4}
+      \strng{authorbibnamehash}{d8dd71fe9dafefe942ea59295dee0ec4}
+      \strng{authornamehash}{d8dd71fe9dafefe942ea59295dee0ec4}
+      \strng{authorfullhash}{d8dd71fe9dafefe942ea59295dee0ec4}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Über Die Umkehrung Der Naturgesetze}
+      \field{year}{1931}
+      \field{dateera}{ce}
+    \endentry
+    \entry{shanno1970}{article}{}
+      \name{author}{1}{}{%
+        {{hash=d7fe0371d0b85929954b446f717f77d1}{%
+           family={Shanno},
+           familyi={S\bibinitperiod},
+           given={D.\bibnamedelimi F.},
+           giveni={D\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{d7fe0371d0b85929954b446f717f77d1}
+      \strng{fullhash}{d7fe0371d0b85929954b446f717f77d1}
+      \strng{bibnamehash}{d7fe0371d0b85929954b446f717f77d1}
+      \strng{authorbibnamehash}{d7fe0371d0b85929954b446f717f77d1}
+      \strng{authornamehash}{d7fe0371d0b85929954b446f717f77d1}
+      \strng{authorfullhash}{d7fe0371d0b85929954b446f717f77d1}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Advancing research. Creating connections.}
+      \field{issn}{0025-5718, 1088-6842}
+      \field{journaltitle}{Mathematics of Computation}
+      \field{langid}{english}
+      \field{number}{111}
+      \field{shortjournal}{Math. Comp.}
+      \field{title}{Conditioning of Quasi-Newton Methods for Function Minimization}
+      \field{urlday}{21}
+      \field{urlmonth}{8}
+      \field{urlyear}{2023}
+      \field{volume}{24}
+      \field{year}{1970}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{647\bibrangedash 656}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1090/S0025-5718-1970-0274029-X
+      \endverb
+      \verb{urlraw}
+      \verb https://www.ams.org/mcom/1970-24-111/S0025-5718-1970-0274029-X/
+      \endverb
+      \verb{url}
+      \verb https://www.ams.org/mcom/1970-24-111/S0025-5718-1970-0274029-X/
+      \endverb
+      \keyw{conditioning of search methods,Function minimization,gradient search,Hessian matrix,inverse approximations,quasi-Newton methods,stability of search methods,steepest-descent methods,variable metric methods}
+    \endentry
+    \entry{sinkhorn1964}{article}{}
+      \name{author}{1}{}{%
+        {{hash=e9006b0c61de2504bd7d3a85af194be9}{%
+           family={Sinkhorn},
+           familyi={S\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Institute of Mathematical Statistics}%
+      }
+      \strng{namehash}{e9006b0c61de2504bd7d3a85af194be9}
+      \strng{fullhash}{e9006b0c61de2504bd7d3a85af194be9}
+      \strng{bibnamehash}{e9006b0c61de2504bd7d3a85af194be9}
+      \strng{authorbibnamehash}{e9006b0c61de2504bd7d3a85af194be9}
+      \strng{authornamehash}{e9006b0c61de2504bd7d3a85af194be9}
+      \strng{authorfullhash}{e9006b0c61de2504bd7d3a85af194be9}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The Annals of Mathematical Statistics}
+      \field{issn}{0003-4851, 2168-8990}
+      \field{journaltitle}{The Annals of Mathematical Statistics}
+      \field{month}{6}
+      \field{number}{2}
+      \field{title}{A {{Relationship Between Arbitrary Positive Matrices}} and {{Doubly Stochastic Matrices}}}
+      \field{urlday}{3}
+      \field{urlmonth}{8}
+      \field{urlyear}{2024}
+      \field{volume}{35}
+      \field{year}{1964}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{876\bibrangedash 879}
+      \range{pages}{4}
+      \verb{doi}
+      \verb 10.1214/aoms/1177703591
+      \endverb
+      \verb{urlraw}
+      \verb https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-35/issue-2/A-Relationship-Between-Arbitrary-Positive-Matrices-and-Doubly-Stochastic-Matrices/10.1214/aoms/1177703591.full
+      \endverb
+      \verb{url}
+      \verb https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-35/issue-2/A-Relationship-Between-Arbitrary-Positive-Matrices-and-Doubly-Stochastic-Matrices/10.1214/aoms/1177703591.full
+      \endverb
+    \endentry
+    \entry{sinkhorn1967}{article}{}
+      \name{author}{2}{}{%
+        {{hash=e9006b0c61de2504bd7d3a85af194be9}{%
+           family={Sinkhorn},
+           familyi={S\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+        {{hash=0850a1dc12ddc216cc475b940de98e05}{%
+           family={Knopp},
+           familyi={K\bibinitperiod},
+           given={Paul},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Mathematical Sciences Publishers}%
+      }
+      \strng{namehash}{2b13515ad4051fbbb61ce840e8c2b5bf}
+      \strng{fullhash}{2b13515ad4051fbbb61ce840e8c2b5bf}
+      \strng{bibnamehash}{2b13515ad4051fbbb61ce840e8c2b5bf}
+      \strng{authorbibnamehash}{2b13515ad4051fbbb61ce840e8c2b5bf}
+      \strng{authornamehash}{2b13515ad4051fbbb61ce840e8c2b5bf}
+      \strng{authorfullhash}{2b13515ad4051fbbb61ce840e8c2b5bf}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{1}
+      \field{issn}{0030-8730}
+      \field{journaltitle}{Pacific Journal of Mathematics}
+      \field{month}{5}
+      \field{number}{2}
+      \field{title}{Concerning Nonnegative Matrices and Doubly Stochastic Matrices}
+      \field{urlday}{3}
+      \field{urlmonth}{8}
+      \field{urlyear}{2024}
+      \field{volume}{21}
+      \field{year}{1967}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{343\bibrangedash 348}
+      \range{pages}{6}
+      \verb{urlraw}
+      \verb https://msp.org/pjm/1967/21-2/p14.xhtml
+      \endverb
+      \verb{url}
+      \verb https://msp.org/pjm/1967/21-2/p14.xhtml
+      \endverb
+    \endentry
+    \entry{villani2003}{book}{}
+      \name{author}{1}{}{%
+        {{hash=9a5829eabef68d560b86bf71527fd874}{%
+           family={Villani},
+           familyi={V\bibinitperiod},
+           given={Cédric},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{fullhash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{bibnamehash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{authorbibnamehash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{authornamehash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{authorfullhash}{9a5829eabef68d560b86bf71527fd874}
+      \field{extraname}{1}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{25}
+      \field{isbn}{978-0-8218-3312-4 978-0-8218-7232-1 978-1-4704-1804-5}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{series}{Graduate {{Studies}} in {{Mathematics}}}
+      \field{title}{Topics in Optimal Transportation}
+      \field{urlday}{11}
+      \field{urlmonth}{7}
+      \field{urlyear}{2019}
+      \field{volume}{58}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1090/gsm/058
+      \endverb
+      \verb{urlraw}
+      \verb http://www.ams.org/gsm/058
+      \endverb
+      \verb{url}
+      \verb http://www.ams.org/gsm/058
+      \endverb
+    \endentry
+    \entry{villani2008}{book}{}
+      \name{author}{1}{}{%
+        {{hash=9a5829eabef68d560b86bf71527fd874}{%
+           family={Villani},
+           familyi={V\bibinitperiod},
+           given={Cédric},
+           giveni={C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer Science \& Business Media}%
+      }
+      \strng{namehash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{fullhash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{bibnamehash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{authorbibnamehash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{authornamehash}{9a5829eabef68d560b86bf71527fd874}
+      \strng{authorfullhash}{9a5829eabef68d560b86bf71527fd874}
+      \field{extraname}{2}
+      \field{sortinit}{V}
+      \field{sortinithash}{afb52128e5b4dc4b843768c0113d673b}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{At the close of the 1980s, the independent contributions of Yann Brenier, Mike Cullen and John Mather launched a revolution in the venerable field of optimal transport founded by G. Monge in the 18th century, which has made breathtaking forays into various other domains of mathematics ever since. The author presents a broad overview of this area, supplying complete and self-contained proofs of all the fundamental results of the theory of optimal transport at the appropriate level of generality. Thus, the book encompasses the broad spectrum ranging from basic theory to the most recent research results. PhD students or researchers can read the entire book without any prior knowledge of the field. A comprehensive bibliography with notes that extensively discuss the existing literature underlines the book’s value as a most welcome reference text on this subject.}
+      \field{day}{26}
+      \field{eprinttype}{googlebooks}
+      \field{isbn}{978-3-540-71050-9}
+      \field{langid}{english}
+      \field{month}{10}
+      \field{pagetotal}{970}
+      \field{shorttitle}{Optimal Transport}
+      \field{title}{Optimal Transport: Old and New}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \verb{eprint}
+      \verb hV8o5R7_5tkC
+      \endverb
+      \keyw{Mathematics / Calculus,Mathematics / Differential Equations / General,Mathematics / Functional Analysis,Mathematics / Geometry / Differential,Mathematics / Mathematical Analysis}
+    \endentry
+    \entry{xie2020a}{inproceedings}{}
+      \name{author}{1}{}{%
+        {{hash=42476dd1f204aec7c32ccdd78e6669a9}{%
+           family={Xie},
+           familyi={X\bibinitperiod},
+           given={Fangzhou},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{fullhash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{bibnamehash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{authorbibnamehash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{authornamehash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{authorfullhash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \field{extraname}{1}
+      \field{sortinit}{X}
+      \field{sortinithash}{1965c258adceecf23ce3d67b05113442}
+      \field{extradate}{1}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Recent proposal of Wasserstein Index Generation model (WIG) has shown a new direction for automatically generating indices. However, it is challenging in practice to fit large datasets for two reasons. First, the Sinkhorn distance is notoriously expensive to compute and suffers from dimensionality severely. Second, it requires to compute a full \$N\textbackslash times N\$ matrix to be fit into memory, where \$N\$ is the dimension of vocabulary. When the dimensionality is too large, it is even impossible to compute at all. I hereby propose a Lasso-based shrinkage method to reduce dimensionality for the vocabulary as a pre-processing step prior to fitting the WIG model. After we get the word embedding from Word2Vec model, we could cluster these high-dimensional vectors by \$k\$-means clustering, and pick most frequent tokens within each cluster to form the "base vocabulary". Non-base tokens are then regressed on the vectors of base token to get a transformation weight and we could thus represent the whole vocabulary by only the "base tokens". This variant, called pruned WIG (pWIG), will enable us to shrink vocabulary dimension at will but could still achieve high accuracy. I also provide a \textbackslash textit\{wigpy\} module in Python to carry out computation in both flavor. Application to Economic Policy Uncertainty (EPU) index is showcased as comparison with existing methods of generating time-series sentiment indices.}
+      \field{booktitle}{{{CARMA}} 2020 - 3rd {{International Conference}} on {{Advanced Research Methods}} and {{Analytics}}}
+      \field{day}{8}
+      \field{eprintclass}{cs, econ, q-fin}
+      \field{eprinttype}{arXiv}
+      \field{month}{7}
+      \field{title}{Pruned {{Wasserstein Index Generation Model}} and Wigpy {{Package}}}
+      \field{urlday}{2}
+      \field{urlmonth}{8}
+      \field{urlyear}{2024}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.4995/CARMA2020.2020.11557
+      \endverb
+      \verb{eprint}
+      \verb 2004.00999
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2004.00999
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2004.00999
+      \endverb
+      \keyw{Computer Science - Computation and Language,Computer Science - Machine Learning,Economics - General Economics}
+    \endentry
+    \entry{xie2020}{article}{}
+      \name{author}{1}{}{%
+        {{hash=42476dd1f204aec7c32ccdd78e6669a9}{%
+           family={Xie},
+           familyi={X\bibinitperiod},
+           given={Fangzhou},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{fullhash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{bibnamehash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{authorbibnamehash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{authornamehash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \strng{authorfullhash}{42476dd1f204aec7c32ccdd78e6669a9}
+      \field{extraname}{2}
+      \field{sortinit}{X}
+      \field{sortinithash}{1965c258adceecf23ce3d67b05113442}
+      \field{extradate}{2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{I propose a novel method, the Wasserstein Index Generation model (WIG), to generate a public sentiment index automatically. To test the model’s effectiveness, an application to generate Economic Policy Uncertainty (EPU) index is showcased.}
+      \field{day}{1}
+      \field{issn}{0165-1765}
+      \field{journaltitle}{Economics Letters}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{shortjournal}{Econ. Lett.}
+      \field{shorttitle}{Wasserstein Index Generation Model}
+      \field{title}{Wasserstein Index Generation Model: Automatic Generation of Time-Series Index with Application to Economic Policy Uncertainty}
+      \field{urlday}{10}
+      \field{urlmonth}{12}
+      \field{urlyear}{2019}
+      \field{volume}{186}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{108874}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.econlet.2019.108874
+      \endverb
+      \verb{urlraw}
+      \verb http://www.sciencedirect.com/science/article/pii/S0165176519304410
+      \endverb
+      \verb{url}
+      \verb http://www.sciencedirect.com/science/article/pii/S0165176519304410
+      \endverb
+      \keyw{Economic Policy Uncertainty Index (EPU),Singular Value Decomposition (SVD),Wasserstein Dictionary Learning (WDL),Wasserstein Index Generation Model (WIG)}
+    \endentry
+    \entry{xu2018}{incollection}{}
+      \name{author}{4}{}{%
+        {{hash=6089e89dd54f06ece4073b97080c8602}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Hongteng},
+           giveni={H\bibinitperiod}}}%
+        {{hash=646af88eefa4ca0bb83b3722858d80f0}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Wenlin},
+           giveni={W\bibinitperiod}}}%
+        {{hash=c0e0d23e2d09e45e6f51cc2bcea6d9f9}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Wei},
+           giveni={W\bibinitperiod}}}%
+        {{hash=ce681750caa3045d8bb30c05a70f10d7}{%
+           family={Carin},
+           familyi={C\bibinitperiod},
+           given={Lawrence},
+           giveni={L\bibinitperiod}}}%
+      }
+      \name{editor}{6}{}{%
+        {{hash=9b411b6c9cefdde16ffea77ecf612142}{%
+           family={Bengio},
+           familyi={B\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod}}}%
+        {{hash=1444141e07dd9549dbb4b8530fe4ec15}{%
+           family={Wallach},
+           familyi={W\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+        {{hash=6c15b92d4ebdbfae091f6548dc7543ae}{%
+           family={Larochelle},
+           familyi={L\bibinitperiod},
+           given={H.},
+           giveni={H\bibinitperiod}}}%
+        {{hash=4f2317ca7fb46f798c6c220e39e332a0}{%
+           family={Grauman},
+           familyi={G\bibinitperiod},
+           given={K.},
+           giveni={K\bibinitperiod}}}%
+        {{hash=9bc86e7523b9aaf7183c5f7e7634048f}{%
+           family={Cesa-Bianchi},
+           familyi={C\bibinithyphendelim B\bibinitperiod},
+           given={N.},
+           giveni={N\bibinitperiod}}}%
+        {{hash=36b98b7ab533936cf1b5716148de704f}{%
+           family={Garnett},
+           familyi={G\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Curran Associates, Inc.}%
+      }
+      \strng{namehash}{f4ea6d2a41231a00fea595ae4c8b722b}
+      \strng{fullhash}{2a2daf098d4e505aa093c183543e7a3a}
+      \strng{bibnamehash}{f4ea6d2a41231a00fea595ae4c8b722b}
+      \strng{authorbibnamehash}{f4ea6d2a41231a00fea595ae4c8b722b}
+      \strng{authornamehash}{f4ea6d2a41231a00fea595ae4c8b722b}
+      \strng{authorfullhash}{2a2daf098d4e505aa093c183543e7a3a}
+      \strng{editorbibnamehash}{233f4c9ba2f85af3db1eed171136508c}
+      \strng{editornamehash}{233f4c9ba2f85af3db1eed171136508c}
+      \strng{editorfullhash}{f08403ac24c2e0a0ae72822c0c0afda6}
+      \field{sortinit}{X}
+      \field{sortinithash}{1965c258adceecf23ce3d67b05113442}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Advances in {{Neural Information Processing Systems}} 31}
+      \field{title}{Distilled Wasserstein Learning for Word Embedding and Topic Modeling}
+      \field{urlday}{13}
+      \field{urlmonth}{1}
+      \field{urlyear}{2019}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1723\bibrangedash 1732}
+      \range{pages}{10}
+      \verb{urlraw}
+      \verb http://papers.nips.cc/paper/7443-distilled-wasserstein-learning-for-word-embedding-and-topic-modeling.pdf
+      \endverb
+      \verb{url}
+      \verb http://papers.nips.cc/paper/7443-distilled-wasserstein-learning-for-word-embedding-and-topic-modeling.pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

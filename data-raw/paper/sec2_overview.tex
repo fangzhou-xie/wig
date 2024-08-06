@@ -1,0 +1,185 @@
+
+
+The Monge-Kantorovich problem\footnote{
+  This is also called Kantorovich relaxation of the original Monge problem,
+  as the problem was first proposed by \citet{monge1781} and then relaxed by \citet{kantorovich1942}.
+  For mathematical foundation of Optimal Transport theory, the classic references are \citet{villani2003,villani2008};
+  for its application in Economics, see \citet{galichon2016};
+  for an introduction for applied mathematicians, see \citet{santambrogio2015a};
+  for the computational aspects (algorithms and their properties) and its applications in data science and machine learning,
+  see \citet{peyre2019}.
+} states that:
+given two probability vectors\footnote{
+  Also called ``histograms'' in the Computational Optimal Transport community.
+} $\mathbf{a} \in \Sigma_M$ and $\mathbf{b} \in \Sigma_N$,
+how to find a \textit{coupling matrix} $\mathbf{P} \in \mathbb{R}_+^{M \times N}$
+where each $\mathbf{P}_{ij}$ describes the flow of masses from bin $i$ to bin $j$,
+such that the total cost of moving masses are optimal (minimal).
+The cost of moving one unit of mass from bin $i$ to bin $j$ is $\mathbf{C}_{ij}$ and $\mathbf{C} \in \mathbb{R}_+^{M\times N}$.
+
+\begin{problem}[Monge-Kantorovich]
+Let $\mathbf{a} \in \Sigma_M$ and $\mathbf{b} \in \Sigma_N$.
+The set of all coupling matrices is:
+
+\begin{equation}\label{eqn-def:coupling-matrix}
+  \begin{aligned}
+    \mathbf{U(a,b)} \equiv \left\{
+    \mathbf{P} \in \mathbb{R}_+^{M \times N}:
+    \mathbf{P} \mathbb{1}_M = \mathbf{a}
+    \text{ and }
+    \mathbf{P}^\top \mathbb{1}_M = \mathbf{b}
+    \right\}.
+  \end{aligned}
+\end{equation}
+Given a cost matrix $\mathbf{C} \in \mathbb{R}^{M \times N}$,
+the Kantorovich optimal transport problem tries to find the solution of the following
+
+\begin{equation}\label{eqn:loss-kantorovich}
+  \begin{aligned}
+    L_{\mathbf{C}}(\mathbf{a}, \mathbf{b})
+    \equiv \min_{\mathbf{P} \in \mathbf{U}(\mathbf{a},\mathbf{b})}
+    \langle \mathbf{C}, \mathbf{P}\rangle
+    = \sum_{i,j} \mathbf{C}_{ij} \mathbf{P}_{ij}.
+  \end{aligned}
+\end{equation}
+\end{problem}
+
+To solve this problem in practice, one needs to resort to linear programming\footnote{
+  See Chapter 3 of \citet{peyre2019} for a historical overview and related algorithms.
+}, which can be very challenging when the problem becomes large enough.
+Instead of finding the exact solution to the above problem, one can actually add an entropy regularization term
+to make this problem convex and hence greatly ease the computation.
+This was first proposed in the seminal work of \citet{cuturi2013}
+which leverages Sinkhorn-Knopp double scaling algorithm \citep{sinkhorn1964,sinkhorn1967,knight2008}.
+\footnote{
+  Therefore, in Optimal Transport literature,
+  people usually refer to the numeric algorithm to solve the entropic regularized Kantorovich problem
+  as the ``Sinkhorn algorithm''.
+  % people sometimes refer to the entropic regularized Kantorovich problem
+  % as the ``Sinkhorn problem'' and the algorithm to find its numeric solution as ``Sinkhorn algorithm.''
+  Hence, its extensions are also named as ``X-khorn algorithms'',
+  for example ``Greenkhorn algorithm'' \citep{altschuler2017} or ``Screenkhorn'' \citep{alaya2019}.
+  Because of its simplicity, it has been re-discovered multiple times in history and renamed accordingly,
+  for example,
+  it can be linked to Sch\"odinger bridge problem \citep{schrodinger1931} or the RAS method \citep{bacharach1970}.
+  See \citet{knight2008,leonard2013,modin2024} for historical accounts.
+}
+
+\begin{problem}[{\cite[Entropic Regularized OT Problem]{cuturi2013,peyre2019}}]\label{thm:entropic-regularized-OT-problem}
+Given the coupling matrix $\mathbf{P} \in \mathbb{R}_+^{M \times N}$, its discrete entropy is defined as
+\begin{equation*}
+  \begin{aligned}
+    \mathbf{H}(\mathbf{P})
+    \equiv - \langle \mathbf{P}, \log(\mathbf{P}) - 1\rangle
+    = - \sum_{i,j} \mathbf{P}_{ij} (\log(\mathbf{P}_{ij}) - 1).
+  \end{aligned}
+\end{equation*}
+
+With the cost matrix $\mathbf{C}$, the entropic regularized loss function is
+
+\begin{equation}\label{eqn:entropic-regularized-OT-loss}
+  \begin{aligned}
+    % \min_{\mathbf{P} \in \mathbf{U}(\mathbf{a},\mathbf{b})}
+    L^\varepsilon_{\mathbf{C}}(\mathbf{a}, \mathbf{b})
+    \equiv
+    % \min_{\mathbf{P} \in \mathbf{U}(\mathbf{a},\mathbf{b})}
+    \langle \mathbf{P}, \mathbf{C}\rangle - \varepsilon \mathbf{H}(\mathbf{P}),
+  \end{aligned}
+\end{equation}
+
+and the entropic regularized OT problem is thus
+
+\begin{equation}\label{eqn:entropic-regularized-OT-problem}
+  \begin{aligned}
+    \min_{\mathbf{P} \in \mathbf{U}(\mathbf{a},\mathbf{b})}
+    L^\varepsilon_{\mathbf{C}}(\mathbf{a}, \mathbf{b})
+    \equiv
+    \min_{\mathbf{P} \in \mathbf{U}(\mathbf{a},\mathbf{b})}
+    \langle \mathbf{P}, \mathbf{C}\rangle - \varepsilon \mathbf{H}(\mathbf{P}).
+  \end{aligned}
+\end{equation}
+\end{problem}
+% \footnotetext{
+%   Naturally, this loss function is sometimes referred to as ``Sinkhorn loss.''
+% }
+
+The Sinkhorn problem has a unique optimal solution, since it is $\varepsilon$-strongly convex \citep{peyre2019}.
+% Let us denote the solution to \cref{eqn:sinkhorn-problem} as $\mathbf{P}_\varepsilon$
+% The Sinkhorn problem converges to original Kantorovich problem as $\varepsilon \to 0$ \citep[Proposition 4.1]{peyre2020}.
+% And one can show that the solution of \cref{thm:problem-sinkhorn} 
+
+\begin{proposition}[{\cite[Proposition 4.3]{peyre2019}}]
+  The solution to \cref{eqn:entropic-regularized-OT-problem} is unique and has the form
+  \begin{equation}\label{eqn:regularized-OT-solution}
+    \begin{aligned}
+      \mathbf{P}_{ij} = \mathbf{u}_i \mathbf{K}_{ij} \mathbf{v}_j,
+    \end{aligned}
+  \end{equation}
+  or in matrix notation
+  \begin{equation}\label{eqn:regularized-OT-solution-matrix-form}
+    \begin{aligned}
+      \mathbf{P} = \diag(\mathbf{u}) \,\mathbf{K} \,\diag(\mathbf{v})
+    \end{aligned}
+  \end{equation}
+  where $i \in \left\{1, \ldots, M\right\}$ and $j \in \left\{1, \ldots, N\right\}$ with two (unknown)
+  scaling variables $\mathbf{u} \in \mathbb{R}^M$ and $\mathbf{v} \in \mathbb{R}^N$.
+\end{proposition}
+
+\begin{proof}
+  Let $\mathbf{f} \in \mathbb{R}^M$ and $\mathbf{g} \in \mathbb{R}^N$ be two dual variables for the two constraints
+  $\mathbf{P} \mathbb{1}_N = \mathbf{a}$ and $\mathbf{P}^\top \mathbb{1}_M = \mathbf{b}$, respectively.
+  The Lagrangian of \cref{eqn:entropic-regularized-OT-problem} becomes
+  \begin{equation}\label{eqn:regularized-OT-lagrangian}
+    \begin{aligned}
+      \mathscr{L}(\mathbf{P}, \mathbf{f}, \mathbf{g}) =
+      \langle \mathbf{P}, \mathbf{C}\rangle - \varepsilon \mathbf{H}(\mathbf{P}) -
+      \langle \mathbf{f}, \mathbf{P} \mathbb{1}_m - \mathbf{a}\rangle  -
+      \langle \mathbf{g}, \mathbf{P}^\top \mathbb{1}_n - \mathbf{b}\rangle.
+    \end{aligned}
+  \end{equation}
+  The first-order-condition gives us
+  \begin{equation*}
+    \begin{aligned}
+      \frac{
+        \partial \mathscr{L}(\mathbf{P}, \mathbf{f}, \mathbf{g})
+      }{
+        \partial \mathbf{P}_{ij}
+      } = \mathbf{C}_{ij} + \varepsilon \log(\mathbf{P}_{ij}) - \mathbf{f}_i - \mathbf{g}_j = 0
+    \end{aligned}
+  \end{equation*}
+  Therefore we can solve for the optimal coupling matrix $\mathbf{P}$ as:
+  \begin{equation*}
+    \begin{aligned}
+      \log(\mathbf{P}_{ij})
+      =
+      \frac{\mathbf{f}_i}{\varepsilon}
+      \left(-\frac{\mathbf{C}_{ij}}{\varepsilon}\right)
+      \frac{\mathbf{g}_j}{\varepsilon}
+    \end{aligned}
+  \end{equation*}
+  or
+
+  \begin{equation}\label{eqn:optimal-coupling}
+    \begin{aligned}
+      \mathbf{P}_{ij}
+      =
+      \exp(\frac{\mathbf{f}_i}{\varepsilon})
+      \exp(-\frac{\mathbf{C}_{ij}}{\varepsilon})
+      \exp(\frac{\mathbf{g}_j}{\varepsilon})
+      =
+      \mathbf{u}_i \mathbf{C}_{ij} \mathbf{v}_j,
+    \end{aligned}
+  \end{equation}
+
+  where $\mathbf{u}_i = \exp(\frac{\mathbf{f}_i}{\varepsilon})$,
+  $\mathbf{v}_j = \exp(\frac{\mathbf{g}_j}{\varepsilon})$, and
+  $\mathbf{K}_{ij} = \exp(-\frac{\mathbf{C}_{ij}}{\varepsilon})$, respectively.
+\end{proof}
+
+\begin{remark}[]
+  Note that computation of $\mathbf{P}_{ij}$ are effectively in the exponential domain, if we choose to find
+  optimal solution for $\mathbf{P}$ by updating $\mathbf{f}$ and $\mathbf{g}$.
+  This is indeed the case for the vanilla Sinkhorn Algorithm, and hence it has numeric instability issue
+  which need to be overcome by the ``log-stabilization'' technique,
+  which moves all computation in the log-domain (\cref{subsec:log-sinkhorn}).
+\end{remark}
