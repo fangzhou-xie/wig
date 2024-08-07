@@ -294,9 +294,9 @@ hence without the need to save intermediate Jacobian matrices.
 % \text{\color{red} check the algo by julia}
 \subsection{Parallel Sinkhorn}
 
-For the Parallel Sinkhorn algorithm, since we have $D$ transport maps being computed at the same time,
+For the Parallel Sinkhorn algorithm, since we have $S$ transport maps being computed at the same time,
 as supposed to the Vanilla Sinkhorn where we only compute one transport map at a time,
-we would have a loss vector of length $D$ instead of a scalar.
+we would have a loss vector of length $S$ instead of a scalar.
 Therefore, without a proper way to aggregate the loss vector into a scalar,
 we cannot derive the gradient of the loss.
 We can, however, derive the Jacobian updating equations for the Parallel Sinkhorn algorithm,
@@ -330,7 +330,7 @@ we can take the differentials
   \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}\cdot d\, \vec \mathbf{A}
   - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
   \cdot
-  \left(I_D\otimes \mathbf{K}\right)\cdot
+  \left(I_S\otimes \mathbf{K}\right)\cdot
   d\,\vec\mathbf{V}^{(\ell-1)},
 \end{dmath}
 
@@ -352,7 +352,7 @@ and
   =
   -\diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^2}
   \cdot
-  \left(I_D \otimes \mathbf{K}\right)^\top
+  \left(I_S \otimes \mathbf{K}\right)^\top
   \cdot
   d\,\vec \mathbf{U}^{(\ell)}.
 \end{dmath}
@@ -367,13 +367,13 @@ Therefore, we obtain the Jacobian updating equations.
       \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}
       - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
       \cdot
-      \left(I_D\otimes \mathbf{K}\right)\cdot
+      \left(I_S\otimes \mathbf{K}\right)\cdot
       D\,\mathbf{V}^{(\ell-1)}(\mathbf{A}), \\
       D\,\mathbf{V}^{(\ell)}(\mathbf{A})
        & =
       -\diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^2}
       \cdot
-      \left(I_D \otimes \mathbf{K}\right)^\top
+      \left(I_S \otimes \mathbf{K}\right)^\top
       \cdot
       D\, \mathbf{U}^{(\ell)}(\mathbf{A}).
     \end{aligned}
@@ -383,9 +383,9 @@ Therefore, we obtain the Jacobian updating equations.
 \begin{algorithm}[H]
   \caption{Parallel Sinkhorn Algorithm with Jacobians}
   \begin{algorithmic}[1]\label{algo:parallel-sinkhorn-with-jacobian}
-    \Require $\mathbf{A} \in \Sigma_{M\times D}$, $\mathbf{B}\in \Sigma_{N\times D}$, $\mathbf{C} \in \mathbb{R}^{M\times N}$, $\varepsilon > 0$.
-    \Initialize $\mathbf{U} = \mathbb{1}_{M \times D}$, $\mathbf{V} = \mathbb{1}_{N \times D}$,
-    $\mathbf{J_U} = \mathbb{0}_{MD \times MD}$, $\mathbf{J_V} = \mathbb{0}_{ND \times MD}$.
+    \Require $\mathbf{A} \in \Sigma_{M\times S}$, $\mathbf{B}\in \Sigma_{N\times S}$, $\mathbf{C} \in \mathbb{R}^{M\times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{U} = \mathbb{1}_{M \times S}$, $\mathbf{V} = \mathbb{1}_{N \times S}$,
+    $\mathbf{J_U} = \mathbb{0}_{MS \times MS}$, $\mathbf{J_V} = \mathbb{0}_{NS \times MS}$.
     \State $\mathbf{K} = \exp(-\frac{\mathbf{C}}{\varepsilon})$
     \While{Not Convergence}
     % \State \# update U and JU
@@ -393,7 +393,7 @@ Therefore, we obtain the Jacobian updating equations.
       \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}\right)}
       - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}\right)^2}
       \cdot
-      \left(I_D\otimes \mathbf{K}\right)\cdot
+      \left(I_S\otimes \mathbf{K}\right)\cdot
       \mathbf{J_V}
     $ \quad \# update JU
     \State $\mathbf{U} \leftarrow \mathbf{A} \oslash (\mathbf{K} \mathbf{V})$
@@ -401,7 +401,7 @@ Therefore, we obtain the Jacobian updating equations.
     \State $\mathbf{J_V} =
       -\diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}\right)^2}
       \cdot
-      \left(I_D \otimes \mathbf{K}\right)^\top
+      \left(I_S \otimes \mathbf{K}\right)^\top
       \cdot
       \mathbf{J_U}
     $   \qquad\qquad\quad \# update JV

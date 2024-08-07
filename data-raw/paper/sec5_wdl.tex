@@ -378,6 +378,54 @@ Here I list the Stochastic Gradient Descent, Adam, and AdamW optimizers' algorit
 in \cref{algo:optimizer-sgd,algo:optimizer-adam,algo:optimizer-adamw},
 and they are all implemented in the \textit{\textbf{wig}} package,
 which will be discussed in details in \cref{sec:wig-package}.
+Instead of providing the full algorithms as in
+\citet[Algorithm 1]{kingma2015} or \citet[Algorithm 2]{loshchilov2019},
+I provide the algorithms as the parameter-updating steps to disentangle
+them from the gradient calculation.
+
+
+\begin{definition}[{\cite[Mini-Batch Gradient]{dekel2012}}]
+  For some batch size $B$ and objective function to be minimized
+  $f \left(\mathbf{x} ; \boldsymbol\theta_t\right)$ with
+  data $\mathbf{x}$ and
+  parameters $\boldsymbol\theta_t$ at timestamp $t$,
+  define the mini-batch gradient as
+
+  \begin{equation}
+    \begin{aligned}
+      \mathbf{g}_t =
+      \frac1B \sum_{b=1}^B \nabla_\theta f_t(\mathbf{x}_b; \boldsymbol\theta_{t}),
+    \end{aligned}
+  \end{equation}
+
+  where $\left\{\mathbf{x}_b\right\}_{b = 1}^{B}$ denote the sequence of data.
+\end{definition}
+
+
+\begin{update}[Stochastic Gradient Descent]
+  Given a function to be minimized $f \left(\mathbf{x} ; \boldsymbol\theta_t\right)$
+  and a mini-batched gradient $\mathbf{g}_t$
+  with current parameters $\boldsymbol\theta_t$
+  and learning rate $\eta$,
+  \begin{equation*}
+    \begin{aligned}
+      \boldsymbol\theta_{t+1} = \boldsymbol\theta_t - \eta \cdot \mathbf{g}_t.
+    \end{aligned}
+  \end{equation*}
+\end{update}
+
+\begin{update}[{Adam Optimizer \citep{kingma2015}}]
+  Given a function to be minimized $f \left(\mathbf{x} ; \boldsymbol\theta_t\right)$
+  and a mini-batched gradient $\mathbf{g}_t$
+  with current parameters $\boldsymbol\theta_t$
+  and learning rate $\eta$,
+\end{update}
+
+
+
+
+
+
 
 
 TODO: {\color{red}
