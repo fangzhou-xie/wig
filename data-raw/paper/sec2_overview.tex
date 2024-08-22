@@ -10,7 +10,7 @@ The Monge-Kantorovich problem\footnote{
   see \citet{peyre2019}.
 } states that:
 given two probability vectors\footnote{
-  Also called ``histograms'' in the Computational Optimal Transport community.
+  Sometimes also called ``histograms'' in the Computational Optimal Transport community, for example in \citet{peyre2019}.
 } $\mathbf{a} \in \Sigma_M$ and $\mathbf{b} \in \Sigma_N$,
 how to find a \textit{coupling matrix} $\mathbf{P} \in \mathbb{R}_+^{M \times N}$
 where each $\mathbf{P}_{ij}$ describes the flow of masses from bin $i$ to bin $j$,
@@ -45,7 +45,7 @@ the Kantorovich optimal transport problem tries to find the solution of the foll
 \end{problem}
 
 To solve this problem in practice, one needs to resort to linear programming\footnote{
-  See Chapter 3 of \citet{peyre2019} for a historical overview and related algorithms.
+  See \citet[Chapter 3]{peyre2019} for a historical overview and related algorithms.
 }, which can be very challenging when the problem becomes large enough.
 Instead of finding the exact solution to the above problem, one can actually add an entropy regularization term
 to make this problem convex and hence greatly ease the computation.

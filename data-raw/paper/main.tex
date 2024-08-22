@@ -32,6 +32,7 @@
 % graphics and others
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{tikz}
+\usetikzlibrary{positioning}
 \usepackage{xr-hyper}
 \usepackage{pdfpages}
 \usepackage{pgf,interval}
@@ -240,31 +241,41 @@ TODO: {
 \section{Introduction}
 \input{sec1_introduction.tex}
 
-some literature review
 
 
+% \section{Review of Optimal Transport}
 
 \section{Monge-Kantorovich Problem and Its Entropic Regularization}\label{sec:review}
+\sectionmark{Monge-Kantorovich}
 \input{sec2_overview.tex}
 
 
 \section{Sinkhorn Algorithms}\label{sec:sinkhorn-algorithm}
+\sectionmark{Sinkhorn}
 \input{sec3_sinkhorn.tex}
 
-\section{Differentiation of Sinkhorn Algorithms}\label{sec:sinkhorn-gradient}
-\input{sec4_gradient_sinkhorn.tex}
+\section{Sinkhorn Algorithms with Gradients}\label{sec:sinkhorn-gradient}
+\sectionmark{Sinkhorn Gradient}
+\input{sec4_sinkhorn_gradient.tex}
 
-\section[Barycenter and Dictionary]{Wasserstein Barycenter and Dictionary Learning}\label{sec:wasserstein-barycenter-and-dictionary-learning}
-\input{sec5_wdl.tex}
+\section{Wasserstein Barycenter}\label{sec:wasserstein-barycenter}
+\sectionmark{Barycenter}
+\input{sec5_barycenter.tex}
 
-\section[WDL]{Wasserstein Dictionary Learning with Closed-Form Gradients}\label{sec:wdl-gradient}
-\input{sec6_gradient_wdl.tex}
+\section{Wasserstein Barycenter with Gradients}\label{sec:barycenter-gradient}
+\sectionmark{Barycenter Gradient}
+\input{sec6_barycenter_gradient.tex}
 
-\section[WIG Model]{Wasserstein Index Generation Model}\label{sec:wig-model}
+\section{Wasserstein Dictionary Learning}\label{sec:wdl}
+\sectionmark{WDL}
+\input{sec7_wdl.tex}
+
+\section{Wasserstein Index Generation Model}\label{sec:wig-model}
+\sectionmark{WIG Model}
 \citet{xie2020}
 
-\section[\textbf{\texorpdfstring{\MakeLowercase{wig}}{wig}} Package]{\textbf{\textit{wig}} Package in R for a WIG Implementation}\label{sec:wig-package}
-
+\section{\textbf{\textit{wig}} Package in R for a WIG Implementation}\label{sec:wig-package}
+\sectionmark{\textbf{\texorpdfstring{\MakeLowercase{wig}}{wig}} Package}
 \citet{xie2020a}
 
 
@@ -284,7 +295,7 @@ some literature review
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \section*{Appendix}
-\addcontentsline{toc}{section}{Appendix}
+\addcontentsline{toc}{section}{Appendix}\label{appendix}
 \appendix
 \setcounter{secnumdepth}{0}
 % \setcounter{subsection}{0}

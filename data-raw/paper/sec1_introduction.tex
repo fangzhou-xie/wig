@@ -7,8 +7,63 @@ The remainder of this paper will be organized as follows.
 \cref{sec:review} briefly reviews the Monge-Kantorivich problem, its entropic regularized Sinkhorn problem and solution.
 \cref{sec:sinkhorn-algorithm} introduces the Sinkhorn algorithm and its variants to solve the entropic regularized problem.
 \cref{sec:sinkhorn-gradient} derives the gradients and Jacobians of the family of Sinkhorn algorithms.
-\cref{sec:wasserstein-barycenter-and-dictionary-learning} discusses the Wasserstein Barycenter and Wasserstein Dictionary Learning
+\cref{sec:wasserstein-barycenter} discusses the Wasserstein Barycenter and Wasserstein Dictionary Learning
 problem.
-\cref{sec:wdl-gradient} shows the gradient of Wasserstein Barycenter algorithm and the parameter optimization for Wasserstein Dictionary Learning.
+\cref{sec:barycenter-gradient} shows the gradient of Sinkhorn-like algorithms to solve the Wasserstein Barycenter problem.
+\cref{sec:wdl} considers the Wasserstein Dictionary Learning problem,
+which is built on top of the Barycenter problem and ``learns'' the latent topics.
 \cref{sec:wig-model} finally presents the Wasserstein Index Generation model for automatically time-series index generation,
 based on Wasserstein Dictionary Learning.
+\cref{sec:wig-package} provides some code snippets of the \textbf{\textit{wig}} package to demonstrate how to carry out the
+computations in practice.
+\cref{appendix} lists all the mathematical notations used throughout this note.
+
+This note can be seen as a review of some selected topics on Computational Optimal Transport
+and a relatively complete reference to understand the Wasserstein Index Generation model.
+Moreover, this is a companion paper for the R package \textbf{\textit{wig}}\footnote{
+  \textcolor{red}{TODO: CRAN url here}: \url{}
+} to illustrate the usage of the package and how to solve the Optimal Transport problems as discussed in
+\crefrange{sec:review}{sec:wig-model}.
+
+
+\begin{figure}%[H]
+  \centering
+  \begin{tikzpicture}[
+      round/.style={circle, draw=black, very thick, minimum size=8mm},
+    ]\centering
+    % nodes
+    \node[round] (review)                            {2};
+    \node[round] (sinkhorn)    [below=of review]     {3};
+    \node[round] (sinkgrad)    [right=of sinkhorn]   {4};
+    \node[round] (barycenter)  [below=of sinkhorn]   {5};
+    \node[round] (barygrad)    [right=of barycenter] {6};
+    \node[round] (wdl)         [below=of barygrad]   {7};
+    \node[round] (wig)         [below=of wdl]        {8};
+    \node[round] (wigr)        [below=of wig]        {9};
+
+    % draw lines
+    \draw[->,very thick] (review.south) -- (sinkhorn.north);
+    \draw[->,very thick] (sinkhorn.east) -- (sinkgrad.west);
+    \draw[->,very thick] (sinkhorn.south) -- (barycenter.north);
+    \draw[->,very thick] (barycenter.east) -- (barygrad.west);
+    \draw[->,very thick] (barygrad.south) -- (wdl.north);
+    \draw[->,very thick] (wdl.south) -- (wig.north);
+    \draw[->,very thick] (wig.south) -- (wigr.north);
+  \end{tikzpicture}
+  \caption{Diagram of the structure of the paper.}\label{fig:article-diagram}
+\end{figure}
+
+
+\cref{fig:article-diagram} provides a diagram of the structure of the paper.
+For readers interested in entropic regularized OT problems,
+they can refer to \cref{sec:review,sec:sinkhorn-algorithm} with optional \cref{sec:sinkhorn-gradient};
+for readers interested in Wasserstein Barycenter problems,
+they can refer to \cref{sec:review,sec:sinkhorn-algorithm,sec:wasserstein-barycenter}
+with optional \cref{sec:barycenter-gradient};
+for readers interested in Wasserstein Dictionary Learning,
+they can refer to \cref{sec:review,sec:sinkhorn-algorithm,sec:wasserstein-barycenter,sec:barycenter-gradient,sec:wdl};
+for readers interested in Wasserstein Index Generation model,
+they can refer to everything from the WDL sections, plus \cref{sec:wig-model},
+namely \cref{sec:review,sec:sinkhorn-algorithm,sec:wasserstein-barycenter,sec:barycenter-gradient,sec:wdl,sec:wig-model};
+\cref{sec:wig-package} is required if one needs to use the \textbf{\textit{wig}} package to carry out
+any of the aforementioned computation.

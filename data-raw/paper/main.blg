@@ -1,18 +1,17 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
 [0] Config.pm:310> INFO - Logfile is 'main.blg'
-[48] biber-darwin:340> INFO - === Tue Aug  6, 2024, 14:24:37
-[58] Biber.pm:418> INFO - Reading 'main.bcf'
-[126] Biber.pm:972> INFO - Found 38 citekeys in bib section 0
+[61] biber:340> INFO - === Mon Aug 12, 2024, 11:02:50
+[71] Biber.pm:418> INFO - Reading 'main.bcf'
+[125] Biber.pm:972> INFO - Found 49 citekeys in bib section 0
 [135] Biber.pm:4383> INFO - Processing section 0
 [142] Biber.pm:4574> INFO - Looking for bibtex file 'wig-r.bib' for section 0
-[146] bibtex.pm:1713> INFO - LaTeX decoding ...
-[216] bibtex.pm:1518> INFO - Found BibTeX data source 'wig-r.bib'
-[393] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[394] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[394] Biber.pm:4203> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
-[394] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
-[418] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[433] bbl.pm:757> INFO - Output to main.bbl
-[433] Biber.pm:130> WARN - ISBN '978-0-8218-3312-4 978-0-8218-7232-1 978-1-4704-1804-5' in entry 'villani2003' is invalid - run biber with '--validate_datamodel' for details.
-[434] Biber.pm:130> WARN - I didn't find a database entry for 'dekel2012' (section 0)
-[434] Biber.pm:132> INFO - WARNINGS: 2
+[147] bibtex.pm:1713> INFO - LaTeX decoding ...
+[228] bibtex.pm:1518> INFO - Found BibTeX data source 'wig-r.bib'
+[487] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[487] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[487] Biber.pm:4203> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'en-US'
+[487] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
+[521] bbl.pm:654> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[541] bbl.pm:757> INFO - Output to main.bbl
+[541] Biber.pm:130> WARN - ISBN '978-0-8218-3312-4 978-0-8218-7232-1 978-1-4704-1804-5' in entry 'villani2003' is invalid - run biber with '--validate_datamodel' for details.
+[541] Biber.pm:132> INFO - WARNINGS: 1

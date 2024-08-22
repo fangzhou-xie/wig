@@ -164,6 +164,9 @@ and all that remains is to carry out the matrix computation instead of the vecto
     NumPy (Python): \url{https://numpy.org/doc/stable/user/basics.broadcasting.html}.
   }
   without the need of actually doing the duplication of the column vectors.
+  Or in terms of matrix computation,
+  for example,
+  $\mathbf{B} = \left[\mathbf{b}, \ldots, \mathbf{b}\right] = \mathbb{1}_S^\top \otimes \mathbf{b}$.
 \end{remark}
 
 Therefore, we can have the matrix version\footnote{
@@ -229,7 +232,7 @@ Hence we could have the matrix version of the updating equations of Sinkhorn alg
       \quad\text{and}\quad
       \lVert
       \mathbf{V}^{(\ell)} \odot \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right) - \mathbf{B}
-      \rVert_2.
+      \rVert_2 \le \rho.
     \end{aligned}
   \end{equation*}
 \end{remark}
@@ -254,7 +257,7 @@ we can consider the dual variables $\mathbf{f}$ and $\mathbf{g}$ in the Lagrangi
 Since $\mathbf{u} = \exp \left(\frac{\mathbf{f}}{\varepsilon}\right)$
 and $\mathbf{v} = \exp \left(\frac{\mathbf{g}}\varepsilon\right)$, we have
 
-\begin{equation}
+\begin{equation}\label{eqn:fg-expression-as-uv}
   \begin{aligned}
     \mathbf{f} = \varepsilon \log(\mathbf{u})
     \quad\text{and}\quad
@@ -355,7 +358,18 @@ and
   \end{aligned}
 \end{equation*}
 
-Therefore, we have the updating equation for $\mathbf{f}^{(\ell)}$.
+Therefore, we have
+
+\begin{equation}\label{eqn:neg-log-kv-vec}
+  \begin{aligned}
+    - \varepsilon \log \left(\mathbf{K} \mathbf{v}^{(\ell)}\right)
+    = - \varepsilon \log \left[
+      \mathcal{P} \left(\mathbf{f}^{(\ell)}, \mathbf{g}^{(\ell)}\right)\cdot \mathbb{1}_N
+      \right] + \mathbf{f}^{(\ell)}.
+  \end{aligned}
+\end{equation}
+
+And we have the updating equation for $\mathbf{f}^{(\ell)}$.
 If we follow similar steps, we can also get it for $\mathbf{g}^{(\ell)}$.
 That is,
 
@@ -383,8 +397,6 @@ Therefore, let us define the following two functions,
 
 \begin{equation}\label{eqn:function-c-and-Q}
   \begin{aligned}
-    c \left(\mathbf{f}, \mathbf{g}\right)
-     & = \min \left\{\mathbf{C} - \mathbf{f} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^\top\right\}, \\
     \mathcal{Q} \left(\mathbf{f}, \mathbf{g}\right)
     % = \mathcal{Q} \left(\mathbf{f}, \mathbf{g}, c\right)
      & = \exp \left(
@@ -392,7 +404,9 @@ Therefore, let us define the following two functions,
       \mathbf{C} - \mathbf{f} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^\top
       - c \left(\mathbf{f}, \mathbf{g}\right)
     }{\varepsilon}
-    \right),
+    \right), \text{ where }                                                                                        \\
+    c \left(\mathbf{f}, \mathbf{g}\right)
+     & = \min \left\{\mathbf{C} - \mathbf{f} \cdot \mathbb{1}_N^\top - \mathbb{1}_M \cdot \mathbf{g}^\top\right\},
   \end{aligned}
 \end{equation}
 
@@ -548,20 +562,20 @@ Therefore, we can have the Log-stabilized Sinkhorn algorithm.
     \Initialize $\mathbf{f} = \mathbb{0}_M$, $\mathbf{g} = \mathbb{0}_N$.
     \While{Not Convergence}
     \State \# update $f$
-    \State $\mathbf{M} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
-    \State $c = \min \mathbf{M}$
+    \State $\mathbf{R} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $c = \min \mathbf{R}$
     \State $\mathbf{Q} = \exp \left(
-      -\frac{\mathbf{M} - c}{\varepsilon}
+      -\frac{\mathbf{R} - c}{\varepsilon}
       \right)$
     \State $\mathbf{f} = \mathbf{f} + \varepsilon\log \mathbf{a} + c
       - \varepsilon\log \left[
         \mathbf{Q} \cdot\mathbb{1}_N
         \right]$
     \State \# update $g$
-    \State $\mathbf{M} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
-    \State $c = \min \mathbf{M}$
+    \State $\mathbf{R} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $c = \min \mathbf{R}$
     \State $\mathbf{Q} = \exp \left(
-      -\frac{\mathbf{M} - c}{\varepsilon}
+      -\frac{\mathbf{R} - c}{\varepsilon}
       \right)$
     \State $\mathbf{g} = \mathbf{g} + \varepsilon \log\mathbf{b} + c
       -\varepsilon\log \left[
@@ -593,9 +607,9 @@ Therefore, we can have the Log-stabilized Sinkhorn algorithm.
   as $\varepsilon \to 0$.
 \end{remark}
 
-\begin{remark}[Convergence Condition]
+\begin{remark}[Convergence Condition]\label{remark:conv-cond-parallel}
   Recall that in \cref{eqn:function-P}, we can recover the optimal coupling matrix from $\mathbf{f}$ and $\mathbf{g}$,
-  then for some $rho > 0$,
+  then for some $\rho > 0$,
   \begin{equation*}
     \begin{aligned}
       \lVert

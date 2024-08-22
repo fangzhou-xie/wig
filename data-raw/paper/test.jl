@@ -14,6 +14,18 @@ function commutation(m, n)
 	P
 end
 
+m = 3
+n = 2
+
+A = reshape(1:m*n, m, n)
+v = reshape(A', 1, :)
+P = I(m * n)
+P[vec(v'), :]
+
+vec(v)
+P[vec(v), :]
+
+
 function sinkhorn(a, b, C, reg; maxIter = 10, zeroTol = 1e-6)
 	M = size(a, 1)
 	N = size(b, 1)
@@ -380,3 +392,78 @@ A = [1 2 3; 3 4 5]
 
 [A * ones(3) A * ones(3)]
 [A A] * kron(I(2), ones(3))
+
+
+u1 = [1, 2, 3]
+u2 = [2, 3, 4]
+
+[u1 u2]
+
+[diagm(u1) diagm(u2)] ==
+([u1 u2] * (kron(I(2), ones(3))')) .* kron(ones(2)', I(3))
+
+
+
+
+[u1 u2] * kron(I(2), ones(3)') * kron(I(2), I(3))
+kron([u1 u2], ones(3)')
+([u1 u2] * kron(I(2), ones(3))') * I(2 * 3)
+[u1 * ones(3)' u1 * ones(3)'] .* kron(ones(2)', I(3))
+[u1 u2] * kron(I(2), ones(3)')
+
+
+F = [1 2 3; 4 5 6]
+G = [4 5 6; 6 7 8; 7 8 9]
+
+C = [1 2 3; 2 3 4] ./ 10
+eps = 0.1
+
+[exp.(-(C - F[:, 1] * ones(3)' - ones(2) * G[:, 1]') / eps) exp.(-(C - F[:, 2] * ones(3)' - ones(2) * G[:, 2]') / eps)]
+
+exp.(-(
+	kron(ones(2)', C) -
+	F[:, 1:2] * kron(I(2), ones(3)') -
+	kron(ones(2), (vec(G[:, 1:2])'))
+) / eps)
+
+
+using OptimalTransport
+using PythonOT
+
+a = [0.6, 0.4]
+b = [0.3, 0.7]
+C = [1 2; 3 4]
+
+OptimalTransport.sinkhorn(a, b, C, 0.1)
+
+sinkhorn(a, b, C, 0.1)
+
+A = hcat(
+	[0.2, 0.2, 0.5, 0.1],
+	[0.3, 0.4, 0.2, 0.1],
+	[0.5, 0.4, 0.05, 0.05],
+)
+A = mapslices(x -> normalize(x, 1), A; dims = 1)
+
+C = hcat(
+	[1, 2, 3, 4],
+	[2, 3, 4, 5],
+	[3, 4, 5, 6],
+	[4, 5, 6, 7],
+)
+
+barycenter(A, C, 2, weights = [0.25, 0.5, 0.25], method = "sinkhorn_log")
+
+
+
+
+
+sinkhorn_barycenter(A, C, 0.1, [1 / 3, 1 / 3, 1 / 3])
+
+support = range(-1, 1; length = 250)
+mu1 = normalize!(exp.(-(support .+ 0.5) .^ 2 ./ 0.1^2), 1)
+mu2 = normalize!(exp.(-(support .- 0.5) .^ 2 ./ 0.1^2), 1)
+mu = hcat(mu1, mu2)
+a = sinkhorn_barycenter(mu, C, 0.01, [0.5, 0.5])
+
+normalize([0.2, 0.2, 0.5, 0.1], 1)

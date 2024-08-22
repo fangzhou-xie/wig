@@ -1,9 +1,9 @@
 
 In this section, I will derive the gradients of Sinkhorn loss with respect to its arguments for the algorithms
 described in \cref{sec:sinkhorn-algorithm}.
-This is useful when one wishes to use Sinkhorn loss as a loss function for training purpose in machine learning,
-for example,
-Wasserstein Dictionary Learning in \crefrange{sec:wasserstein-barycenter-and-dictionary-learning}{sec:wdl-gradient}.
+This is useful when one wishes to use regularized loss in \cref{eqn:entropic-regularized-OT-loss}
+as a loss function for training purpose in machine learning, for example,
+Wasserstein Dictionary Learning in \crefrange{sec:wasserstein-barycenter}{sec:wdl}.
 
 
 \subsection{Vanilla Sinkhorn}\label{subsec:gradient-vanilla-sinkhorn}
@@ -286,8 +286,8 @@ hence without the need to save intermediate Jacobian matrices.
         \left(\mathbb{1}_N\otimes I_M\right) \diag\frac1{\mathbf{u}}\cdot \mathbf{J_u} +
         \left(I_N \times \mathbb{1}_m\right) \diag\frac1{\mathbf{v}}\cdot \mathbf{J_v}
         \right]$
-    \State $\mathbf{\nabla} = \left(\mathbf{J_P}\cdot\mathbf{J_a}\right)^\top$
-    \Ensure $\mathbf{P}$, $\mathbf{\nabla}$
+    \State $\mathbf{\nabla}_{\mathbf{a}} = \left(\mathbf{J_P}\cdot\mathbf{J_a}\right)^\top$
+    \Ensure $\mathbf{P}$, $\mathbf{\nabla}_{\mathbf{a}}$
   \end{algorithmic}
 \end{algorithm}
 
@@ -308,7 +308,7 @@ A natural way to introduce an aggregation is to define the Wasserstein barycente
 % as in ,
 where we can take the weighted sum of the Sinkhorn losses as the loss function for the minimization
 problem.
-But this discussion is deferred to \cref{subsec:frechet-mean-and-wasserstein-barycenter}.
+But this discussion is deferred to \cref{sec:wasserstein-barycenter}.
 
 Here, to derive the Jacobian updating equations,
 % In this subsection, I will instead only derive the Jacobian updating equations for the Parallel Sinkhorn algorithm.
@@ -322,12 +322,12 @@ we can take the differentials
     \right]
   = d\,\vec \mathbf{A}\odot \frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}
   + \vec \mathbf{A}\odot d\,\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}
-  = \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}\cdot d\, \vec \mathbf{A}
+  = \diag\vec\frac1{\mathbf{K} \mathbf{V}^{(\ell-1)}} \cdot d\, \vec \mathbf{A}
   - \diag\vec \mathbf{A}\cdot \diag\vec \frac1{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
   \cdot
   d\,\vec \left(\mathbf{K}\mathbf{V}^{(\ell-1)}\right)
   =
-  \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}\cdot d\, \vec \mathbf{A}
+  \diag\vec\frac1{\mathbf{K} \mathbf{V}^{(\ell-1)}} \cdot d\, \vec \mathbf{A}
   - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
   \cdot
   \left(I_S\otimes \mathbf{K}\right)\cdot
@@ -364,7 +364,7 @@ Therefore, we obtain the Jacobian updating equations.
     \begin{aligned}
       D\,\mathbf{U}^{(\ell)}(\mathbf{A})
        & =
-      \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)}
+      \diag\vec\frac1{\mathbf{K} \mathbf{V}^{(\ell-1)}}
       - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
       \cdot
       \left(I_S\otimes \mathbf{K}\right)\cdot
@@ -390,7 +390,7 @@ Therefore, we obtain the Jacobian updating equations.
     \While{Not Convergence}
     % \State \# update U and JU
     \State $\mathbf{J_U} =
-      \diag\frac1{\vec \left(\mathbf{K} \mathbf{V}\right)}
+      \diag\vec\frac1{\mathbf{K} \mathbf{V}}
       - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}\right)^2}
       \cdot
       \left(I_S\otimes \mathbf{K}\right)\cdot
@@ -408,8 +408,8 @@ Therefore, we obtain the Jacobian updating equations.
     \State $\mathbf{V} \leftarrow \mathbf{B} \oslash (\mathbf{K}^\top \mathbf{U})$
     \EndWhile
     % \State $\mathbf{P} = diag(\mathbf{u}) \, \mathbf{K} \, diag(\mathbf{v})$
-    \State $\forall d, \mathbf{P}_d = diag(\mathbf{U}_d) \, \mathbf{K} \, diag(\mathbf{V}_d)$
-    \Ensure $\mathbf{P}_d$ for all $d$, $\mathbf{J_U}$, $\mathbf{J_V}$
+    \State $\forall s, \mathbf{P}_s = diag(\mathbf{U}_s) \, \mathbf{K} \, diag(\mathbf{V}_s)$
+    \Ensure $\mathbf{P}_s$ for all $s$, $\mathbf{J_U}$, $\mathbf{J_V}$
   \end{algorithmic}
 \end{algorithm}
 
@@ -710,7 +710,7 @@ and its transpose would be the gradient.
 % With the Jacobian in \cref{eqn:jacobian-loss-wrt-P},
 % we then have the following
 
-% the log-sinkhorn algo with jacobians
+% the log-sinkhorn algo with Jacobians
 
 \begin{algorithm}[H]
   \caption{Log-Stabilized Sinkhorn with Gradient}
@@ -721,10 +721,10 @@ and its transpose would be the gradient.
     \State $\mathbf{K} = Commutation(M,N)$ \# commutation matrix K
     \While{Not Convergence}
     \State \# update f and Jf
-    \State $\mathbf{S} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
-    \State $c = \min \mathbf{S}$
+    \State $\mathbf{R} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $c = \min \mathbf{R}$
     \State $\mathbf{Q} = \exp \left(
-      -\frac{\mathbf{S} - c}{\varepsilon}
+      -\frac{\mathbf{R} - c}{\varepsilon}
       \right)$
     \State $\mathbf{J} = \left(\mathbb{1}_N\otimes I_M\right)\cdot \mathbf{J_f} + \left(I_N\otimes \mathbb{1}_M\right)\cdot \mathbf{J_g}$
     \State $
@@ -745,10 +745,10 @@ and its transpose would be the gradient.
         \mathbf{Q} \cdot\mathbb{1}_N
         \right]$
     \State \# update g and Jg
-    \State $\mathbf{S} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
-    \State $c = \min \mathbf{S}$
+    \State $\mathbf{R} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $c = \min \mathbf{R}$
     \State $\mathbf{Q} = \exp \left(
-      -\frac{\mathbf{S} - c}{\varepsilon}
+      -\frac{\mathbf{R} - c}{\varepsilon}
       \right)$
     \State $\mathbf{J} = \left(\mathbb{1}_N\otimes I_M\right)\cdot \mathbf{J_f} +
       \left(I_N\otimes \mathbb{1}_M\right)\cdot \mathbf{J_g}$
@@ -774,16 +774,16 @@ and its transpose would be the gradient.
         \cdot \mathbb{1}_M
         \right]$
     \EndWhile
-    \State $\mathbf{S} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
-    \State $\mathbf{P} = \exp \left(-\frac{\mathbf{S}}{\varepsilon}\right)$ \# optimal coupling
+    % \State $\mathbf{S} = \mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top$
+    \State $\mathbf{P} = \exp \left(-\frac{\mathbf{C} - \mathbf{f}\cdot \mathbb{1}_N^\top - \mathbb{1}_M\cdot \mathbf{g}^\top}{\varepsilon}\right)$ \# optimal coupling
     % \State $\mathbf{J} = \left(\mathbb{1}_N\otimes I_M\right)\cdot \mathbf{J_f} +
     %   \left(I_N\otimes \mathbb{1}_M\right)\cdot \mathbf{J_g}$
-    \State $\mathbf{J_{P(a)}} = \frac1\varepsilon\cdot \diag\vec \mathbf{P} \cdot \left[
+    \State $\mathbf{J_{P}} = \mathbb{1}_{MN}^\top\cdot \diag\vec \left(\mathbf{C} + \varepsilon \log \mathbf{P}\right)$
+    \State $\mathbf{J_{a}} = \frac1\varepsilon \diag\vec \mathbf{P} \cdot \left[
         \left(\mathbb{1}_N\otimes I_M\right)\cdot \mathbf{J_f} +
         \left(I_N\otimes \mathbb{1}_M\right)\cdot \mathbf{J_g}
         \right]$
-    \State $\mathbf{J_{L(P)}} = \mathbb{1}_{MN}^\top\cdot \diag\vec \left(\mathbf{C} + \varepsilon \log \mathbf{P}\right)$
-    \State $\mathbf{\nabla} = \left(\mathbf{J_{L(P)}}\cdot\mathbf{J_{P(a)}}\right)^\top$
-    \Ensure $\mathbf{P}$, $\mathbf{\nabla}$.
+    \State $\mathbf{\nabla}_{\mathbf{a}} = \left(\mathbf{J_{P}}\cdot\mathbf{J_{a}}\right)^\top$
+    \Ensure $\mathbf{P}$, $\mathbf{\nabla}_{\mathbf{a}}$.
   \end{algorithmic}
 \end{algorithm}

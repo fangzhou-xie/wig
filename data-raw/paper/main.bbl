@@ -550,6 +550,82 @@
       \verb https://doi.org/10.1093/imamat/6.1.76
       \endverb
     \endentry
+    \entry{cauchy1847}{article}{}
+      \name{author}{1}{}{%
+        {{hash=fa82d29f01c9cc8358bb09d2a12ffe7e}{%
+           family={Cauchy},
+           familyi={C\bibinitperiod},
+           given={Augustin},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{fa82d29f01c9cc8358bb09d2a12ffe7e}
+      \strng{fullhash}{fa82d29f01c9cc8358bb09d2a12ffe7e}
+      \strng{bibnamehash}{fa82d29f01c9cc8358bb09d2a12ffe7e}
+      \strng{authorbibnamehash}{fa82d29f01c9cc8358bb09d2a12ffe7e}
+      \strng{authornamehash}{fa82d29f01c9cc8358bb09d2a12ffe7e}
+      \strng{authorfullhash}{fa82d29f01c9cc8358bb09d2a12ffe7e}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Comp. Rend. Sci. Paris}
+      \field{number}{1847}
+      \field{shortjournal}{Comp. Rend. Sci. Paris}
+      \field{title}{Méthode Générale Pour La Résolution Des Systemes d’équations Simultanées}
+      \field{volume}{25}
+      \field{year}{1847}
+      \field{dateera}{ce}
+      \field{pages}{536\bibrangedash 538}
+      \range{pages}{3}
+    \endentry
+    \entry{courant1943}{article}{}
+      \name{author}{1}{}{%
+        {{hash=f9d1c33cfe5873767fb913f40640ee7b}{%
+           family={Courant},
+           familyi={C\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{f9d1c33cfe5873767fb913f40640ee7b}
+      \strng{fullhash}{f9d1c33cfe5873767fb913f40640ee7b}
+      \strng{bibnamehash}{f9d1c33cfe5873767fb913f40640ee7b}
+      \strng{authorbibnamehash}{f9d1c33cfe5873767fb913f40640ee7b}
+      \strng{authornamehash}{f9d1c33cfe5873767fb913f40640ee7b}
+      \strng{authorfullhash}{f9d1c33cfe5873767fb913f40640ee7b}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Advancing research. Creating connections.}
+      \field{issn}{0002-9904, 1936-881X}
+      \field{journaltitle}{Bulletin of the American Mathematical Society}
+      \field{langid}{english}
+      \field{number}{1}
+      \field{shortjournal}{Bull. Amer. Math. Soc.}
+      \field{title}{Variational Methods for the Solution of Problems of Equilibrium and Vibrations}
+      \field{urlday}{8}
+      \field{urlmonth}{8}
+      \field{urlyear}{2024}
+      \field{volume}{49}
+      \field{year}{1943}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 23}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1090/S0002-9904-1943-07818-4
+      \endverb
+      \verb{urlraw}
+      \verb https://www.ams.org/bull/1943-49-01/S0002-9904-1943-07818-4/
+      \endverb
+      \verb{url}
+      \verb https://www.ams.org/bull/1943-49-01/S0002-9904-1943-07818-4/
+      \endverb
+    \endentry
     \entry{cuturi2013}{incollection}{}
       \name{author}{1}{}{%
         {{hash=a771427291cb72a39e026a68b102335d}{%
@@ -620,6 +696,50 @@
       \verb{url}
       \verb http://papers.nips.cc/paper/4927-sinkhorn-distances-lightspeed-computation-of-optimal-transport.pdf
       \endverb
+    \endentry
+    \entry{dekel2012}{article}{}
+      \name{author}{4}{}{%
+        {{hash=4193b7cb980580af02d0068750072bba}{%
+           family={Dekel},
+           familyi={D\bibinitperiod},
+           given={Ofer},
+           giveni={O\bibinitperiod}}}%
+        {{hash=15d9bbbc26f8c23efaddab1d87b26695}{%
+           family={Gilad-Bachrach},
+           familyi={G\bibinithyphendelim B\bibinitperiod},
+           given={Ran},
+           giveni={R\bibinitperiod}}}%
+        {{hash=c8f204eda8621ed7b1ef289231613e50}{%
+           family={Shamir},
+           familyi={S\bibinitperiod},
+           given={Ohad},
+           giveni={O\bibinitperiod}}}%
+        {{hash=2719c25efa416f0f6bcb63e9336c4a29}{%
+           family={Xiao},
+           familyi={X\bibinitperiod},
+           given={Lin},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{c4ca7621506508be572d422f0311ee5d}
+      \strng{fullhash}{3eef3897e80c14638266ef9d2c2068a9}
+      \strng{bibnamehash}{c4ca7621506508be572d422f0311ee5d}
+      \strng{authorbibnamehash}{c4ca7621506508be572d422f0311ee5d}
+      \strng{authornamehash}{c4ca7621506508be572d422f0311ee5d}
+      \strng{authorfullhash}{3eef3897e80c14638266ef9d2c2068a9}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1532-4435}
+      \field{journaltitle}{Journal of Machine Learning Research}
+      \field{number}{1}
+      \field{shortjournal}{Journal of Machine Learning Research}
+      \field{title}{Optimal {{Distributed Online Prediction Using Mini-Batches}}}
+      \field{volume}{13}
+      \field{year}{2012}
+      \field{dateera}{ce}
     \endentry
     \entry{fletcher1970}{article}{}
       \name{author}{1}{}{%
@@ -760,6 +880,64 @@
       \verb https://www.jstor.org/stable/2004873
       \endverb
     \endentry
+    \entry{hadamard1908}{book}{}
+      \name{author}{1}{}{%
+        {{hash=867a2303b0c6cc9d6fb2010bbc2f6fbe}{%
+           family={Hadamard},
+           familyi={H\bibinitperiod},
+           given={Jacques},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Imprimerie nationale}%
+      }
+      \strng{namehash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{fullhash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{bibnamehash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{authorbibnamehash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{authornamehash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \strng{authorfullhash}{867a2303b0c6cc9d6fb2010bbc2f6fbe}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Mémoire Sur Le Problème d'analyse Relatif à l'équilibre Des Plaques Élastiques Encastrées}
+      \field{volume}{33}
+      \field{year}{1908}
+      \field{dateera}{ce}
+    \endentry
+    \entry{hilbert1900}{article}{}
+      \name{author}{1}{}{%
+        {{hash=75b05ce956b23032ea66e4c981e8f28a}{%
+           family={Hilbert},
+           familyi={H\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{75b05ce956b23032ea66e4c981e8f28a}
+      \strng{fullhash}{75b05ce956b23032ea66e4c981e8f28a}
+      \strng{bibnamehash}{75b05ce956b23032ea66e4c981e8f28a}
+      \strng{authorbibnamehash}{75b05ce956b23032ea66e4c981e8f28a}
+      \strng{authornamehash}{75b05ce956b23032ea66e4c981e8f28a}
+      \strng{authorfullhash}{75b05ce956b23032ea66e4c981e8f28a}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2400-4782}
+      \field{journaltitle}{Nouvelles annales de mathématiques: journal des candidats aux écoles polytechnique et normale}
+      \field{shortjournal}{Nouvelles annales de mathématiques: journal des candidats aux écoles polytechnique et normale}
+      \field{title}{Sur Le Principe de {{Dirichlet}}}
+      \field{volume}{19}
+      \field{year}{1900}
+      \field{dateera}{ce}
+      \field{pages}{337\bibrangedash 344}
+      \range{pages}{8}
+    \endentry
     \entry{innes2019}{online}{}
       \name{author}{1}{}{%
         {{hash=69c02a169ebe2a2dc8025efb413e9160}{%
@@ -893,6 +1071,59 @@
       \endverb
       \keyw{53C20 01A60,Mathematics - Differential Geometry,Mathematics - History and Overview}
     \endentry
+    \entry{kiefer1952}{article}{}
+      \name{author}{2}{}{%
+        {{hash=813adedef62022bf4d7bb90c68a674b1}{%
+           family={Kiefer},
+           familyi={K\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=023320ea068c92887e10446d3360a4cf}{%
+           family={Wolfowitz},
+           familyi={W\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Institute of Mathematical Statistics}%
+      }
+      \strng{namehash}{c3a071de1a0bf0104f413c3f9a38e242}
+      \strng{fullhash}{c3a071de1a0bf0104f413c3f9a38e242}
+      \strng{bibnamehash}{c3a071de1a0bf0104f413c3f9a38e242}
+      \strng{authorbibnamehash}{c3a071de1a0bf0104f413c3f9a38e242}
+      \strng{authornamehash}{c3a071de1a0bf0104f413c3f9a38e242}
+      \strng{authorfullhash}{c3a071de1a0bf0104f413c3f9a38e242}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Let \$M(x)\$ be a regression function which has a maximum at the unknown point \$\textbackslash theta. M(x)\$ is itself unknown to the statistician who, however, can take observations at any level \$x\$. This paper gives a scheme whereby, starting from an arbitrary point \$x\_1\$, one obtains successively \$x\_2, x\_3, \textbackslash cdots\$ such that \$x\_n\$ converges to \$\textbackslash theta\$ in probability as \$n \textbackslash rightarrow \textbackslash infty\$.}
+      \field{issn}{0003-4851, 2168-8990}
+      \field{journaltitle}{The Annals of Mathematical Statistics}
+      \field{month}{9}
+      \field{number}{3}
+      \field{title}{Stochastic {{Estimation}} of the {{Maximum}} of a {{Regression Function}}}
+      \field{urlday}{9}
+      \field{urlmonth}{8}
+      \field{urlyear}{2024}
+      \field{volume}{23}
+      \field{year}{1952}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{462\bibrangedash 466}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1214/aoms/1177729392
+      \endverb
+      \verb{urlraw}
+      \verb https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full
+      \endverb
+      \verb{url}
+      \verb https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-23/issue-3/Stochastic-Estimation-of-the-Maximum-of-a-Regression-Function/10.1214/aoms/1177729392.full
+      \endverb
+    \endentry
     \entry{kingma2015}{inproceedings}{}
       \name{author}{2}{}{%
         {{hash=f6b53f17103e5520f62dbe6f2e1ad6ef}{%
@@ -1001,6 +1232,36 @@
       \verb{url}
       \verb https://autodiff.github.io
       \endverb
+    \endentry
+    \entry{lemarechal2012}{article}{}
+      \name{author}{1}{}{%
+        {{hash=fac596b6119fb105e6a44ab55a7f31d1}{%
+           family={Lemaréchal},
+           familyi={L\bibinitperiod},
+           given={Claude},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{fac596b6119fb105e6a44ab55a7f31d1}
+      \strng{fullhash}{fac596b6119fb105e6a44ab55a7f31d1}
+      \strng{bibnamehash}{fac596b6119fb105e6a44ab55a7f31d1}
+      \strng{authorbibnamehash}{fac596b6119fb105e6a44ab55a7f31d1}
+      \strng{authornamehash}{fac596b6119fb105e6a44ab55a7f31d1}
+      \strng{authorfullhash}{fac596b6119fb105e6a44ab55a7f31d1}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Doc Math Extra}
+      \field{number}{254}
+      \field{shortjournal}{Doc Math Extra}
+      \field{title}{Cauchy and the Gradient Method}
+      \field{volume}{251}
+      \field{year}{2012}
+      \field{dateera}{ce}
+      \field{pages}{10}
+      \range{pages}{1}
     \endentry
     \entry{leonard2013}{unpublished}{}
       \name{author}{1}{}{%
@@ -1402,6 +1663,170 @@
       \verb https://www.nowpublishers.com/article/Details/MAL-073
       \endverb
     \endentry
+    \entry{rayleigh1896}{book}{}
+      \name{author}{1}{}{%
+        {{hash=62f7aa9ecd95cab1ce4683e8716e8bc2}{%
+           family={Rayleigh},
+           familyi={R\bibinitperiod},
+           given={John\bibnamedelimb William\bibnamedelimb Strutt\bibnamedelima Baron},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Macmillan}%
+      }
+      \strng{namehash}{62f7aa9ecd95cab1ce4683e8716e8bc2}
+      \strng{fullhash}{62f7aa9ecd95cab1ce4683e8716e8bc2}
+      \strng{bibnamehash}{62f7aa9ecd95cab1ce4683e8716e8bc2}
+      \strng{authorbibnamehash}{62f7aa9ecd95cab1ce4683e8716e8bc2}
+      \strng{authornamehash}{62f7aa9ecd95cab1ce4683e8716e8bc2}
+      \strng{authorfullhash}{62f7aa9ecd95cab1ce4683e8716e8bc2}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{googlebooks}
+      \field{langid}{english}
+      \field{pagetotal}{526}
+      \field{title}{The {{Theory}} of {{Sound}}}
+      \field{year}{1896}
+      \field{dateera}{ce}
+      \verb{eprint}
+      \verb A7fvAAAAMAAJ
+      \endverb
+    \endentry
+    \entry{ritz1909}{article}{}
+      \name{author}{1}{}{%
+        {{hash=28f458ca66fdb491215a3b362d374ef0}{%
+           family={Ritz},
+           familyi={R\bibinitperiod},
+           given={Walter},
+           giveni={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{28f458ca66fdb491215a3b362d374ef0}
+      \strng{fullhash}{28f458ca66fdb491215a3b362d374ef0}
+      \strng{bibnamehash}{28f458ca66fdb491215a3b362d374ef0}
+      \strng{authorbibnamehash}{28f458ca66fdb491215a3b362d374ef0}
+      \strng{authornamehash}{28f458ca66fdb491215a3b362d374ef0}
+      \strng{authorfullhash}{28f458ca66fdb491215a3b362d374ef0}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal für die reine und angewandte Mathematik}
+      \field{langid}{german}
+      \field{title}{Über eine neue Methode zur Lösung gewisser Variationsprobleme der mathematischen Physik.}
+      \field{volume}{135}
+      \field{year}{1909}
+      \field{dateera}{ce}
+      \field{pages}{1\bibrangedash 61}
+      \range{pages}{61}
+      \verb{urlraw}
+      \verb http://eudml.org/doc/149295
+      \endverb
+      \verb{url}
+      \verb http://eudml.org/doc/149295
+      \endverb
+      \keyw{Dirichlet principle,elastic plate,Ritz method}
+    \endentry
+    \entry{robbins1951}{article}{}
+      \name{author}{2}{}{%
+        {{hash=163566b92b332258782e61e3d217a2bb}{%
+           family={Robbins},
+           familyi={R\bibinitperiod},
+           given={Herbert},
+           giveni={H\bibinitperiod}}}%
+        {{hash=95751f7f614bc2af42f1a078b3e2ba61}{%
+           family={Monro},
+           familyi={M\bibinitperiod},
+           given={Sutton},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Institute of Mathematical Statistics}%
+      }
+      \strng{namehash}{5d85b58c5cbfcc8fc266cf4f5f6fbdbb}
+      \strng{fullhash}{5d85b58c5cbfcc8fc266cf4f5f6fbdbb}
+      \strng{bibnamehash}{5d85b58c5cbfcc8fc266cf4f5f6fbdbb}
+      \strng{authorbibnamehash}{5d85b58c5cbfcc8fc266cf4f5f6fbdbb}
+      \strng{authornamehash}{5d85b58c5cbfcc8fc266cf4f5f6fbdbb}
+      \strng{authorfullhash}{5d85b58c5cbfcc8fc266cf4f5f6fbdbb}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Let \$M(x)\$ denote the expected value at level \$x\$ of the response to a certain experiment. \$M(x)\$ is assumed to be a monotone function of \$x\$ but is unknown to the experimenter, and it is desired to find the solution \$x = \textbackslash theta\$ of the equation \$M(x) = \textbackslash alpha\$, where \$\textbackslash alpha\$ is a given constant. We give a method for making successive experiments at levels \$x\_1,x\_2,\textbackslash cdots\$ in such a way that \$x\_n\$ will tend to \$\textbackslash theta\$ in probability.}
+      \field{issn}{0003-4851, 2168-8990}
+      \field{journaltitle}{The Annals of Mathematical Statistics}
+      \field{month}{9}
+      \field{number}{3}
+      \field{title}{A {{Stochastic Approximation Method}}}
+      \field{urlday}{8}
+      \field{urlmonth}{8}
+      \field{urlyear}{2024}
+      \field{volume}{22}
+      \field{year}{1951}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{400\bibrangedash 407}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1214/aoms/1177729586
+      \endverb
+      \verb{urlraw}
+      \verb https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-22/issue-3/A-Stochastic-Approximation-Method/10.1214/aoms/1177729586.full
+      \endverb
+      \verb{url}
+      \verb https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-22/issue-3/A-Stochastic-Approximation-Method/10.1214/aoms/1177729586.full
+      \endverb
+    \endentry
+    \entry{rosenblatt1958}{article}{}
+      \name{author}{1}{}{%
+        {{hash=1750cd87a34d44119e7a4aab9b8012c6}{%
+           family={Rosenblatt},
+           familyi={R\bibinitperiod},
+           given={F.},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {US}%
+      }
+      \list{publisher}{1}{%
+        {American Psychological Association}%
+      }
+      \strng{namehash}{1750cd87a34d44119e7a4aab9b8012c6}
+      \strng{fullhash}{1750cd87a34d44119e7a4aab9b8012c6}
+      \strng{bibnamehash}{1750cd87a34d44119e7a4aab9b8012c6}
+      \strng{authorbibnamehash}{1750cd87a34d44119e7a4aab9b8012c6}
+      \strng{authornamehash}{1750cd87a34d44119e7a4aab9b8012c6}
+      \strng{authorfullhash}{1750cd87a34d44119e7a4aab9b8012c6}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{To answer the questions of how information about the physical world is sensed, in what form is information remembered, and how does information retained in memory influence recognition and behavior, a theory is developed for a hypothetical nervous system called a perceptron. The theory serves as a bridge between biophysics and psychology. It is possible to predict learning curves from neurological variables and vice versa. The quantitative statistical approach is fruitful in the understanding of the organization of cognitive systems. 18 references. (PsycINFO Database Record (c) 2016 APA, all rights reserved)}
+      \field{issn}{1939-1471}
+      \field{journaltitle}{Psychological Review}
+      \field{number}{6}
+      \field{shorttitle}{The Perceptron}
+      \field{title}{The Perceptron: {{A}} Probabilistic Model for Information Storage and Organization in the Brain}
+      \field{volume}{65}
+      \field{year}{1958}
+      \field{dateera}{ce}
+      \field{pages}{386\bibrangedash 408}
+      \range{pages}{23}
+      \verb{doi}
+      \verb 10.1037/h0042519
+      \endverb
+      \keyw{Brain,Cognition,Memory,Nervous System}
+    \endentry
     \entry{santambrogio2015a}{book}{}
       \name{author}{1}{}{%
         {{hash=deb5f5e08d40c7c61a19403771acf3c3}{%
@@ -1695,6 +2120,59 @@
       \verb https://msp.org/pjm/1967/21-2/p14.xhtml
       \endverb
     \endentry
+    \entry{storn1997}{article}{}
+      \name{author}{2}{}{%
+        {{hash=87ff7bd4305b95a067c44bc7243d8128}{%
+           family={Storn},
+           familyi={S\bibinitperiod},
+           given={Rainer},
+           giveni={R\bibinitperiod}}}%
+        {{hash=96e607982973d9cb076455039a368fa5}{%
+           family={Price},
+           familyi={P\bibinitperiod},
+           given={Kenneth},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{5dfb836e07d40eb2d1cef5fbe8334415}
+      \strng{fullhash}{5dfb836e07d40eb2d1cef5fbe8334415}
+      \strng{bibnamehash}{5dfb836e07d40eb2d1cef5fbe8334415}
+      \strng{authorbibnamehash}{5dfb836e07d40eb2d1cef5fbe8334415}
+      \strng{authornamehash}{5dfb836e07d40eb2d1cef5fbe8334415}
+      \strng{authorfullhash}{5dfb836e07d40eb2d1cef5fbe8334415}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A new heuristic approach for minimizing possiblynonlinear and non-differentiable continuous spacefunctions is presented. By means of an extensivetestbed it is demonstrated that the new methodconverges faster and with more certainty than manyother acclaimed global optimization methods. The newmethod requires few control variables, is robust, easyto use, and lends itself very well to parallelcomputation.}
+      \field{day}{1}
+      \field{issn}{1573-2916}
+      \field{journaltitle}{Journal of Global Optimization}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{4}
+      \field{shortjournal}{Journal of Global Optimization}
+      \field{title}{Differential Evolution – a Simple and Efficient Heuristic for Global Optimization over Continuous Spaces}
+      \field{urlday}{16}
+      \field{urlmonth}{11}
+      \field{urlyear}{2020}
+      \field{volume}{11}
+      \field{year}{1997}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{341\bibrangedash 359}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.1023/A:1008202821328
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1023/A:1008202821328
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1023/A:1008202821328
+      \endverb
+    \endentry
     \entry{villani2003}{book}{}
       \name{author}{1}{}{%
         {{hash=9a5829eabef68d560b86bf71527fd874}{%
@@ -1973,7 +2451,6 @@
       \endverb
     \endentry
   \enddatalist
-  \missing{dekel2012}
 \endrefsection
 \endinput
 

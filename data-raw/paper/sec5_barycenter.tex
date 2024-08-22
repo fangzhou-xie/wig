@@ -1,0 +1,594 @@
+% Wasserstein Barycenter and Dictionary Learning
+
+% \subsection{Fr\'echet Mean}\label{subsec:frechet-mean}
+
+As is often in the case in practice, one wants to compute the ``mean'' or ``center'' given a sequence of points.
+This is useful when we want to find a unknown center as an estimate to the group of points (usually data).
+Suppose we have $\left(x_s\right)_{s = 1}^S \in \mathcal{X}^S$ in a metric space $\left(\mathcal{X}, d\right)$,
+where $d(\cdot)$ is a metric defined on $\mathcal{X}$,
+then we have the following problem
+
+\begin{equation*}
+  \begin{aligned}
+    \min_{x \in \mathcal{X}} \sum_s^S \lambda_s d(x, x_s)^p,
+  \end{aligned}
+\end{equation*}
+
+for a weight vector $\boldsymbol{\uplambda} \in \Sigma_S$ and some power $p$ but is often set to 2.
+This is often called ``Fr\'echet'' or ``Karcher'' mean\footnote{
+  Or Riemannian center of mass.
+  See \citet{karcher2014} for a historical account on the naming.
+}.
+
+\subsection{Parallel Algorithm}\label{subsec:barycenter-parallel}
+% \subsectionmark{Parallel Barycenter}
+
+% In light of the idea of ``Fr\'echet mean'', we can 
+We can then state the Wasserstein Barycenter problem, similar to the idea of ``Fr\'echet mean''
+as a weighted sum of the individual distances/losses.
+Consider the loss function in \cref{eqn:loss-kantorovich},
+a weight vector $\boldsymbol{\uplambda} \in \Sigma_S$,
+and a sequence of discrete densities $\left\{\mathbf{a}_s\right\}_{s = 1}^S$,
+where $a_s \in \Sigma_{M_s}$ and $M_s$ is the length of $a_s$,
+a Wasserstein barycenter is computed by the following minimization problem
+
+\begin{equation*}
+  \begin{aligned}
+    \argmin_{\mathbf{b} \in \Sigma_N} \sum_{s=1}^S \lambda_s L_{\mathbf{C}_s} \left(\mathbf{a}_s, \mathbf{b}\right),
+  \end{aligned}
+\end{equation*}
+
+where the cost matrix $\mathbf{C}_s \in \mathbb{R}^{M_s \times N}$ specifies the cost for transporting
+between the probability vectors $\mathbf{a}_s$ and $\mathbf{b}$.
+Of course, this problem can be approximated by the entropic regularized version
+by simply swapping the loss function by \cref{eqn:entropic-regularized-OT-loss}.
+Thus, we have the entropic regularized Wasserstein barycenter problem
+
+\begin{equation}
+  \begin{aligned}
+    \argmin_{\mathbf{b} \in \Sigma_N} \sum_{s=1}^S \lambda_s L_{\mathbf{C}_s}^\varepsilon \left(\mathbf{a}_s, \mathbf{b}\right).
+  \end{aligned}
+\end{equation}
+
+$\mathbf{b}$ is therefore the unknown computed barycenter as the ``mean'' of
+the atoms $\mathbf{a}_1, \ldots, \mathbf{a}_S$.
+% This problem is a smooth convex problem,
+% which can be solved by gradient descent \citep{cuturi2014a,gramfort2015},
+% descent methods on the semi-dual \citep{cuturi2016},
+% or the Iterative Bregman Projections method \citep{benamou2015}.
+Again, we will arrive at the Sinkhorn-like updates \citep{benamou2015,schmitz2018}:
+
+\begin{equation}\label{eqn:barycenter-sinkhorn-like-vector-update}
+  \begin{aligned}
+    \mathbf{u}_s^{(\ell)}
+     & = \frac{\mathbf{a}_s}{\mathbf{K}_s \mathbf{v}_s^{(\ell-1)}},                                   \\
+    \mathbf{b}^{(\ell)}
+     & = \boldsymbol{\Pi}_{s = 1}^S \left(\mathbf{K}_s^\top \mathbf{u}_s^{(\ell)}\right)^{\lambda_s}, \\
+    \mathbf{v}_s^{(\ell)}
+     & = \frac{\mathbf{b}^{(\ell)}}{\mathbf{K}_s^\top \mathbf{u}_s^{(\ell)}},
+  \end{aligned}
+\end{equation}
+
+where $\mathbf{K}_s = \exp \left(-\frac{\mathbf{C}_s}{\varepsilon}\right)$,
+and $\mathbf{u}_s$, $\mathbf{v}_s$ are scaling vectors for $s = 1, \ldots, S$.
+Also, $\frac\cdot\cdot$ and $\left(\cdot\right)^{(\cdot)}$ are to be understood as element-wise operations.
+
+In practical applications, however,
+we usually have $M_1 = \ldots = M_s = N$
+and $\mathbf{K} = \mathbf{K}_1 = \mathbf{K}_2 = \cdots = \mathbf{K}_S$.
+We can thus rewrite \cref{eqn:barycenter-sinkhorn-like-vector-update}
+similar to \cref{subsec:parallel-sinkhorn} as the following updating equations
+
+\begin{update}[Updating Equations for Parallel Wasserstein Barycenter Algorithm]\label{update:parallel-barycenter}
+  \begin{equation}\label{eqn:barycenter-sinkhorn-like-matrix-update}
+    \begin{aligned}
+      \mathbf{U}^{(\ell)}
+       & = \frac{\mathbf{A}}{\mathbf{K} \mathbf{V}^{(\ell-1)}},                                          \\
+      \mathbf{b}^{(\ell)}
+       & = \boldsymbol{\Pi}_{row}
+      \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^{\boldsymbol\uplambda^\top \otimes \mathbb{1}_N}, \\
+      \mathbf{V}^{(\ell)}
+       & = \frac{\mathbf{B}^{(\ell)}}{\mathbf{K}^\top \mathbf{U}^{(\ell)}},
+    \end{aligned}
+  \end{equation}
+  where $\mathbf{B}^{(\ell)} = \left[\mathbf{b}^{(\ell)}, \ldots, \mathbf{b}^{(\ell)}\right] \in \mathbb{R}^{N\times S}$,
+  % $\left(\cdot\right)^\cdot$ denotes column-wise power,
+  and the product operator $\boldsymbol\Pi_{row}$ refers to the row-wise product on the matrix.
+  % which will result in a length $N$ vector as the current iteration barycenter estimator.
+\end{update}
+
+The row-wise product will reduce the matrix into a length $N$ vector,
+and the power operation in the second line refers to the element-wise power operation.
+The matrix $\boldsymbol\uplambda^\top \otimes \mathbb{1}_N$ simply populates the length $S$ vector
+$\boldsymbol\uplambda$ into an $N\times S$ matrix,
+which can also be seen as applying each element of the $\boldsymbol\uplambda$ vector to the base matrix column-wise.
+
+
+
+\begin{algorithm}[H]
+  \caption{Wasserstein Barycenter Algorithm (Parallel)}
+  \begin{algorithmic}[1]\label{algo:parallel-barycenter}
+    \Require $\mathbf{A} \in \Sigma_{N \times S}$, $\mathbf{C} \in \mathbb{R}^{N \times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{U} = \mathbb{1}_{N \times S}$, $\mathbf{V}_{N \times S} = \mathbb{1}_{N \times S}$,
+    $\mathbf{b} = \mathbb{0}_N$.
+    \State $\mathbf{K} = \exp(-\frac{\mathbf{C}}{\varepsilon})$
+    \While{Not Convergence}
+    \State $\mathbf{U} \leftarrow \mathbf{A} \oslash (\mathbf{K} \mathbf{V})$
+    \State $\mathbf{b} =
+      \boldsymbol\Pi_{row}
+      \left(\mathbf{K}^\top \mathbf{U}\right)^{\boldsymbol\uplambda^\top \otimes \mathbb{1}_N}
+    $
+    \State $\mathbf{V} \leftarrow \mathbf{b} \oslash (\mathbf{K}^\top \mathbf{U})$
+    \EndWhile
+    \Ensure $\mathbf{b}$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[]
+  In Line 4 of \cref{algo:parallel-barycenter},
+  the notation $\boldsymbol\Pi_s$ refers to row-wise product reduction
+  as in \cref{eqn:barycenter-sinkhorn-like-matrix-update}.
+  In Line 5, the numerator $\mathbf{b}$ can be broadcast to be the same numerator of all columns of the denominator matrix
+  as discussed in \cref{subsec:parallel-sinkhorn}.
+\end{remark}
+
+\begin{remark}[Convergence Condition]
+  Similar to the Convergence Condition in \cref{remark:conv-cond-parallel},
+  we can check the following condition for convergence. For some $\rho > 0$,
+  \begin{equation*}
+    \begin{aligned}
+      \lVert
+      \mathbf{U}^{(\ell)} \odot \left(\mathbf{K} \mathbf{V}^{(\ell)}\right) - \mathbf{A}
+      \rVert_2 \le \rho.
+    \end{aligned}
+  \end{equation*}
+\end{remark}
+
+
+\subsection{Log-stabilized Algorithm}\label{subsec:log-barycenter}
+
+
+Similar to the discussion of \cref{subsec:log-sinkhorn},
+numerical instability is still an issue for \cref{algo:parallel-barycenter}
+due the computation of the exponential function and its potential numeric overflow.
+Therefore, we would also need to stabilize the computation in the log-domain.
+In order to do so, we will also need to state the algorithms (updating equations)
+in terms of the dual variables $\mathbf{f}$ and $\mathbf{g}$.
+
+One issue arises if we try to adapt \cref{subsec:log-sinkhorn} to the problem in
+\cref{eqn:barycenter-sinkhorn-like-matrix-update},
+that is,
+we can only calculate the value of the function $\mathcal{P}$ for each margin,
+i.e. each pair of $\mathbf{f}$ and $\mathbf{g}$,
+without being able to process the data for all the margins at once as in \cref{subsec:parallel-sinkhorn}.
+Therefore, we need to extend (abuse) the notation in \cref{subsec:log-sinkhorn}
+for the equations in \cref{update:parallel-barycenter}.
+
+Let us define
+
+\begin{equation*}
+  \begin{aligned}
+    \mathbf{F}^{(\ell)}
+     & \equiv \left[
+    \mathbf{f}_1^{(\ell)}, \ldots, \mathbf{f}_S^{(\ell)}
+    \right]
+    =
+    \left[
+    \varepsilon \log \mathbf{u}_1^{(\ell)}, \ldots, \varepsilon \log \mathbf{u}_S^{(\ell)}
+    \right]
+    = \varepsilon \log \mathbf{U}^{(\ell)} \in \mathbb{R}^{M \times S}, \\
+    \mathbf{G}^{(\ell)}
+     & \equiv \left[
+      \mathbf{g}^{(\ell)}_1, \ldots, \mathbf{g}^{(\ell)}_S
+      \right]
+    = \left[
+      \varepsilon \log \mathbf{v}^{(\ell)}_1, \ldots, \varepsilon \log \mathbf{v}^{(\ell)}_S
+      \right]
+    = \varepsilon \log \mathbf{V}^{(\ell)} \in \mathbb{R}^{N \times S}.
+  \end{aligned}
+\end{equation*}
+
+% and
+
+% \begin{equation*}
+%   \begin{aligned}
+%     \mathcal{P} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell)}\right)
+%     = \left[
+%       \mathcal{P} \left(\mathbf{f}^{(\ell)}_1, \mathbf{g}^{(\ell)}_1\right),
+%       \ldots,
+%       \mathcal{P} \left(\mathbf{f}^{(\ell)}_S, \mathbf{g}^{(\ell)}_S\right)
+%       \right].
+%   \end{aligned}
+% \end{equation*}
+
+
+Since we have \cref{eqn:neg-log-kv-vec}, then
+
+\begin{equation*}
+  \begin{aligned}
+    - \varepsilon \log \mathbf{K} \mathbf{V}^{(\ell)}
+     & =
+    - \varepsilon \log \left[
+      \mathbf{K} \mathbf{v}^{(\ell)}_1, \ldots, \mathbf{K} \mathbf{v}^{(\ell)}_S
+    \right] \\
+     & =
+    - \varepsilon \log \left[
+      \mathcal{P} \left(\mathbf{f}^{(\ell)}_1, \mathbf{g}^{(\ell)}_1\right) \cdot \mathbb{1}_N,
+      \ldots,
+      \mathcal{P} \left(\mathbf{f}^{(\ell)}_S, \mathbf{g}^{(\ell)}_S\right) \cdot \mathbb{1}_N
+      \right] + \left[
+      \mathbf{f}^{(\ell)}_1, \ldots, \mathbf{f}^{(\ell)}_S
+    \right] \\
+     & =
+    - \varepsilon \log
+    \left\{
+    \left[
+      \mathcal{P} \left(\mathbf{f}^{(\ell)}_1, \mathbf{g}^{(\ell)}_1\right),
+      \ldots,
+      \mathcal{P} \left(\mathbf{f}^{(\ell)}_S, \mathbf{g}^{(\ell)}_S\right)
+      \right] \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+    \right\}
+    + \mathbf{F}^{(\ell)}.
+  \end{aligned}
+\end{equation*}
+
+By abusing the notation, we could also have
+
+% \begin{equation*}
+%   \begin{aligned}
+%   \left[
+%   \mathcal{P} \left(\mathbf{f}^{(\ell)}_1, \mathbf{g}^{(\ell)}_1\right),
+%   \ldots,
+%   \mathcal{P} \left(\mathbf{f}^{(\ell)}_S, \mathbf{g}^{(\ell)}_S\right)
+%   \right]\\
+%   =   
+%   \end{aligned}
+% \end{equation*}
+
+\begin{dmath}
+  \mathcal{P} \left(\mathbf{F}, \mathbf{G}\right)
+  \equiv
+  \left[
+    \mathcal{P} \left(\mathbf{f}_1, \mathbf{g}_1\right),
+    \ldots,
+    \mathcal{P} \left(\mathbf{f}_S, \mathbf{g}_S\right)
+    \right]
+  =
+  \left[
+    \exp \left(- \frac{
+      \mathbf{C} - \mathbf{f}_1 \mathbb{1}_N^\top - \mathbb{1}_M \mathbf{g}^{\top}_1
+    }{\varepsilon}\right),
+    \ldots,
+    \exp \left(
+    - \frac{
+      \mathbf{C} - \mathbf{f}_S \mathbb{1}_N^\top - \mathbb{1}_M \mathbf{g}^{\top}_S
+    }{\varepsilon}
+    \right)
+    \right]
+  = \exp \left(
+  -\frac1\varepsilon \left[
+    \mathbf{C} - \mathbf{f}_1 \mathbb{1}_N^\top - \mathbb{1}_M \mathbf{g}^{\top}_1,
+    \ldots,
+    \mathbf{C} - \mathbf{f}_S \mathbb{1}_N^\top - \mathbb{1}_M \mathbf{g}^{\top}_S
+    \right]
+  \right)
+  = \exp \left\{
+  -\frac1\varepsilon \left[
+    \mathbb{1}_S^\top \otimes \mathbf{C}
+    - \mathbf{F} \cdot \left(I_S \otimes \mathbb{1}_N^\top\right)
+    - \mathbb{1}_M \otimes \left(\vec \mathbf{G}\right)^\top
+    \right]
+  \right\}.
+\end{dmath}
+
+Note that in the previous display, we have avoided matrix concatenation
+and transform the expression into basic matrix computations (multiplication and kronecker product).
+This will also make our life easier when we derive the Jacobians later in \cref{sec:barycenter-gradient}.
+Therefore, we could have the updating equation for
+
+\begin{equation*}
+  \begin{aligned}
+    \mathbf{F}^{(\ell)}
+     & = \varepsilon \log \mathbf{A} - \varepsilon \log \mathbf{K} \mathbf{V}^{(\ell-1)} \\
+     & = \mathbf{F}^{(\ell-1)} + \varepsilon \log \mathbf{A}
+    - \varepsilon
+    \log \left[
+      \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+      \right].
+  \end{aligned}
+\end{equation*}
+
+To get the expression for $\mathbf{G}^{(\ell)}$, we need to follow similar steps.
+First, define
+
+\begin{equation*}
+  \begin{aligned}
+    \widetilde{\mathcal{P}} \left(\mathbf{F}, \mathbf{G}\right)
+     & \equiv \left[
+      \mathcal{P}^\top \left(\mathbf{f}_1, \mathbf{g}_1\right),
+      \ldots,
+      \mathcal{P}^\top \left(\mathbf{f}_S, \mathbf{g}_S\right)
+    \right]          \\
+     & =
+    \exp \left\{
+    -\frac1\varepsilon \left[
+      \mathbb{1}_S^\top \otimes \mathbf{C}^\top
+      - \mathbb{1}_N \otimes \left(\vec \mathbf{F}\right)^\top
+      - \mathbf{G} \cdot \left(I_S \otimes \mathbb{1}_M^\top\right)
+      \right]
+    \right\}.
+  \end{aligned}
+\end{equation*}
+
+Then by \cref{eqn:fg-expression-as-uv}, we have
+
+\begin{equation}\label{eqn:log-barycenter-G-updating-eqn}
+  \begin{aligned}
+    \mathbf{G}^{(\ell)}
+     & = \varepsilon \log \mathbf{V}^{(\ell)}                                               \\
+     & = \varepsilon \log \mathbf{B} - \varepsilon \log \mathbf{K}^\top \mathbf{V}^{(\ell)} \\
+     & = \mathbf{G}^{(\ell-1)} + \varepsilon \log \mathbf{B} -
+    \varepsilon \log \left[
+      \mathcal{P}^\top \left(\mathbf{f}^{(\ell)}_1, \mathbf{g}^{(\ell-1)}_1\right) \cdot \mathbb{1}_M,
+      \ldots,
+      \mathcal{P}^\top \left(\mathbf{f}^{(\ell)}_S, \mathbf{g}^{(\ell-1)}_S\right) \cdot \mathbb{1}_M
+    \right]                                                                                 \\
+     & = \mathbf{G}^{(\ell-1)} + \varepsilon \log \mathbf{B} -
+    \varepsilon
+    \log \left[
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_M\right)
+      \right].
+  \end{aligned}
+\end{equation}
+
+
+Putting everything together, we have the following updating equations,
+
+\begin{equation}\label{eqn:updating-eqn-FG-by-P}
+  \begin{aligned}
+    \mathbf{F}^{(\ell)}
+     & =
+    \mathbf{F}^{(\ell-1)} + \varepsilon \log \mathbf{A}
+    - \varepsilon \log\left[\mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot \left(I_S \otimes \mathbb{1}_N\right)
+    \right], \\
+    \mathbf{G}^{(\ell)}
+     & =
+    \mathbf{G}^{(\ell-1)}
+    + \varepsilon \log \mathbf{B}
+    - \varepsilon \log \left[
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot \left(I_S \otimes \mathbb{1}_M\right)
+      \right],
+  \end{aligned}
+\end{equation}
+where
+
+\begin{equation*}
+  \begin{aligned}
+    \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+     & =
+    \exp \left\{
+    -\frac1\varepsilon \left[
+      \mathbb{1}_S^\top \otimes \mathbf{C}
+      - \mathbf{F}^{(\ell-1)} \cdot \left(I_S \otimes \mathbb{1}_N^\top\right)
+      - \mathbb{1}_M \otimes \left(\vec \mathbf{G}^{(\ell-1)}\right)^\top
+      \right]
+    \right\}, \\
+    \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+     & =
+    \exp \left\{
+    -\frac1\varepsilon \left[
+      \mathbb{1}_S^\top \otimes \mathbf{C}^\top
+      - \mathbb{1}_N \otimes \left(\vec \mathbf{F}^{(\ell)}\right)^\top
+      - \mathbf{G}^{(\ell-1)} \cdot \left(I_S \otimes \mathbb{1}_M^\top\right)
+      \right]
+    \right\}.
+  \end{aligned}
+\end{equation*}
+
+% Note that by abusing the notations of $\mathcal{P} \left(\mathbf{F}, \mathbf{G}\right)$
+% and $\mathcal{P}^\top \left(\mathbf{F}, \mathbf{G}\right)$,
+% we can have a more compact expression for \cref{eqn:updating-eqn-FG-by-P};
+% but here $\mathcal{P}^\top \left(\mathbf{F}, \mathbf{G}\right)$
+% no longer means the ``transpose of $\mathcal{P} \left(\mathbf{F}, \mathbf{G}\right)$,''
+% as was the case in \cref{eqn:update-fg-by-P}.
+
+Again, as discussed in \cref{subsec:log-sinkhorn},
+the above expressions are not necessarily numerically stable.
+Then, we also need to extend the definitions of functions $c$ and $\mathcal{Q}$ from \cref{eqn:function-c-and-Q},
+again using the ``log-sum-exp'' trick as in \cref{subsec:log-sinkhorn},
+
+\begin{equation}\label{eqn:function-c-and-Q-barycenter}
+  \begin{aligned}
+    \mathcal{Q} \left(\mathbf{F}, \mathbf{G}\right)
+     & =
+    \exp \left\{
+    -\frac1\varepsilon \left[
+      \mathbb{1}_S^\top \otimes \mathbf{C}
+      - \mathbf{F} \cdot \left(I_S \otimes \mathbb{1}_N^\top\right)
+      - \mathbb{1}_M \otimes \left(\vec \mathbf{G}\right)^\top
+      - c_1\left(\mathbf{F}, \mathbf{G}\right)
+      \right]
+    \right\},                                                          \\
+    \widetilde{\mathcal{Q}} \left(\mathbf{F}, \mathbf{G}\right)
+     & =
+    \exp \left\{
+    -\frac1\varepsilon \left[
+      \mathbb{1}_S^\top \otimes \mathbf{C}^\top
+      - \mathbb{1}_N \otimes \left(\vec \mathbf{F}\right)^\top
+      - \mathbf{G} \cdot \left(I_S \otimes \mathbb{1}_M^\top\right)
+      - c_2\left(\mathbf{F}, \mathbf{G}\right)
+      \right]
+    \right\},                                                          \\
+    c_1 \left(\mathbf{F}, \mathbf{G}\right)
+     & = \min \left\{\mathbb{1}_S^\top \otimes \mathbf{C}
+    - \mathbf{F} \cdot \left(I_S \otimes \mathbb{1}_N^\top\right)
+    - \mathbb{1}_M \otimes \left(\vec \mathbf{G} \right)^\top\right\}, \\
+    c_2 \left(\mathbf{F}, \mathbf{G}\right)
+     & =
+    \min \left\{
+    \mathbb{1}_S^\top \otimes \mathbf{C}^\top
+    - \mathbb{1}_N \otimes \left(\vec \mathbf{F}\right)^\top
+    - \mathbf{G} \cdot \left(I_S \otimes \mathbb{1}_M^\top\right)
+    \right\}.
+  \end{aligned}
+\end{equation}
+
+
+All that remains is to derive the updating formula for $\mathbf{b}$, or $\log\mathbf{b}$ in the log-domain.
+We then have
+
+\begin{equation*}
+  \begin{aligned}
+    \log \mathbf{b}^{(\ell)}
+     & = \log\boldsymbol\Pi_{s} \left(\mathbf{K}^\top \mathbf{u}_s^{(\ell)}\right)^{\lambda_s}   \\
+     & = \boldsymbol\Sigma_s \log \left(\mathbf{K}^\top \mathbf{u}^{(\ell)}_s\right)^{\lambda_s} \\
+     & = \boldsymbol\Sigma_s \lambda_s \log \left(\mathbf{K}^\top \mathbf{u}^{(\ell)}_s\right)   \\
+     & = \log \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right) \cdot \boldsymbol\lambda          \\
+     & = \log \left[
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot \left(I_S \otimes \mathbb{1}_M\right)
+      \right]
+    \cdot \boldsymbol \lambda
+    - \frac1\varepsilon \cdot \mathbf{G}^{(\ell-1)} \cdot \boldsymbol \lambda                    \\
+    %  & = - \frac1\varepsilon \left[
+    %   \mathbf{G}^{(\ell-1)} \cdot \diag \boldsymbol \lambda
+    %   + c_2 \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    %   - \varepsilon \log \widetilde{\mathcal{Q}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    %   \cdot \left(I_S \otimes \mathbb{1}_M\right) \cdot \diag \boldsymbol \lambda
+    % \right]                                                                                      \\
+     & = \log \left[
+      \widetilde{\mathcal{Q}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot \left(I_S \otimes \mathbb{1}_M\right)
+      \right] \cdot \boldsymbol \lambda
+    - \frac1\varepsilon \cdot \mathbf{G}^{(\ell-1)} \cdot \boldsymbol \lambda
+    - \frac{c_2 \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)}\varepsilon
+  \end{aligned}
+\end{equation*}
+
+where in the last two lines, we used the formula when deriving \cref{eqn:log-barycenter-G-updating-eqn}
+and the numerically stable expression from \cref{eqn:function-c-and-Q-barycenter}.
+Therefore, we can finally arrive at the following updating equations.
+
+\begin{update}[Updating Equations for Log-Stabilized Wasserstein Barycenter Algorithm]\label{update:log-barycenter}
+  \begin{equation*}
+    \begin{aligned}
+      \mathbf{F}^{(\ell)}
+       & =
+      \mathbf{F}^{(\ell-1)} + \varepsilon \log \mathbf{A} + c_1 \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+      - \varepsilon \log\left[
+        \mathcal{Q} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+        \cdot \left(I_S \otimes \mathbb{1}_N\right)
+      \right],                                                                         \\
+      \log \mathbf{b}^{(\ell)}
+       & = \log\left[
+        \widetilde{\mathcal{Q}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+        \cdot \left(I_S \otimes \mathbb{1}_M\right)
+        \right]
+      \cdot \boldsymbol\lambda
+      - \frac1\varepsilon \cdot \mathbf{G}^{(\ell-1)} \cdot \boldsymbol \lambda
+      - \frac{c_2 \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)}\varepsilon, \\
+      \mathbf{G}^{(\ell)}
+       & =
+      \mathbf{G}^{(\ell-1)}
+      + \varepsilon \log \mathbf{B}
+      + c_2 \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      - \varepsilon \log \left[
+        \widetilde{\mathcal{Q}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+        \cdot \left(I_S \otimes \mathbb{1}_M\right)
+        \right],
+    \end{aligned}
+  \end{equation*}
+  where $\mathcal{Q}$, $\widetilde{\mathcal{Q}}$, $c_1$, and $c_2$ are defined in \cref{eqn:function-c-and-Q-barycenter}.
+\end{update}
+
+Also, we can let $M = N$ as is common in applications to further simplify the notation.
+
+\begin{algorithm}[H]
+  \caption{Wasserstein Barycenter Algorithm (Log-Stabilized)}
+  \begin{algorithmic}[1]\label{algo:log-barycenter}
+    \Require $\mathbf{A} \in \Sigma_{N \times S}$, $\mathbf{C} \in \mathbb{R}^{N \times N}$, $\boldsymbol\lambda \in \Sigma_S$,
+    $\varepsilon > 0$.
+    \Initialize $\mathbf{F} = \mathbb{0}_{N \times S}$, $\mathbf{G}_{N \times S} = \mathbb{1}_{N \times S}$,
+    $\mathbf{logb} = \mathbb{0}_N$.
+    \While{Not Convergence}
+    \State \# update F
+    \State $\mathbf{R} = \mathbb{1}_S^\top \otimes \mathbf{C} - \mathbf{F} \cdot \left(I_S \otimes \mathbb{1}_N^\top\right)
+      - \mathbb{1}_N \otimes \left(\vec \mathbf{G}\right)^\top$
+    \State $c = \min \mathbf{R}$
+    \State $\mathbf{Q} = \exp \left(-\frac{\mathbf{R} - c}{\varepsilon}\right)$
+    \State $\mathbf{F} = \mathbf{F} + \varepsilon \cdot \log \mathbf{A} + c
+      - \varepsilon \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right]$
+    \State
+    \State $\mathbf{R} = \mathbb{1}_S^\top \otimes \mathbf{C}^\top
+      - \mathbb{1}_N \otimes \left(\vec \mathbf{F}\right)^\top
+      - \mathbf{G} \cdot \left(I_S \otimes \mathbb{1}_N ^\top \right)$
+    \State $c = \min \mathbf{R}$
+    \State $\mathbf{Q} = \exp \left(-\frac{\mathbf{R} - c}{\varepsilon}\right)$
+    \State \# update log b
+    \State $\mathbf{logb}
+      = \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right] \cdot \boldsymbol\lambda -
+      \frac1\varepsilon \cdot \mathbf{G} \cdot \boldsymbol\lambda - \frac{c}{\varepsilon}$
+    \State \# update G
+    \State $\mathbf{logB} = \mathbb{1}_S^\top \otimes \mathbf{logb}$
+    \State $\mathbf{G} = \mathbf{G} + \varepsilon \cdot \mathbf{logB} + c
+      - \varepsilon \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right]$
+    \EndWhile
+    \Ensure $\mathbf{b} = \exp \mathbf{logb}$
+  \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}[Convergence Condition]
+  Note that for the algorithm to converge,
+  $\mathbf{U}^{(\ell)} \odot \left(\mathbf{K} \mathbf{V}^{(\ell)}\right)$ must approximate $\mathbf{A}$ well.
+  % Therefore, we need $\log \left[\mathbf{U}^{(\ell)} \odot \left(\mathbf{K} \mathbf{V}^{(\ell)}\right)\right]$
+  % to approximate $\log \mathbf{A}$ well.
+  This leads us to the following Convergence Condition in the log-domain, for some $\rho > 0$,
+  \begin{equation*}
+    \begin{aligned}
+      \left\lVert
+      \left(
+      \mathcal{Q} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell)}\right)
+      - \frac{c_1 \left(\mathbf{F}^(\ell), \mathbf{G}^{(\ell)}\right)}{\varepsilon}
+      \right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+      - \mathbf{A}
+      \right\rVert_2 \le \rho.
+    \end{aligned}
+  \end{equation*}
+
+  To see this, let us take the logarithm first
+
+  \begin{equation*}
+    \begin{aligned}
+      \log \left[\mathbf{U}^{(\ell)} \odot \left(\mathbf{K} \mathbf{V}^{(\ell)}\right)\right]
+       & = \log \mathbf{U}^{(\ell)} + \log \left(\mathbf{K} \mathbf{V}^{(\ell)}\right) \\
+       & = \frac1\varepsilon \mathbf{F}^{(\ell)}
+      + \log \left[
+        \mathcal{P} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell)}\right)\cdot
+        \left(I_S \otimes \mathbb{1}_N\right)
+        \right]
+      - \frac1\varepsilon \mathbf{F}^{(\ell)}                                          \\
+       & = \log \left[
+        \mathcal{P} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell)}\right)\cdot
+        \left(I_S \otimes \mathbb{1}_N\right)
+      \right]                                                                          \\
+       & =
+      \log \left[
+        \left(
+        \mathcal{Q} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell)}\right)
+        - \frac{c_1 \left(\mathbf{F}^(\ell), \mathbf{G}^{(\ell)}\right)}{\varepsilon}
+        \right)
+        \cdot
+        \left(I_S \otimes \mathbb{1}_N\right)
+        \right].
+    \end{aligned}
+  \end{equation*}
+\end{remark}
