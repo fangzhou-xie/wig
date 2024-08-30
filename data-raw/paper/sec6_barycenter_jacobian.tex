@@ -1,0 +1,690 @@
+
+Similar to \cref{sec:sinkhorn-gradient},
+we need to manually derive the Jacobian calculations for the Wasserstein Barycenter algorithm
+of \cref{algo:parallel-barycenter,algo:log-barycenter}.
+Since we have two versions of algorithms, we will need to derive their Jacobians separately.
+
+\subsection{Jacobians for Parallel Algorithm}\label{subsec:jacobian-parallel-barycenter}
+
+As the updating equations for $\mathbf{U}^{(\ell)}$ and $\mathbf{V}^{(\ell)}$ are identical to that of
+\cref{update:parallel-sinkhorn},
+we would have almost identical differentials as in \cref{subsec:jacobian-parallel-sinkhorn},
+with the slight difference that the differential of $\mathbf{V}^{(\ell)}$ now also depends on
+(the differential of) $\mathbf{b}^{(\ell)}$,
+
+\begin{equation}\label{eqn:differential-UV-barycenter}
+  \begin{aligned}
+    d \vec \mathbf{U}^{(\ell)}
+     & =
+    \diag\vec\frac1{\mathbf{K} \mathbf{V}^{(\ell-1)}} \cdot d \vec \mathbf{A}
+    - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
+    \cdot
+    \left(I_S\otimes \mathbf{K}\right)\cdot
+    d \vec\mathbf{V}^{(\ell-1)}, \\
+    d \vec \mathbf{V}^{(\ell)}
+     & =
+    \diag\vec  \frac{1}{\mathbf{K}^\top \mathbf{U}^{(\ell)}} \cdot
+    \left(\mathbb{1}_S \otimes I_N\right) \cdot d \vec \mathbf{b}^{(\ell)}
+    - \diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^2}
+    \cdot
+    \left(I_S \otimes \mathbf{K}\right)^\top
+    \cdot
+    d \vec \mathbf{U}^{(\ell)}.
+  \end{aligned}
+\end{equation}
+
+The only thing that is really new, compared to \cref{subsec:jacobian-parallel-sinkhorn},
+is the differential of $\mathbf{b}^{(\ell)}$,
+and we leverage the fact that $\mathbf{b} = \exp \log \mathbf{b}$, then
+
+\begin{equation*}
+  \begin{aligned}
+    d \vec \mathbf{b}^{(\ell)}
+     & = d \vec \exp \log \mathbf{b}^{(\ell)} \\
+     & = \diag \log \mathbf{b}^{(\ell)} \cdot
+    d \vec \left[
+      \left(\log \mathbf{K}^\top \mathbf{U}^{(\ell)} \right) \cdot \boldsymbol\lambda
+      \right],
+  \end{aligned}
+\end{equation*}
+
+since
+
+\begin{equation*}
+  \begin{aligned}
+    d \left[
+      \left(\log \mathbf{K}^\top \mathbf{U}^{(\ell)} \right) \cdot \boldsymbol\lambda
+      \right]
+     & = \left[
+      d \log \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)
+      \right]\cdot \boldsymbol\lambda +
+    \left[
+      \log \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)
+      \right] \cdot d \boldsymbol\lambda,
+  \end{aligned}
+\end{equation*}
+
+then
+
+\begin{dmath}\label{eqn:differential-b-barycenter}
+  d \vec \left[
+    \left(\log \mathbf{K}^\top \mathbf{U}^{(\ell)} \right) \cdot \boldsymbol\lambda
+    \right]
+  =
+  \left(\boldsymbol\lambda^\top \otimes I_N\right) \vec d \log \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)
+  +
+  \left[\log \left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)\right] \cdot d \boldsymbol\lambda \\
+  =
+  \left(\boldsymbol\lambda \otimes I_N\right)^\top
+  \cdot
+  \diag\vec \frac1{\mathbf{K}^\top \mathbf{U}^{(\ell)}}
+  \cdot
+  \left(I_S \otimes \mathbf{K}\right)^\top
+  \cdot
+  d \vec \mathbf{U}^{(\ell)}
+  +
+  \left(\log \mathbf{K}^\top \mathbf{U}^{(\ell)}\right)
+  \cdot d \boldsymbol\lambda.
+\end{dmath}
+
+For the Wasserstein Barycenter problem, we assume the weight vector $\boldsymbol\lambda$ is fixed or given,
+as supposed to the Wasserstein Dictionary Learning problem where it is considered a variable to be learned,
+therefore its derivative is zero.
+Therefore, we have the following Jacobian updating equations
+
+\begin{update}[Updating Equations for Jacobians of Parallel Barycenter w.r.t. $\mathbf{A}$]
+  \begin{dgroup*}
+    \begin{dmath}
+      D\,\mathbf{U}^{(\ell)} \left(\mathbf{A}\right)
+      =
+      \diag\vec\frac1{\mathbf{K} \mathbf{V}^{(\ell-1)}}
+      - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
+      \cdot
+      \left(I_S\otimes \mathbf{K}\right)\cdot
+      D\,\mathbf{V}^{(\ell-1)} \left(\mathbf{A}\right),
+    \end{dmath}
+    \begin{dmath}
+      D\, \mathbf{b}^{(\ell)} \left(\mathbf{A}\right)
+      =
+      \diag \log \mathbf{b}^{(\ell)} \cdot
+      \left(\boldsymbol\lambda \otimes I_N\right)^\top \cdot
+      \diag\vec \frac1{\mathbf{K}^\top \mathbf{U}^{(\ell)}} \cdot
+      \left(I_S \otimes \mathbf{K}\right)^\top \cdot D\,\mathbf{U}^{(\ell)} \left(\mathbf{A}\right),
+    \end{dmath}
+    \begin{dmath}
+      D\,\mathbf{V}^{(\ell)} \left(\mathbf{A}\right)
+      =
+      \diag\vec  \frac{1}{\mathbf{K}^\top \mathbf{U}^{(\ell)}} \cdot
+      \left(\mathbb{1}_S \otimes I_N\right) \cdot D\, \mathbf{b}^{(\ell)} \left(\mathbf{A}\right)
+      - \diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^2}
+      \cdot
+      \left(I_S \otimes \mathbf{K}\right)^\top
+      \cdot
+      D\, \mathbf{U}^{(\ell)} \left(\mathbf{A}\right).
+    \end{dmath}
+  \end{dgroup*}
+\end{update}
+
+Then the Jacobian of the final result $\mathbf{b}^{(L)}$ would be $D\, \mathbf{b}^{(L)} \left(\mathbf{A}\right)$.
+
+\begin{algorithm}[H]
+  \caption{Parallel Wasserstein Barycenter Algorithm with Jacobian}
+  \begin{algorithmic}[1]\label{algo:parallel-barycenter-withjacobian}
+    \Require $\mathbf{A} \in \Sigma_{N \times S}$, $\mathbf{C} \in \mathbb{R}^{N \times N}$, $\varepsilon > 0$.
+    \Initialize $\mathbf{U} = \mathbb{1}_{N \times S}$, $\mathbf{V}_{N \times S} = \mathbb{1}_{N \times S}$,
+    $\mathbf{b} = \mathbb{0}_N$,
+    $\mathbf{J_U} = \mathbb{0}_{NS\times NS}$, $\mathbf{J_V} = \mathbb{0}_{NS \times NS}$,
+    $\mathbf{J_b} = \mathbb{0}_{N \times NS}$.
+    \State $\mathbf{K} = \exp(-\frac{\mathbf{C}}{\varepsilon})$
+    \While{Not Convergence}
+    \State $\mathbf{J_U} =
+      \diag\vec\frac1{\mathbf{K} \mathbf{V}}
+      - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V} \right)^2}
+      \cdot
+      \left(I_S\otimes \mathbf{K}\right)\cdot
+      \mathbf{J_V}$
+    \State $\mathbf{U} \leftarrow \mathbf{A} \oslash (\mathbf{K} \mathbf{V})$
+    \State $\mathbf{J_b} =
+      \diag \log \mathbf{b} \cdot
+      \left(\boldsymbol\lambda \otimes I_N\right)^\top \cdot
+      \diag\vec \frac1{\mathbf{K}^\top \mathbf{U}} \cdot
+      \left(I_S \otimes \mathbf{K}\right)^\top \cdot \mathbf{J_U}
+    $
+    \State $\mathbf{b} =
+      \boldsymbol\Pi_{row}
+      \left(\mathbf{K}^\top \mathbf{U}\right)^{\boldsymbol\uplambda^\top \otimes \mathbb{1}_N}
+    $
+    \State $\mathbf{J_V} =
+      \diag\vec  \frac{1}{\mathbf{K}^\top \mathbf{U}} \cdot
+      \left(\mathbb{1}_S \otimes I_N\right) \cdot \mathbf{J_b}
+      - \diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}\right)^2}
+      \cdot
+      \left(I_S \otimes \mathbf{K}\right)^\top
+      \cdot
+      \mathbf{J_U}
+    $
+    \State $\mathbf{V} \leftarrow \mathbf{b} \oslash (\mathbf{K}^\top \mathbf{U})$
+    \EndWhile
+    \Ensure $\mathbf{b}$, $\mathbf{J_b}$
+  \end{algorithmic}
+\end{algorithm}
+
+Even though the weight vector $\boldsymbol\lambda$ is considered fixed for the Barycenter problem,
+it still makes sense to derive the Jacobians with respect to $\boldsymbol\lambda$,
+since this will be used later for the Wasserstein Dictionary Learning algorithm in \cref{sec:wdl}.
+
+From \cref{eqn:differential-UV-barycenter,eqn:differential-b-barycenter},
+and $\mathbf{A}$ being independent of $\boldsymbol\lambda$,
+we have the following
+
+\begin{update}[Updating Equations for Jacobians of Parallel Barycenter w.r.t. $\boldsymbol\lambda$]
+  \begin{dgroup*}
+    \begin{dmath*}
+      D\, \mathbf{U}^{(\ell)} \left(\boldsymbol\lambda\right)
+      =
+      - \diag\vec \frac{\mathbf{A}}{\left(\mathbf{K} \mathbf{V}^{(\ell-1)}\right)^2}
+      \cdot
+      \left(I_S\otimes \mathbf{K}\right)\cdot
+      D\, \mathbf{V}^{(\ell-1)} \left(\boldsymbol\lambda\right),
+    \end{dmath*}
+    \begin{dmath*}
+      D\, \mathbf{b}^{(\ell)} \left(\boldsymbol\lambda\right)
+      =
+      \diag \log \mathbf{b}^{(\ell)} \cdot
+      \Bigl[
+        \left(\boldsymbol\lambda \otimes I_N\right)^\top
+        \cdot
+        \diag\vec \frac1{\mathbf{K}^\top \mathbf{U}^{(\ell)}}
+        \cdot
+        \left(I_S \otimes \mathbf{K}\right)^\top
+        \cdot
+        D \, \mathbf{U}^{(\ell)} \left(\boldsymbol\lambda\right)
+        +
+        \log\left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)
+        \Bigr],
+    \end{dmath*}
+    \begin{dmath*}
+      D\, \mathbf{V}^{(\ell)} \left(\boldsymbol\lambda\right)
+      =
+      \diag\vec  \frac{1}{\mathbf{K}^\top \mathbf{U}^{(\ell)}} \cdot
+      \left(\mathbb{1}_S \otimes I_N\right) \cdot D \, \mathbf{b}^{(\ell)} \left(\boldsymbol\lambda\right)
+      - \diag\vec \frac{\mathbf{B}}{\left(\mathbf{K}^\top \mathbf{U}^{(\ell)}\right)^2}
+      \cdot
+      \left(I_S \otimes \mathbf{K}\right)^\top
+      \cdot
+      D\, \mathbf{U}^{(\ell)} \left(\boldsymbol\lambda\right).
+    \end{dmath*}
+  \end{dgroup*}
+\end{update}
+
+Similarly, assuming $\boldsymbol\lambda$ is the variable of interest that needs to be trained,
+$D\, \mathbf{b}^{(L)} \left(\boldsymbol\lambda\right)$ would be the Jacobian of the algorithm w.r.t. $\boldsymbol\lambda$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Jacobians for Log-Stabilized Algorithm}\label{subsec:jacobian-log-barycenter}
+
+From \cref{eqn:updating-eqn-FG-by-P,eqn:updating-eqn-for-logb-by-P-and-Q} in \cref{subsec:log-barycenter},
+similar to how we derive the Jacobians in \cref{subsec:gradient-log-sinkhorn},
+we can derive the Jacobians before the ``log-sum-exp'' transformation.
+Again, we rely on the updating equations for dual variables $\mathbf{F}$ and $\mathbf{G}$.
+
+The differential of $\mathbf{F}^{(\ell)}$ is
+
+\begin{dmath}
+  d\, \mathbf{F}^{(\ell)}
+  = d\, \mathbf{F}^{(\ell-1)} + \varepsilon d\, \log \mathbf{A}
+  - \varepsilon d\, \log \left[
+    \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+    \right],
+\end{dmath}
+
+and then
+
+\begin{dmath}
+  d\, \vec \mathbf{F}^{(\ell)}
+  = d\, \vec \mathbf{F}^{(\ell-1)} + \varepsilon d\, \log \vec \mathbf{A}
+  - \varepsilon d\, \log \vec \left[
+    \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+    \right]
+  =
+  d\, \vec \mathbf{F}^{(\ell-1)} + \varepsilon \diag\vec \frac1{\mathbf{A}} \cdot d\,\vec \mathbf{A}
+  - \varepsilon \diag\vec \frac1{
+    \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+  }
+  \cdot
+  d\, \vec \left[
+    \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+    \right]
+  =
+  d\, \vec \mathbf{F}^{(\ell-1)} + \varepsilon \diag\vec \frac1{\mathbf{A}} \cdot d\,\vec \mathbf{A}
+  - \varepsilon \diag\vec \frac1{
+    \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+  }
+  \cdot
+  \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+  \cdot
+  d\,\vec \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right).
+\end{dmath}
+
+Since we have
+
+\begin{dmath}
+  d\,\vec \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+  =
+  \frac1\varepsilon \diag\vec \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+  \cdot
+  \left\{
+  d\,\vec \left[\mathbf{F}^{(\ell-1)} \cdot \left(I_S \otimes \mathbb{1}_N^\top\right)\right] +
+  d\,\vec \left[\mathbb{1}_N \otimes \left(\vec \mathbf{G}^{(\ell-1)}\right)^\top\right]
+  \right\}
+  =
+  \frac1\varepsilon
+  \diag\vec \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+  \cdot
+  \left[
+    \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot d\,\vec \mathbf{F}^{(\ell-1)} +
+    \left(I_{NS} \otimes \mathbb{1}_N\right) \cdot d\,\vec \mathbf{G}^{(\ell-1)}
+    \right],
+\end{dmath}
+
+then
+
+\begin{dmath}\label{eqn:differential-vecF-with-P}
+  d\, \vec \mathbf{F}^{(\ell)}
+  =
+  d\, \vec \mathbf{F}^{(\ell-1)} + \varepsilon \diag\vec \frac1{\mathbf{A}} \cdot d\,\vec \mathbf{A}
+  -
+  \diag\vec \frac1{
+    \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+  }
+  \cdot
+  \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+  \cdot
+  \diag\vec \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+  \cdot
+  \Bigl[
+    \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot d\,\vec \mathbf{F}^{(\ell-1)} +
+    \left(I_{NS} \otimes \mathbb{1}_N\right) \cdot d\,\vec \mathbf{G}^{(\ell-1)}
+    \Bigr].
+\end{dmath}
+
+Similarly, we can arrive at the differential for $\mathbf{G}^{(\ell)}$,
+
+\begin{dmath}
+  d\, \vec \mathbf{G}^{(\ell)}
+  =
+  d\, \vec \mathbf{G}^{(\ell-1)}
+  + \varepsilon d\, \vec \left(\mathbb{1}_N^\top \otimes \log \mathbf{b}^{(\ell)}\right)
+  - \varepsilon d\, \vec \log \Bigl[
+    \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+    \Bigr].
+\end{dmath}
+
+Now that $\log \mathbf{B}^{(\ell)} = \mathbb{1}_S^\top \otimes \log \mathbf{b}^{(\ell)}$,
+and hence $d\, \vec \log \mathbf{B}^{(\ell)} = \mathbb{1}_S \otimes d\, \log \mathbf{b}^{(\ell)}$.
+We also have
+
+
+\begin{equation*}
+  \begin{aligned}
+     & \phantom{=}
+    d \, \vec \log \Bigl[
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+    \Bigr]                                                                                  \\
+     & =
+    \diag\vec \frac1{
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+    } \cdot
+    d\, \vec \Bigl[
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+    \Bigr]                                                                                  \\
+     & =
+    \diag\vec \frac1{
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+    } \cdot
+    \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+    \cdot
+    d\,\vec \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right) \\
+     & =
+    \frac1\varepsilon
+    \diag\vec \frac1{
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+    } \cdot
+    \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+    \cdot
+    \diag\vec \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot                                                                                   \\
+     & \phantom{=}
+    \left\{
+    d\, \vec \left[\mathbb{1}_N \otimes \left(\vec \mathbf{F}^{(\ell)}\right)^\top\right] +
+    d\, \vec \left[\mathbf{G}^{(\ell-1)} \cdot \left(I_S \otimes \mathbb{1}_N^\top\right)\right]
+    \right\}                                                                                \\
+     & =
+    \frac1\varepsilon
+    \diag\vec \frac1{
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+    } \cdot
+    \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+    \cdot
+    \diag\vec \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot                                                                                   \\
+     & \phantom{=}
+    \left[
+      \left(I_{NS} \otimes \mathbb{1}_N \right) \cdot d\, \vec \mathbf{F}^{(\ell)} +
+      \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot d\, \vec \mathbf{G}^{(\ell-1)}
+      \right].
+  \end{aligned}
+\end{equation*}
+
+Therefore, we have
+
+\begin{dmath}\label{eqn:differential-vecG-with-P}
+  d\, \vec \mathbf{G}^{(\ell)}
+  =
+  d\, \vec \mathbf{G}^{(\ell-1)}
+  +
+  \varepsilon \mathbb{1}_S \otimes d\, \log \mathbf{b}^{(\ell)}
+  -
+  \diag\vec \frac1{
+    \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+  } \cdot
+  \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+  \cdot
+  \diag\vec \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+  \cdot
+  \left[
+    \left(I_{NS} \otimes \mathbb{1}_N \right) \cdot d\, \vec \mathbf{F}^{(\ell)} +
+    \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot d\, \vec \mathbf{G}^{(\ell-1)}
+    \right].
+\end{dmath}
+
+All that remains is the differential of $\log \mathbf{b}^{(\ell)}$.
+From \cref{eqn:updating-eqn-for-logb-by-P-and-Q} we have
+
+\begin{dmath}\label{eqn:differential-logb}
+  d\, \log \mathbf{b}^{(\ell)}
+  =
+  d\, \log \Bigl[
+    \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+    \Bigr] \cdot \boldsymbol\lambda
+  +
+  \log \Bigl[
+    \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+    \Bigr] \cdot d\, \boldsymbol\lambda
+  - \frac1\varepsilon d\, \mathbf{G}^{(\ell-1)} \cdot \boldsymbol\lambda
+  - \frac1\varepsilon \mathbf{G}^{(\ell-1)} \cdot d\, \boldsymbol\lambda
+  =
+  \frac1\varepsilon
+  \left(\boldsymbol\lambda^\top \otimes I_N\right) \cdot
+  \diag\vec \frac1{
+    \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+  } \cdot
+  \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+  \cdot
+  \diag\vec \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+  \cdot
+  \left[
+    \left(I_{NS} \otimes \mathbb{1}_N \right) \cdot d\, \vec \mathbf{F}^{(\ell)} +
+    \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot d\, \vec \mathbf{G}^{(\ell-1)}
+    \right]
+  - \frac1\varepsilon
+  \left(\boldsymbol\lambda^\top \otimes I_N\right) \cdot
+  d\, \vec \mathbf{G}^{(\ell-1)}
+  =
+  \frac1\varepsilon
+  \left(\boldsymbol\lambda^\top \otimes I_N\right) \cdot
+  \left\{
+  \diag\vec \frac1{
+    \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N\right)
+  } \cdot
+  \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+  \cdot
+  \diag\vec \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+  \cdot
+  \left[
+    \left(I_{NS} \otimes \mathbb{1}_N \right) \cdot d\, \vec \mathbf{F}^{(\ell)} +
+    \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot d\, \vec \mathbf{G}^{(\ell-1)}
+    \right]
+  -
+  d\, \vec \mathbf{G}^{(\ell-1)}
+  \right\}.
+\end{dmath}
+
+Then we can take \cref{eqn:differential-vecF-with-P,eqn:differential-vecG-with-P,eqn:differential-logb}
+to have the following updating equations for the Jacobians,
+
+\begin{dgroup*}
+  \begin{dmath*}
+    D\, \mathbf{F}^{(\ell)} \left(\mathbf{A}\right)
+    =
+    D\, \mathbf{F}^{(\ell-1)} \left(\mathbf{A}\right)
+    + \varepsilon \diag\vec \frac1{\mathbf{A}}
+    -
+    \diag\vec \frac1{
+      \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+    }
+    \cdot
+    \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+    \cdot
+    \diag\vec \mathcal{P} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \Bigl[
+      \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot D\, \mathbf{F}^{(\ell-1)}\left(\mathbf{A}\right) +
+      \left(I_{NS} \otimes \mathbb{1}_N\right) \cdot D\, \mathbf{G}^{(\ell-1)}\left(\mathbf{A}\right)
+      \Bigr],
+  \end{dmath*}
+  \begin{dmath*}
+    D\, \log \mathbf{b}^{(\ell)} \left(\mathbf{A}\right)
+    =
+    \frac1\varepsilon
+    \left(\boldsymbol\lambda^\top \otimes I_N\right) \cdot
+    \left\{
+    \diag\vec \frac1{
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+    } \cdot
+    \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+    \cdot
+    \diag\vec \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \left[
+      \left(I_{NS} \otimes \mathbb{1}_N \right) \cdot D\, \mathbf{F}^{(\ell)} \left(\mathbf{A}\right)+
+      \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot D\, \mathbf{G}^{(\ell-1)}\left(\mathbf{A}\right)
+      \right]
+    -
+    D\, \mathbf{G}^{(\ell-1)} \left(\mathbf{A}\right)
+    \right\},
+  \end{dmath*}
+  \begin{dmath*}
+    D\,  \mathbf{G}^{(\ell)} \left(\mathbf{A}\right)
+    =
+    D\,  \mathbf{G}^{(\ell-1)} \left(\mathbf{A}\right)
+    +
+    \varepsilon \mathbb{1}_S \otimes D\, \log \mathbf{b}^{(\ell)}\left(\mathbf{A}\right)
+    -
+    \diag\vec \frac1{
+      \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N\right)
+    } \cdot
+    \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+    \cdot
+    \diag\vec \widetilde{\mathcal{P}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+    \cdot
+    \Bigl[
+      \left(I_{NS} \otimes \mathbb{1}_N \right) \cdot D\,  \mathbf{F}^{(\ell)} \left(\mathbf{A}\right)+
+      \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot D\,  \mathbf{G}^{(\ell-1)}\left(\mathbf{A}\right)
+      \Bigr].
+  \end{dmath*}
+\end{dgroup*}
+
+Then, following the same steps as in \cref{subsec:log-sinkhorn,subsec:log-barycenter},
+we can replace $\mathcal{P}$ and $\widetilde{\mathcal{P}}$ with $\mathcal{Q}$ and $\widetilde{\mathcal{Q}}$
+to have the following.
+
+\begin{update}\label{update:updating-equations-for-jacobians-of-log-barycenter}
+  \begin{dgroup*}
+    \begin{dmath*}
+      D\, \mathbf{F}^{(\ell)} \left(\mathbf{A}\right)
+      =
+      D\, \mathbf{F}^{(\ell-1)} \left(\mathbf{A}\right)
+      + \varepsilon \diag\vec \frac1{\mathbf{A}}
+      -
+      \diag\vec \frac1{
+        \mathcal{Q} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+        \cdot
+        \left(I_S \otimes \mathbb{1}_N\right)
+      }
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+      \cdot
+      \diag\vec \mathcal{Q} \left(\mathbf{F}^{(\ell-1)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \Bigl[
+        \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot D\, \mathbf{F}^{(\ell-1)}\left(\mathbf{A}\right) +
+        \left(I_{NS} \otimes \mathbb{1}_N\right) \cdot D\, \mathbf{G}^{(\ell-1)}\left(\mathbf{A}\right)
+        \Bigr],
+    \end{dmath*}
+    \begin{dmath*}
+      D\, \log \mathbf{b}^{(\ell)} \left(\mathbf{A}\right)
+      =
+      \frac1\varepsilon
+      \left(\boldsymbol\lambda^\top \otimes I_N\right) \cdot
+      \left\{
+      \diag\vec \frac1{
+        \widetilde{\mathcal{Q}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+        \cdot
+        \left(I_S \otimes \mathbb{1}_N\right)
+      } \cdot
+      \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+      \cdot
+      \diag\vec \widetilde{\mathcal{Q}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \left[
+        \left(I_{NS} \otimes \mathbb{1}_N \right) \cdot D\, \mathbf{F}^{(\ell)} \left(\mathbf{A}\right)+
+        \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot D\, \mathbf{G}^{(\ell-1)}\left(\mathbf{A}\right)
+        \right]
+      -
+      D\, \mathbf{G}^{(\ell-1)} \left(\mathbf{A}\right)
+      \right\},
+    \end{dmath*}
+    \begin{dmath*}
+      D\,  \mathbf{G}^{(\ell)} \left(\mathbf{A}\right)
+      =
+      D\,  \mathbf{G}^{(\ell-1)} \left(\mathbf{A}\right)
+      +
+      \varepsilon \mathbb{1}_S \otimes D\, \log \mathbf{b}^{(\ell)}\left(\mathbf{A}\right)
+      -
+      \diag\vec \frac1{
+        \widetilde{\mathcal{Q}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+        \cdot
+        \left(I_S \otimes \mathbb{1}_N\right)
+      } \cdot
+      \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+      \cdot
+      \diag\vec \widetilde{\mathcal{Q}} \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)
+      \cdot
+      \Bigl[
+        \left(I_{NS} \otimes \mathbb{1}_N \right) \cdot D\,  \mathbf{F}^{(\ell)} \left(\mathbf{A}\right)+
+        \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot D\,  \mathbf{G}^{(\ell-1)}\left(\mathbf{A}\right)
+        \Bigr].
+    \end{dmath*}
+  \end{dgroup*}
+\end{update}
+
+
+\begin{algorithm}[H]
+  \caption{Log-Stabilized Wasserstein Barycenter Algorithm with Jacobian}
+  \begin{algorithmic}[1]\label{algo:log-barycenter-with-jacobian}
+    \Require $\mathbf{A} \in \Sigma_{N \times S}$, $\mathbf{C} \in \mathbb{R}^{N \times N}$, $\boldsymbol\lambda \in \Sigma_S$,
+    $\varepsilon > 0$.
+    \Initialize $\mathbf{F} = \mathbb{0}_{N \times S}$, $\mathbf{G}_{N \times S} = \mathbb{1}_{N \times S}$,
+    $\mathbf{logb} = \mathbb{0}_N$.
+    \While{Not Convergence}
+    \State \# update F
+    \State $\mathbf{R} = \mathbb{1}_S^\top \otimes \mathbf{C} - \mathbf{F} \cdot \left(I_S \otimes \mathbb{1}_N^\top\right)
+      - \mathbb{1}_N \otimes \left(\vec \mathbf{G}\right)^\top$
+    \State $c = \min \mathbf{R}$
+    \State $\mathbf{Q} = \exp \left(-\frac{\mathbf{R} - c}{\varepsilon}\right)$
+    \State $\mathbf{F} = \mathbf{F} + \varepsilon \cdot \log \mathbf{A} + c
+      - \varepsilon \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right]$
+    \State
+    \State $\mathbf{R} = \mathbb{1}_S^\top \otimes \mathbf{C}^\top
+      - \mathbb{1}_N \otimes \left(\vec \mathbf{F}\right)^\top
+      - \mathbf{G} \cdot \left(I_S \otimes \mathbb{1}_N ^\top \right)$
+    \State $c = \min \mathbf{R}$
+    \State $\mathbf{Q} = \exp \left(-\frac{\mathbf{R} - c}{\varepsilon}\right)$
+    \State \# update log b
+    \State $\mathbf{logb}
+      = \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right] \cdot \boldsymbol\lambda -
+      \frac1\varepsilon \cdot \mathbf{G} \cdot \boldsymbol\lambda - \frac{c}{\varepsilon}$
+    \State \# update G
+    \State $\mathbf{logB} = \mathbb{1}_S^\top \otimes \mathbf{logb}$
+    \State $\mathbf{G} = \mathbf{G} + \varepsilon \cdot \mathbf{logB} + c
+      - \varepsilon \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right]$
+    \EndWhile
+    \Ensure $\mathbf{b} = \exp \mathbf{logb}$
+  \end{algorithmic}
+\end{algorithm}

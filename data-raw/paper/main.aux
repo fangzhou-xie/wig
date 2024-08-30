@@ -202,10 +202,14 @@
 \newlabel{algo:vanillia-sinkhorn-with-gradient}{{0}{15}{Vanilla Sinkhorn with Gradient\relax }{algorithm.4.1}{}}
 \newlabel{algo:vanillia-sinkhorn-with-gradient@cref}{{[algorithm][1][4]4.1}{[1][15][]15}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Parallel Sinkhorn}{15}{subsection.4.2}\protected@file@percent }
+\newlabel{subsec:jacobian-parallel-sinkhorn}{{4.2}{15}{Parallel Sinkhorn}{subsection.4.2}{}}
+\newlabel{subsec:jacobian-parallel-sinkhorn@cref}{{[subsection][2][4]4.2}{[1][15][]15}}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {4.2}{\ignorespaces Parallel Sinkhorn Algorithm with Jacobians\relax }}{17}{algorithm.4.2}\protected@file@percent }
 \newlabel{algo:parallel-sinkhorn-with-jacobian}{{0}{17}{Parallel Sinkhorn Algorithm with Jacobians\relax }{algorithm.4.2}{}}
 \newlabel{algo:parallel-sinkhorn-with-jacobian@cref}{{[algorithm][2][4]4.2}{[1][16][]17}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Log-Stabilized Sinkhorn}{17}{subsection.4.3}\protected@file@percent }
+\newlabel{subsec:gradient-log-sinkhorn}{{4.3}{17}{Log-Stabilized Sinkhorn}{subsection.4.3}{}}
+\newlabel{subsec:gradient-log-sinkhorn@cref}{{[subsection][3][4]4.3}{[1][17][]17}}
 \newlabel{eqn:jacobian-P-wrt-a-intermsof-fg}{{34}{17}{Log-Stabilized Sinkhorn}{equation.34}{}}
 \newlabel{eqn:jacobian-P-wrt-a-intermsof-fg@cref}{{[equation][34][]34}{[1][17][]17}}
 \newlabel{eqn:differential-of-f-in-log-sinkhorn}{{36}{18}{Log-Stabilized Sinkhorn}{equation.35}{}}
@@ -238,8 +242,8 @@
 \newlabel{update:parallel-barycenter@cref}{{[update][1][5]5.1}{[1][21][]21}}
 \newlabel{eqn:barycenter-sinkhorn-like-matrix-update}{{42}{21}{Updating Equations for Parallel Wasserstein Barycenter Algorithm}{equation.42}{}}
 \newlabel{eqn:barycenter-sinkhorn-like-matrix-update@cref}{{[equation][42][]42}{[1][21][]21}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {5.1}{\ignorespaces Wasserstein Barycenter Algorithm (Parallel)\relax }}{22}{algorithm.5.1}\protected@file@percent }
-\newlabel{algo:parallel-barycenter}{{0}{22}{Wasserstein Barycenter Algorithm (Parallel)\relax }{algorithm.5.1}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5.1}{\ignorespaces Parallel Wasserstein Barycenter Algorithm\relax }}{22}{algorithm.5.1}\protected@file@percent }
+\newlabel{algo:parallel-barycenter}{{0}{22}{Parallel Wasserstein Barycenter Algorithm\relax }{algorithm.5.1}{}}
 \newlabel{algo:parallel-barycenter@cref}{{[algorithm][1][5]5.1}{[1][22][]22}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Log-stabilized Algorithm}{22}{subsection.5.2}\protected@file@percent }
 \newlabel{subsec:log-barycenter}{{5.2}{22}{Log-stabilized Algorithm}{subsection.5.2}{}}
@@ -250,11 +254,35 @@
 \newlabel{eqn:updating-eqn-FG-by-P@cref}{{[equation][45][]45}{[1][23][]24}}
 \newlabel{eqn:function-c-and-Q-barycenter}{{46}{24}{Log-stabilized Algorithm}{equation.46}{}}
 \newlabel{eqn:function-c-and-Q-barycenter@cref}{{[equation][46][]46}{[1][24][]24}}
+\newlabel{eqn:updating-eqn-for-logb-by-P-and-Q}{{47}{24}{Log-stabilized Algorithm}{equation.47}{}}
+\newlabel{eqn:updating-eqn-for-logb-by-P-and-Q@cref}{{[equation][47][]47}{[1][24][]24}}
 \newlabel{update:log-barycenter}{{5.2}{25}{Updating Equations for Log-Stabilized Wasserstein Barycenter Algorithm}{update.5.2}{}}
 \newlabel{update:log-barycenter@cref}{{[update][2][5]5.2}{[1][24][]25}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {5.2}{\ignorespaces Wasserstein Barycenter Algorithm (Log-Stabilized)\relax }}{25}{algorithm.5.2}\protected@file@percent }
-\newlabel{algo:log-barycenter}{{0}{25}{Wasserstein Barycenter Algorithm (Log-Stabilized)\relax }{algorithm.5.2}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {5.2}{\ignorespaces Log-Stabilized Wasserstein Barycenter Algorithm\relax }}{25}{algorithm.5.2}\protected@file@percent }
+\newlabel{algo:log-barycenter}{{0}{25}{Log-Stabilized Wasserstein Barycenter Algorithm\relax }{algorithm.5.2}{}}
 \newlabel{algo:log-barycenter@cref}{{[algorithm][2][5]5.2}{[1][25][]25}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Wasserstein Barycenter with Jacobians}{26}{section.6}\protected@file@percent }
+\newlabel{sec:barycenter-jacobian}{{6}{26}{Wasserstein Barycenter with Jacobians}{section.6}{}}
+\newlabel{sec:barycenter-jacobian@cref}{{[section][6][]6}{[1][26][]26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Jacobians for Parallel Algorithm}{26}{subsection.6.1}\protected@file@percent }
+\newlabel{subsec:jacobian-parallel-barycenter}{{6.1}{26}{Jacobians for Parallel Algorithm}{subsection.6.1}{}}
+\newlabel{subsec:jacobian-parallel-barycenter@cref}{{[subsection][1][6]6.1}{[1][26][]26}}
+\newlabel{eqn:differential-UV-barycenter}{{48}{26}{Jacobians for Parallel Algorithm}{equation.48}{}}
+\newlabel{eqn:differential-UV-barycenter@cref}{{[equation][48][]48}{[1][26][]26}}
+\newlabel{eqn:differential-b-barycenter}{{49}{26}{Jacobians for Parallel Algorithm}{equation.48}{}}
+\newlabel{eqn:differential-b-barycenter@cref}{{[equation][49][]49}{[1][26][]26}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {6.1}{\ignorespaces Parallel Wasserstein Barycenter Algorithm with Jacobian\relax }}{27}{algorithm.6.1}\protected@file@percent }
+\newlabel{algo:parallel-barycenter-withjacobian}{{0}{27}{Parallel Wasserstein Barycenter Algorithm with Jacobian\relax }{algorithm.6.1}{}}
+\newlabel{algo:parallel-barycenter-withjacobian@cref}{{[algorithm][1][6]6.1}{[1][27][]27}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Jacobians for Log-Stabilized Algorithm}{28}{subsection.6.2}\protected@file@percent }
+\newlabel{subsec:jacobian-log-barycenter}{{6.2}{28}{Jacobians for Log-Stabilized Algorithm}{subsection.6.2}{}}
+\newlabel{subsec:jacobian-log-barycenter@cref}{{[subsection][2][6]6.2}{[1][28][]28}}
+\newlabel{eqn:differential-vecF-with-P}{{56}{29}{Jacobians for Log-Stabilized Algorithm}{subsection.6.2}{}}
+\newlabel{eqn:differential-vecF-with-P@cref}{{[equation][56][]56}{[1][28][]29}}
+\newlabel{eqn:differential-vecG-with-P}{{58}{29}{Jacobians for Log-Stabilized Algorithm}{subsection.6.2}{}}
+\newlabel{eqn:differential-vecG-with-P@cref}{{[equation][58][]58}{[1][29][]29}}
+\newlabel{eqn:differential-logb}{{59}{30}{Jacobians for Log-Stabilized Algorithm}{subsection.6.2}{}}
+\newlabel{eqn:differential-logb@cref}{{[equation][59][]59}{[1][29][]30}}
 \abx@aux@cite{0}{cauchy1847}
 \abx@aux@segm{0}{0}{cauchy1847}
 \abx@aux@cite{0}{lemarechal2012}
@@ -291,33 +319,28 @@
 \abx@aux@segm{0}{0}{kiefer1952}
 \abx@aux@cite{0}{rosenblatt1958}
 \abx@aux@segm{0}{0}{rosenblatt1958}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Wasserstein Barycenter with Gradients}{26}{section.6}\protected@file@percent }
-\newlabel{sec:barycenter-gradient}{{6}{26}{Wasserstein Barycenter with Gradients}{section.6}{}}
-\newlabel{sec:barycenter-gradient@cref}{{[section][6][]6}{[1][26][]26}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Wasserstein Dictionary Learning}{26}{section.7}\protected@file@percent }
-\newlabel{sec:wdl}{{7}{26}{Wasserstein Dictionary Learning}{section.7}{}}
-\newlabel{sec:wdl@cref}{{[section][7][]7}{[1][26][]26}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Numeric Optimization Methods}{26}{subsection.7.1}\protected@file@percent }
-\newlabel{subsec:numeric-optimization-methods}{{7.1}{26}{Numeric Optimization Methods}{subsection.7.1}{}}
-\newlabel{subsec:numeric-optimization-methods@cref}{{[subsection][1][7]7.1}{[1][26][]26}}
-\abx@aux@page{31}{26}
-\abx@aux@page{32}{26}
-\abx@aux@page{33}{26}
-\abx@aux@page{34}{26}
-\abx@aux@page{35}{26}
-\abx@aux@page{36}{26}
-\abx@aux@page{37}{26}
-\abx@aux@page{46}{26}
-\abx@aux@page{47}{26}
-\abx@aux@page{48}{26}
-\abx@aux@fnpage{38}{26}
-\abx@aux@fnpage{39}{26}
-\abx@aux@fnpage{40}{26}
-\abx@aux@fnpage{41}{26}
-\abx@aux@fnpage{42}{26}
-\abx@aux@fnpage{43}{26}
-\abx@aux@fnpage{44}{26}
-\abx@aux@fnpage{45}{26}
+\newlabel{update:updating-equations-for-jacobians-of-log-barycenter}{{6.3}{31}{}{update.6.3}{}}
+\newlabel{update:updating-equations-for-jacobians-of-log-barycenter@cref}{{[update][3][6]6.3}{[1][30][]31}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Wasserstein Dictionary Learning}{31}{section.7}\protected@file@percent }
+\newlabel{sec:wdl}{{7}{31}{Wasserstein Dictionary Learning}{section.7}{}}
+\newlabel{sec:wdl@cref}{{[section][7][]7}{[1][31][]31}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Numeric Optimization Methods}{31}{subsection.7.1}\protected@file@percent }
+\newlabel{subsec:numeric-optimization-methods}{{7.1}{31}{Numeric Optimization Methods}{subsection.7.1}{}}
+\newlabel{subsec:numeric-optimization-methods@cref}{{[subsection][1][7]7.1}{[1][31][]31}}
+\abx@aux@page{31}{31}
+\abx@aux@page{32}{31}
+\abx@aux@page{33}{31}
+\abx@aux@page{34}{31}
+\abx@aux@page{35}{31}
+\abx@aux@page{36}{31}
+\abx@aux@page{37}{31}
+\abx@aux@fnpage{38}{31}
+\abx@aux@fnpage{39}{31}
+\abx@aux@fnpage{40}{31}
+\abx@aux@fnpage{41}{31}
+\abx@aux@fnpage{42}{31}
+\abx@aux@fnpage{43}{31}
+\abx@aux@fnpage{44}{31}
 \abx@aux@cite{0}{nocedal2006}
 \abx@aux@segm{0}{0}{nocedal2006}
 \abx@aux@cite{0}{dekel2012}
@@ -326,10 +349,13 @@
 \abx@aux@segm{0}{0}{kingma2015}
 \abx@aux@cite{0}{loshchilov2019}
 \abx@aux@segm{0}{0}{loshchilov2019}
-\abx@aux@page{50}{27}
-\abx@aux@page{51}{27}
-\abx@aux@page{52}{27}
-\abx@aux@fnpage{49}{27}
+\abx@aux@page{46}{32}
+\abx@aux@page{47}{32}
+\abx@aux@page{48}{32}
+\abx@aux@page{50}{32}
+\abx@aux@page{51}{32}
+\abx@aux@fnpage{45}{32}
+\abx@aux@fnpage{49}{32}
 \abx@aux@cite{0}{schmitz2018}
 \abx@aux@segm{0}{0}{schmitz2018}
 \abx@aux@cite{0}{blei2009}
@@ -340,14 +366,15 @@
 \abx@aux@segm{0}{0}{xu2018}
 \abx@aux@cite{0}{schmitz2018}
 \abx@aux@segm{0}{0}{schmitz2018}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Wasserstein Dictionary Learning}{28}{subsection.7.2}\protected@file@percent }
-\newlabel{subsec:wasserstein-dictionary-learning}{{7.2}{28}{Wasserstein Dictionary Learning}{subsection.7.2}{}}
-\newlabel{subsec:wasserstein-dictionary-learning@cref}{{[subsection][2][7]7.2}{[1][28][]28}}
-\abx@aux@page{53}{28}
-\abx@aux@page{54}{28}
-\abx@aux@page{55}{28}
-\abx@aux@page{56}{28}
-\abx@aux@page{57}{28}
+\abx@aux@page{52}{33}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Wasserstein Dictionary Learning}{33}{subsection.7.2}\protected@file@percent }
+\newlabel{subsec:wasserstein-dictionary-learning}{{7.2}{33}{Wasserstein Dictionary Learning}{subsection.7.2}{}}
+\newlabel{subsec:wasserstein-dictionary-learning@cref}{{[subsection][2][7]7.2}{[1][33][]33}}
+\abx@aux@page{53}{33}
+\abx@aux@page{54}{33}
+\abx@aux@page{55}{33}
+\abx@aux@page{56}{33}
+\abx@aux@page{57}{33}
 \abx@aux@cite{0}{schmitz2018}
 \abx@aux@segm{0}{0}{schmitz2018}
 \abx@aux@cite{0}{paszke2017}
@@ -364,16 +391,16 @@
 \abx@aux@segm{0}{0}{schmitz2018}
 \abx@aux@cite{0}{xu2018}
 \abx@aux@segm{0}{0}{xu2018}
-\newlabel{eqn:wasserstein-dictionary-problem-constrained}{{48}{29}{Wasserstein Dictionary Learning}{equation.48}{}}
-\newlabel{eqn:wasserstein-dictionary-problem-constrained@cref}{{[equation][48][]48}{[1][28][]29}}
-\abx@aux@page{58}{29}
-\abx@aux@page{64}{29}
-\abx@aux@page{65}{29}
-\abx@aux@fnpage{59}{29}
-\abx@aux@fnpage{60}{29}
-\abx@aux@fnpage{61}{29}
-\abx@aux@fnpage{62}{29}
-\abx@aux@fnpage{63}{29}
+\newlabel{eqn:wasserstein-dictionary-problem-constrained}{{61}{34}{Wasserstein Dictionary Learning}{equation.61}{}}
+\newlabel{eqn:wasserstein-dictionary-problem-constrained@cref}{{[equation][61][]61}{[1][33][]34}}
+\abx@aux@page{58}{34}
+\abx@aux@page{64}{34}
+\abx@aux@page{65}{34}
+\abx@aux@fnpage{59}{34}
+\abx@aux@fnpage{60}{34}
+\abx@aux@fnpage{61}{34}
+\abx@aux@fnpage{62}{34}
+\abx@aux@fnpage{63}{34}
 \abx@aux@cite{0}{schmitz2018}
 \abx@aux@segm{0}{0}{schmitz2018}
 \abx@aux@cite{0}{liu1989}
@@ -384,77 +411,81 @@
 \abx@aux@segm{0}{0}{kingma2015}
 \abx@aux@cite{0}{xie2020}
 \abx@aux@segm{0}{0}{xie2020}
-\newlabel{eqn:wasserstein-dictionary-problem-unconstrained}{{50}{30}{Wasserstein Dictionary Learning}{equation.50}{}}
-\newlabel{eqn:wasserstein-dictionary-problem-unconstrained@cref}{{[equation][50][]50}{[1][30][]30}}
-\abx@aux@page{66}{30}
-\abx@aux@page{67}{30}
-\abx@aux@page{68}{30}
-\abx@aux@page{69}{30}
+\newlabel{eqn:wasserstein-dictionary-problem-unconstrained}{{63}{35}{Wasserstein Dictionary Learning}{equation.63}{}}
+\newlabel{eqn:wasserstein-dictionary-problem-unconstrained@cref}{{[equation][63][]63}{[1][35][]35}}
+\abx@aux@page{66}{35}
+\abx@aux@page{67}{35}
+\abx@aux@page{68}{35}
+\abx@aux@page{69}{35}
 \abx@aux@cite{0}{xie2020a}
 \abx@aux@segm{0}{0}{xie2020a}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Wasserstein Index Generation Model}{31}{section.8}\protected@file@percent }
-\newlabel{sec:wig-model}{{8}{31}{Wasserstein Index Generation Model}{section.8}{}}
-\newlabel{sec:wig-model@cref}{{[section][8][]8}{[1][30][]31}}
-\abx@aux@page{70}{31}
-\@writefile{toc}{\contentsline {section}{\numberline {9}\textbf  {\textit  {wig}} Package in R for a WIG Implementation}{31}{section.9}\protected@file@percent }
-\newlabel{sec:wig-package}{{9}{31}{\textbf {\textit {wig}} Package in R for a WIG Implementation}{section.9}{}}
-\newlabel{sec:wig-package@cref}{{[section][9][]9}{[1][31][]31}}
-\abx@aux@page{71}{31}
-\@writefile{toc}{\contentsline {section}{References}{32}{section.9}\protected@file@percent }
-\abx@aux@page{72}{32}
-\abx@aux@page{73}{32}
-\abx@aux@page{74}{32}
-\abx@aux@page{75}{32}
-\abx@aux@page{76}{32}
-\abx@aux@page{77}{32}
-\abx@aux@page{78}{32}
-\abx@aux@page{79}{32}
-\abx@aux@page{80}{32}
-\abx@aux@page{81}{32}
-\abx@aux@page{82}{32}
-\abx@aux@page{83}{32}
-\abx@aux@page{84}{32}
-\abx@aux@page{85}{32}
-\abx@aux@page{86}{32}
-\abx@aux@page{87}{32}
-\abx@aux@page{88}{33}
-\abx@aux@page{89}{33}
-\abx@aux@page{90}{33}
-\abx@aux@page{91}{33}
-\abx@aux@page{92}{33}
-\abx@aux@page{93}{33}
-\abx@aux@page{94}{33}
-\abx@aux@page{95}{33}
-\abx@aux@page{96}{33}
-\abx@aux@page{97}{33}
-\abx@aux@page{98}{33}
-\abx@aux@page{99}{33}
-\abx@aux@page{100}{33}
-\abx@aux@page{101}{33}
-\abx@aux@page{102}{33}
-\abx@aux@page{103}{33}
-\abx@aux@page{104}{33}
-\abx@aux@page{105}{33}
-\abx@aux@page{106}{34}
-\abx@aux@page{107}{34}
-\abx@aux@page{108}{34}
-\abx@aux@page{109}{34}
-\abx@aux@page{110}{34}
-\abx@aux@page{111}{34}
-\abx@aux@page{112}{34}
-\abx@aux@page{113}{34}
-\abx@aux@page{114}{34}
-\abx@aux@page{115}{34}
-\abx@aux@page{116}{34}
-\abx@aux@page{117}{34}
-\abx@aux@page{118}{34}
-\abx@aux@page{119}{34}
-\abx@aux@page{120}{34}
-\@writefile{toc}{\contentsline {section}{Appendix}{35}{section*.4}\protected@file@percent }
-\newlabel{appendix}{{9}{35}{Appendix}{section*.4}{}}
-\newlabel{appendix@cref}{{[section][9][]9}{[1][35][]35}}
-\@writefile{toc}{\contentsline {subsection}{Mathematical Notations}{35}{section*.5}\protected@file@percent }
-\abx@aux@read@bbl@mdfivesum{D24238E95A073C8FFE8B526470DC0FF5}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Wasserstein Index Generation Model}{36}{section.8}\protected@file@percent }
+\newlabel{sec:wig-model}{{8}{36}{Wasserstein Index Generation Model}{section.8}{}}
+\newlabel{sec:wig-model@cref}{{[section][8][]8}{[1][35][]36}}
+\abx@aux@page{70}{36}
+\@writefile{toc}{\contentsline {section}{\numberline {9}\textbf  {\textit  {wig}} Package in R for a WIG Implementation}{36}{section.9}\protected@file@percent }
+\newlabel{sec:wig-package}{{9}{36}{\textbf {\textit {wig}} Package in R for a WIG Implementation}{section.9}{}}
+\newlabel{sec:wig-package@cref}{{[section][9][]9}{[1][36][]36}}
+\abx@aux@page{71}{36}
+\@writefile{toc}{\contentsline {section}{References}{37}{section.9}\protected@file@percent }
+\abx@aux@page{72}{37}
+\abx@aux@page{73}{37}
+\abx@aux@page{74}{37}
+\abx@aux@page{75}{37}
+\abx@aux@page{76}{37}
+\abx@aux@page{77}{37}
+\abx@aux@page{78}{37}
+\abx@aux@page{79}{37}
+\abx@aux@page{80}{37}
+\abx@aux@page{81}{37}
+\abx@aux@page{82}{37}
+\abx@aux@page{83}{37}
+\abx@aux@page{84}{37}
+\abx@aux@page{85}{37}
+\abx@aux@page{86}{37}
+\abx@aux@page{87}{37}
+\abx@aux@page{88}{38}
+\abx@aux@page{89}{38}
+\abx@aux@page{90}{38}
+\abx@aux@page{91}{38}
+\abx@aux@page{92}{38}
+\abx@aux@page{93}{38}
+\abx@aux@page{94}{38}
+\abx@aux@page{95}{38}
+\abx@aux@page{96}{38}
+\abx@aux@page{97}{38}
+\abx@aux@page{98}{38}
+\abx@aux@page{99}{38}
+\abx@aux@page{100}{38}
+\abx@aux@page{101}{38}
+\abx@aux@page{102}{38}
+\abx@aux@page{103}{38}
+\abx@aux@page{104}{38}
+\abx@aux@page{105}{39}
+\abx@aux@page{106}{39}
+\abx@aux@page{107}{39}
+\abx@aux@page{108}{39}
+\abx@aux@page{109}{39}
+\abx@aux@page{110}{39}
+\abx@aux@page{111}{39}
+\abx@aux@page{112}{39}
+\abx@aux@page{113}{39}
+\abx@aux@page{114}{39}
+\abx@aux@page{115}{39}
+\abx@aux@page{116}{39}
+\abx@aux@page{117}{39}
+\abx@aux@page{118}{39}
+\abx@aux@page{119}{39}
+\abx@aux@page{120}{39}
+\abx@aux@page{121}{40}
+\abx@aux@cite{0}{magnus2019}
+\abx@aux@segm{0}{0}{magnus2019}
+\@writefile{toc}{\contentsline {section}{Appendix}{41}{section*.4}\protected@file@percent }
+\newlabel{appendix}{{9}{41}{Appendix}{section*.4}{}}
+\newlabel{appendix@cref}{{[section][9][]9}{[1][41][]41}}
+\@writefile{toc}{\contentsline {subsection}{Mathematical Notations}{41}{section*.5}\protected@file@percent }
+\abx@aux@page{122}{41}
+\abx@aux@read@bbl@mdfivesum{5CF709352816C298B50C1265924965D0}
 \abx@aux@defaultrefcontext{0}{abadi2016}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{alaya2019}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{altschuler2017}{nyt/global//global/global}
@@ -483,6 +514,7 @@
 \abx@aux@defaultrefcontext{0}{leonard2013}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{liu1989}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{loshchilov2019}{nyt/global//global/global}
+\abx@aux@defaultrefcontext{0}{magnus2019}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{modin2024}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{monge1781}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{nocedal2006}{nyt/global//global/global}
@@ -504,4 +536,4 @@
 \abx@aux@defaultrefcontext{0}{xie2020a}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{xie2020}{nyt/global//global/global}
 \abx@aux@defaultrefcontext{0}{xu2018}{nyt/global//global/global}
-\gdef \@abspage@last{35}
+\gdef \@abspage@last{41}

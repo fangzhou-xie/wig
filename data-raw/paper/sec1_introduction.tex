@@ -9,7 +9,7 @@ The remainder of this paper will be organized as follows.
 \cref{sec:sinkhorn-gradient} derives the gradients and Jacobians of the family of Sinkhorn algorithms.
 \cref{sec:wasserstein-barycenter} discusses the Wasserstein Barycenter and Wasserstein Dictionary Learning
 problem.
-\cref{sec:barycenter-gradient} shows the gradient of Sinkhorn-like algorithms to solve the Wasserstein Barycenter problem.
+\cref{sec:barycenter-jacobian} shows the gradient of Sinkhorn-like algorithms to solve the Wasserstein Barycenter problem.
 \cref{sec:wdl} considers the Wasserstein Dictionary Learning problem,
 which is built on top of the Barycenter problem and ``learns'' the latent topics.
 \cref{sec:wig-model} finally presents the Wasserstein Index Generation model for automatically time-series index generation,
@@ -59,11 +59,11 @@ For readers interested in entropic regularized OT problems,
 they can refer to \cref{sec:review,sec:sinkhorn-algorithm} with optional \cref{sec:sinkhorn-gradient};
 for readers interested in Wasserstein Barycenter problems,
 they can refer to \cref{sec:review,sec:sinkhorn-algorithm,sec:wasserstein-barycenter}
-with optional \cref{sec:barycenter-gradient};
+with optional \cref{sec:barycenter-jacobian};
 for readers interested in Wasserstein Dictionary Learning,
-they can refer to \cref{sec:review,sec:sinkhorn-algorithm,sec:wasserstein-barycenter,sec:barycenter-gradient,sec:wdl};
+they can refer to \cref{sec:review,sec:sinkhorn-algorithm,sec:wasserstein-barycenter,sec:barycenter-jacobian,sec:wdl};
 for readers interested in Wasserstein Index Generation model,
 they can refer to everything from the WDL sections, plus \cref{sec:wig-model},
-namely \cref{sec:review,sec:sinkhorn-algorithm,sec:wasserstein-barycenter,sec:barycenter-gradient,sec:wdl,sec:wig-model};
+namely \cref{sec:review,sec:sinkhorn-algorithm,sec:wasserstein-barycenter,sec:barycenter-jacobian,sec:wdl,sec:wig-model};
 \cref{sec:wig-package} is required if one needs to use the \textbf{\textit{wig}} package to carry out
 any of the aforementioned computation.

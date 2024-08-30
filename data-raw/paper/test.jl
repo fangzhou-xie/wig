@@ -467,3 +467,8 @@ mu = hcat(mu1, mu2)
 a = sinkhorn_barycenter(mu, C, 0.01, [0.5, 0.5])
 
 normalize([0.2, 0.2, 0.5, 0.1], 1)
+
+
+b = [1,2,3]
+
+vec(kron(ones(5)', b)) == kron(ones(5), I(3)) * b

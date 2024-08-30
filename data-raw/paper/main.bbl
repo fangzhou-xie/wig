@@ -1412,6 +1412,48 @@
       \endverb
       \keyw{Computer Science - Machine Learning,Computer Science - Neural and Evolutionary Computing,Mathematics - Optimization and Control}
     \endentry
+    \entry{magnus2019}{book}{}
+      \name{author}{2}{}{%
+        {{hash=d48d8ee4538d2913340ad759287be4a3}{%
+           family={Magnus},
+           familyi={M\bibinitperiod},
+           given={Jan\bibnamedelima R.},
+           giveni={J\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=a9d06dda94fd9c361123a5d531f50dd7}{%
+           family={Neudecker},
+           familyi={N\bibinitperiod},
+           given={Heinz},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Hoboken (N.J.)}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{d7f96f4a9eca359b2d6c3f38442aa517}
+      \strng{fullhash}{d7f96f4a9eca359b2d6c3f38442aa517}
+      \strng{bibnamehash}{d7f96f4a9eca359b2d6c3f38442aa517}
+      \strng{authorbibnamehash}{d7f96f4a9eca359b2d6c3f38442aa517}
+      \strng{authornamehash}{d7f96f4a9eca359b2d6c3f38442aa517}
+      \strng{authorfullhash}{d7f96f4a9eca359b2d6c3f38442aa517}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{A brand new, fully updated edition of a popular classic on matrix differential calculus with applications in statistics and econometricsThis exhaustive, self-contained book on matrix theory and matrix differential calculus provides a treatment of matrix calculus based on differentials and shows how easy it is to use this theory once you have mastered the technique. Jan Magnus, who, along with the late Heinz Neudecker, pioneered the theory, develops it further in this new edition and provides many examples along the way to support it.Matrix calculus has become an essential tool for quantitative methods in a large number of applications, ranging from social and behavioral sciences to econometrics. It is still relevant and used today in a wide range of subjects such as the biosciences and psychology. Matrix Differential Calculus with Applications in Statistics and Econometrics, Third Edition contains all of the essentials of multivariable calculus with an emphasis on the use of differentials. It starts by presenting a concise, yet thorough overview of matrix algebra, then goes on to develop the theory of differentials. The rest of the text combines the theory and application of matrix differential calculus, providing the practitioner and researcher with both a quick review and a detailed reference.Fulfills the need for an updated and unified treatment of matrix differential calculusContains many new examples and exercises based on questions asked of the author over the yearsCovers new developments in field and features new applicationsWritten by a leading expert and pioneer of the theoryPart of the Wiley Series in Probability and Statistics~Matrix Differential Calculus With Applications in Statistics and Econometrics Third Edition is an ideal text for graduate students and academics studying the subject, as well as for postgraduates and specialists working in biosciences and psychology.}
+      \field{day}{18}
+      \field{edition}{3rd edition}
+      \field{isbn}{978-1-119-54120-2}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{pagetotal}{504}
+      \field{title}{Matrix Differential Calculus with Applications in Statistics and Econometrics}
+      \field{year}{2019}
+      \field{dateera}{ce}
+    \endentry
     \entry{modin2024}{online}{}
       \name{author}{1}{}{%
         {{hash=0f0f7410e34ed916fe0ecb6959ccb404}{%

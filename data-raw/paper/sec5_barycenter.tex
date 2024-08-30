@@ -20,6 +20,24 @@ This is often called ``Fr\'echet'' or ``Karcher'' mean\footnote{
   See \citet{karcher2014} for a historical account on the naming.
 }.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Parallel Algorithm}\label{subsec:barycenter-parallel}
 % \subsectionmark{Parallel Barycenter}
 
@@ -106,7 +124,7 @@ which can also be seen as applying each element of the $\boldsymbol\uplambda$ ve
 
 
 \begin{algorithm}[H]
-  \caption{Wasserstein Barycenter Algorithm (Parallel)}
+  \caption{Parallel Wasserstein Barycenter Algorithm}
   \begin{algorithmic}[1]\label{algo:parallel-barycenter}
     \Require $\mathbf{A} \in \Sigma_{N \times S}$, $\mathbf{C} \in \mathbb{R}^{N \times N}$, $\varepsilon > 0$.
     \Initialize $\mathbf{U} = \mathbb{1}_{N \times S}$, $\mathbf{V}_{N \times S} = \mathbb{1}_{N \times S}$,
@@ -143,6 +161,26 @@ which can also be seen as applying each element of the $\boldsymbol\uplambda$ ve
     \end{aligned}
   \end{equation*}
 \end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \subsection{Log-stabilized Algorithm}\label{subsec:log-barycenter}
@@ -284,7 +322,7 @@ By abusing the notation, we could also have
 
 Note that in the previous display, we have avoided matrix concatenation
 and transform the expression into basic matrix computations (multiplication and kronecker product).
-This will also make our life easier when we derive the Jacobians later in \cref{sec:barycenter-gradient}.
+This will also make our life easier when we derive the Jacobians later in \cref{sec:barycenter-jacobian}.
 Therefore, we could have the updating equation for
 
 \begin{equation*}
@@ -444,7 +482,7 @@ again using the ``log-sum-exp'' trick as in \cref{subsec:log-sinkhorn},
 All that remains is to derive the updating formula for $\mathbf{b}$, or $\log\mathbf{b}$ in the log-domain.
 We then have
 
-\begin{equation*}
+\begin{equation}\label{eqn:updating-eqn-for-logb-by-P-and-Q}
   \begin{aligned}
     \log \mathbf{b}^{(\ell)}
      & = \log\boldsymbol\Pi_{s} \left(\mathbf{K}^\top \mathbf{u}_s^{(\ell)}\right)^{\lambda_s}   \\
@@ -468,9 +506,9 @@ We then have
       \cdot \left(I_S \otimes \mathbb{1}_M\right)
       \right] \cdot \boldsymbol \lambda
     - \frac1\varepsilon \cdot \mathbf{G}^{(\ell-1)} \cdot \boldsymbol \lambda
-    - \frac{c_2 \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)}\varepsilon
+    - \frac{c_2 \left(\mathbf{F}^{(\ell)}, \mathbf{G}^{(\ell-1)}\right)}\varepsilon,
   \end{aligned}
-\end{equation*}
+\end{equation}
 
 where in the last two lines, we used the formula when deriving \cref{eqn:log-barycenter-G-updating-eqn}
 and the numerically stable expression from \cref{eqn:function-c-and-Q-barycenter}.
@@ -511,7 +549,7 @@ Therefore, we can finally arrive at the following updating equations.
 Also, we can let $M = N$ as is common in applications to further simplify the notation.
 
 \begin{algorithm}[H]
-  \caption{Wasserstein Barycenter Algorithm (Log-Stabilized)}
+  \caption{Log-Stabilized Wasserstein Barycenter Algorithm}
   \begin{algorithmic}[1]\label{algo:log-barycenter}
     \Require $\mathbf{A} \in \Sigma_{N \times S}$, $\mathbf{C} \in \mathbb{R}^{N \times N}$, $\boldsymbol\lambda \in \Sigma_S$,
     $\varepsilon > 0$.

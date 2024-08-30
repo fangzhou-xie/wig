@@ -1579,10 +1579,10 @@ INPUT sec5_barycenter.tex
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/euler/eurb10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/euler/eurb10.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/euler/eurb7.tfm
-INPUT ./sec6_barycenter_gradient.tex
-INPUT sec6_barycenter_gradient.tex
-INPUT ./sec6_barycenter_gradient.tex
-INPUT sec6_barycenter_gradient.tex
+INPUT ./sec6_barycenter_jacobian.tex
+INPUT sec6_barycenter_jacobian.tex
+INPUT ./sec6_barycenter_jacobian.tex
+INPUT sec6_barycenter_jacobian.tex
 INPUT ./sec7_wdl.tex
 INPUT sec7_wdl.tex
 INPUT ./sec7_wdl.tex

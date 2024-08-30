@@ -30,6 +30,8 @@ it is the stochastic gradient descent (SGD) method that is \textit{de facto} the
   The most commonly used first-order method is Adam optimizer \citep{kingma2015};
   in fact, all first-order methods in PyTorch are either derived from Adam, or its predecessors,
   simply because of its empirical performance.
+  The list of optimizers implemented in PyTorch (\url{https://pytorch.org/docs/stable/optim.html\#algorithms})
+  are accessed on August 10, 2024.
 }
 method being used in modern machine learning applications.
 Its history can be traced back to the stochastic approximation method \citep{robbins1951},
@@ -135,9 +137,9 @@ In this case, it is the data $\mathbf{b}$ that is known, but not $\mathbf{a}_s$'
 
 % This problem is often encountered 
 The Wasserstein Dictionary Learning can be considered broadly as one of the (nonlinear) topic models \citep{blei2009},
-the most famous of which would probably be Latent Dirichlet Allocation model \citep{blei2003}.
+the most famous of which would probably be Latent Dirichlet Allocation model \citep[LDA]{blei2003}.
 As is the case with all other topic models,
-we have a sequence of data and we need to discover the common ``factors'' or ``topics'' among them,
+we have a sequence of data, and we need to discover the common ``factors'' or ``topics'' among them,
 either in Natural Language Processing \citep{xu2018} or Image Processing \citep{schmitz2018} settings.
 
 To state the problem,
@@ -202,7 +204,7 @@ The gradient computation can be easily carried out by any modern Automatic Diffe
   Interested readers could refer to \citet[Chapter 8]{nocedal2006}.
 },
 but in this note, I manually derive the gradients and Jacobians of all algorithms
-(in \cref{sec:sinkhorn-gradient,sec:barycenter-gradient}) to achieve memory efficient and faster code.
+(in \cref{sec:sinkhorn-gradient,sec:barycenter-jacobian}) to achieve memory efficient and faster code.
 
 Note, however, we cannot directly optimize the parameters from \cref{eqn:wasserstein-dictionary-problem-constrained},
 since the problem is a constrained optimization problem with two constraints on the $\mathbf{a}_s$ and $\mathbf{w}_m$

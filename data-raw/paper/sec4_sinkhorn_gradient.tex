@@ -6,6 +6,24 @@ as a loss function for training purpose in machine learning, for example,
 Wasserstein Dictionary Learning in \crefrange{sec:wasserstein-barycenter}{sec:wdl}.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Vanilla Sinkhorn}\label{subsec:gradient-vanilla-sinkhorn}
 
 The optimal coupling matrix $\mathbf{P}$ from the Vanilla Sinkhorn algorithm is
@@ -291,8 +309,29 @@ hence without the need to save intermediate Jacobian matrices.
   \end{algorithmic}
 \end{algorithm}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 % \text{\color{red} check the algo by julia}
-\subsection{Parallel Sinkhorn}
+\subsection{Parallel Sinkhorn}\label{subsec:jacobian-parallel-sinkhorn}
 
 For the Parallel Sinkhorn algorithm, since we have $S$ transport maps being computed at the same time,
 as supposed to the Vanilla Sinkhorn where we only compute one transport map at a time,
@@ -415,7 +454,26 @@ Therefore, we obtain the Jacobian updating equations.
 
 
 
-\subsection{Log-Stabilized Sinkhorn}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Log-Stabilized Sinkhorn}\label{subsec:gradient-log-sinkhorn}
 
 To derive the gradient of the log-stabilized Sinkhorn algorithm,
 we again use the Chain's rule to compute the Jacobian first as in \cref{eqn:jacobian-loss-wrt-chainrule}.
