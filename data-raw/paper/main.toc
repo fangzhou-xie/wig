@@ -15,9 +15,9 @@
 \contentsline {section}{\numberline {6}Wasserstein Barycenter with Jacobians}{26}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Jacobians for Parallel Algorithm}{26}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Jacobians for Log-Stabilized Algorithm}{28}{subsection.6.2}%
-\contentsline {section}{\numberline {7}Wasserstein Dictionary Learning}{31}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Numeric Optimization Methods}{31}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Wasserstein Dictionary Learning}{33}{subsection.7.2}%
+\contentsline {section}{\numberline {7}Wasserstein Dictionary Learning}{32}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Numeric Optimization Methods}{32}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Wasserstein Dictionary Learning}{34}{subsection.7.2}%
 \contentsline {section}{\numberline {8}Wasserstein Index Generation Model}{36}{section.8}%
 \contentsline {section}{\numberline {9}\textbf {\textit {wig}} Package in R for a WIG Implementation}{36}{section.9}%
 \contentsline {section}{References}{37}{section.9}%

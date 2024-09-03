@@ -662,29 +662,80 @@ to have the following.
     $\varepsilon > 0$.
     \Initialize $\mathbf{F} = \mathbb{0}_{N \times S}$, $\mathbf{G}_{N \times S} = \mathbb{1}_{N \times S}$,
     $\mathbf{logb} = \mathbb{0}_N$.
+    \Initialize $\mathbf{J_F} = \mathbb{0}_{NS \times NS}$,
+    $\mathbf{J_G} = \mathbb{0}_{NS \times NS}$,
+    $\mathbf{J_{logb}} = \mathbb{0}_{N \times NS}$.
     \While{Not Convergence}
-    \State \# update F
     \State $\mathbf{R} = \mathbb{1}_S^\top \otimes \mathbf{C} - \mathbf{F} \cdot \left(I_S \otimes \mathbb{1}_N^\top\right)
       - \mathbb{1}_N \otimes \left(\vec \mathbf{G}\right)^\top$
     \State $c = \min \mathbf{R}$
     \State $\mathbf{Q} = \exp \left(-\frac{\mathbf{R} - c}{\varepsilon}\right)$
+    \State $\mathbf{J}
+      =
+      \left(I_S \otimes \mathbb{1}_N \otimes I_N\right) \cdot \mathbf{J_F} +
+      \left(I_{NS} \otimes \mathbb{1}_N\right) \cdot \mathbf{J_G}
+    $
+    \State $\mathbf{J_F}
+      =
+      \mathbf{J_F} + \varepsilon \diag\vec \frac1{\mathbf{A}} -
+      \diag\vec \frac1{
+        \mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)
+      } \cdot
+      \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+      \cdot
+      \diag\vec \mathbf{Q}
+      \cdot
+      \mathbf{J}
+    $
     \State $\mathbf{F} = \mathbf{F} + \varepsilon \cdot \log \mathbf{A} + c
-      - \varepsilon \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right]$
-    \State
+      - \varepsilon \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right]$ \# update F
     \State $\mathbf{R} = \mathbb{1}_S^\top \otimes \mathbf{C}^\top
       - \mathbb{1}_N \otimes \left(\vec \mathbf{F}\right)^\top
       - \mathbf{G} \cdot \left(I_S \otimes \mathbb{1}_N ^\top \right)$
     \State $c = \min \mathbf{R}$
     \State $\mathbf{Q} = \exp \left(-\frac{\mathbf{R} - c}{\varepsilon}\right)$
-    \State \# update log b
+    \State $\mathbf{J}
+      =
+      \left(I_{NS} \otimes \mathbb{1}_N\right) \cdot \mathbf{J_F} +
+      \left(I_{NS} \otimes \mathbb{1}_N\right) \cdot \mathbf{J_G}
+    $
+    \State $\mathbf{J_{logb}} =
+      \frac1\varepsilon \left(\boldsymbol\lambda^\top \otimes I_N\right)\cdot
+      \Bigl[
+        \diag\vec \frac1{\mathbf{Q}\cdot \left(I_S \otimes \mathbb{1}_N\right)}
+        \cdot
+        \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+        \cdot
+        \diag\vec \textbf{Q}
+        \cdot
+        \mathbf{J}
+        -
+        \mathbf{J_G}
+        \Bigr]
+    $
     \State $\mathbf{logb}
       = \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right] \cdot \boldsymbol\lambda -
-      \frac1\varepsilon \cdot \mathbf{G} \cdot \boldsymbol\lambda - \frac{c}{\varepsilon}$
-    \State \# update G
-    \State $\mathbf{logB} = \mathbb{1}_S^\top \otimes \mathbf{logb}$
-    \State $\mathbf{G} = \mathbf{G} + \varepsilon \cdot \mathbf{logB} + c
-      - \varepsilon \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right]$
+      \frac1\varepsilon \cdot \mathbf{G} \cdot \boldsymbol\lambda - \frac{c}{\varepsilon}$ \# update log b
+    \State $\mathbf{J_G} =
+      \mathbf{J_G} + \varepsilon \mathbb{1}_S \otimes \mathbf{J_{logb}}
+      -
+      \diag\vec \frac1{\mathbf{Q}\cdot \left(I_S \otimes \mathbb{1}_N\right)}
+      \cdot
+      \left(I_S \otimes \mathbb{1}_N^\top \otimes I_N\right)
+      \cdot
+      \diag\vec \textbf{Q}
+      \cdot
+      \mathbf{J}
+    $
+    \State $\mathbf{G} = \mathbf{G} + \varepsilon \mathbb{1}_S^\top \otimes \mathbf{logb} + c
+      - \varepsilon \log \left[\mathbf{Q} \cdot \left(I_S \otimes \mathbb{1}_N\right)\right]$ \# update G
     \EndWhile
     \Ensure $\mathbf{b} = \exp \mathbf{logb}$
   \end{algorithmic}
 \end{algorithm}
+
+
+Again, similar to \cref{subsec:jacobian-parallel-barycenter},
+we want to derive the Jacobians with respect to $\boldsymbol\lambda$.
+From the differentials \cref{eqn:differential-vecF-with-P,eqn:differential-vecG-with-P,eqn:differential-logb},
+we have
